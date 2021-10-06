@@ -35,12 +35,21 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole('user');
         
-        $gurumapel = User::create(
+        $kabeng = User::create(
             [
                 'name' => 'Kepala Bengkel',
                 'email' => 'kabeng@test.id',
                 'password' => bcrypt('12345678'),
             ]);
-        $gurumapel->assignRole('kabeng');
+        $kabeng->assignRole('kabeng');
+
+        $toolman = User::create(
+            [
+                'name' => 'Toolman',
+                'email' => 'toolman@test.id',
+                'password' => bcrypt('12345678'),
+            ]);
+        $toolman->assignRole('toolman');
+
     }
 }
