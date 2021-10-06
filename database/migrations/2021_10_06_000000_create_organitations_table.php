@@ -15,7 +15,7 @@ class CreateOrganitationsTable extends Migration
     {
         Schema::create('organitations', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('code',3)->unique();
             $table->string('shortname');
             $table->string('name');
             $table->timestamps();
