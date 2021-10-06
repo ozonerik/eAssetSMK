@@ -14,6 +14,7 @@ Instalasi:
 2. Install Git: https://git-scm.com/download/win
 3. Install xampp : https://www.apachefriends.org/xampp-files/7.4.23/xampp-windows-x64-7.4.23-0-VC15-installer.exe
 4. buka git bash 
+<pre>
 <code>
 -> cd c:/xampp/htdocs/ejadwal
 -> git clone https://github.com/smkn1krangkeng/eJadwal.git
@@ -39,6 +40,6 @@ untuk reset database gunakan perintah: php artisan migrate:fresh --seed
 //untuk update aplikasi gunakan perintah
 -> git pull origin master
 </code>
-
+</pre>
 Login default:
 admin@test.id / 12345678
