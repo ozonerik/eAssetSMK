@@ -5,9 +5,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About eJadwal
+## About eAssetSMK
 
-eJadwal adalah aplikasi sistem penjadwalan online untuk KBM di SMKN 1 Krangkeng
+eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
 
 Instalasi:
 1. Install Composer: https://getcomposer.org/Composer-Setup.exe

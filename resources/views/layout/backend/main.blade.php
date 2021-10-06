@@ -22,8 +22,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{{url('img/logo.png')}}" alt="eJadwal" class="brand-image elevation-1" style="opacity: .7">
-      <span class="brand-text font-weight-light">eJadwal</span>
+      <img src="{{url('img/logo.png')}}" alt="{{ config('app.name') }}" class="brand-image elevation-1" style="opacity: .7">
+      <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
 
     <!-- Sidebar -->
