@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@test.id',
             'password' => bcrypt('12345678'),
+            'organitation_id' => '1',
         ]);
         $admin->assignRole('admin');
         $admin->givePermissionTo(['create.*','read.*', 'update.*','delete.*']);
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@test.id',
             'password' => bcrypt('12345678'),
+            'organitation_id' => '2',
         ]);
         $user->assignRole('user');
         
@@ -48,6 +50,7 @@ class UserSeeder extends Seeder
                 'name' => 'Toolman',
                 'email' => 'toolman@test.id',
                 'password' => bcrypt('12345678'),
+                'organitation_id' => '1',
             ]);
         $toolman->assignRole('toolman');
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\OrganitationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth']], function () {
     // role untuk yang auth
     Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
+    Route::get('/organitation', [OrganitationController::class, 'index'] )->name('organitation.index');
     
     // role untuk admin
     Route::group(['middleware' => ['role:admin']], function () {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,11 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function organitation()
+    {
+        return $this->belongsTo(Organitation::class);
+    }
 
     /**
      * The attributes that should be hidden for arrays.
