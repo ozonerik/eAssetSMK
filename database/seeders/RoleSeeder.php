@@ -18,12 +18,7 @@ class RoleSeeder extends Seeder
     {
         //create roles
         $admin=Role::create(['name' => 'admin']);
-        $gurumapel=Role::create(['name' => 'gurumapel']);
-        $kaprog=Role::create(['name' => 'kaprog']);
-        $walikelas=Role::create(['name' => 'walikelas']);
-        $wakakur=Role::create(['name' => 'wakakur']);
-        $kepalasekolah=Role::create(['name' => 'kepalasekolah']);
-        $ketuakelas=Role::create(['name' => 'ketuakelas']);
+        $gurumapel=Role::create(['name' => 'kabeng']);
         $user=Role::create(['name' => 'user']);
 
     }

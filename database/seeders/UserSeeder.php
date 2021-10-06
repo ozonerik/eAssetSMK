@@ -37,10 +37,10 @@ class UserSeeder extends Seeder
         
         $gurumapel = User::create(
             [
-                'name' => 'Guru Mapel',
-                'email' => 'gurumapel@test.id',
+                'name' => 'Kepala Bengkel',
+                'email' => 'kabeng@test.id',
                 'password' => bcrypt('12345678'),
             ]);
-        $gurumapel->assignRole('gurumapel');
+        $gurumapel->assignRole('kabeng');
     }
 }
