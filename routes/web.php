@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\OrganitationController;
+use App\Http\Controllers\BudgetingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,13 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth']], function () {
     // role untuk yang auth
     Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
-    Route::get('/organitation', [OrganitationController::class, 'index'] )->name('organitation.index');
+    //menu organitation
+    Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
+    
     
     // role untuk admin
     Route::group(['middleware' => ['role:admin']], function () {
+        // menu pengguna
         Route::get('/pengguna', [PenggunaController::class, 'index'] )->name('pengguna.index');
         Route::get('/pengguna/add', [PenggunaController::class, 'create'] )->name('pengguna.create');
         Route::post('/pengguna/store', [PenggunaController::class, 'store'] )->name('pengguna.store');
@@ -40,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/pengguna/del/{id}', [PenggunaController::class, 'destroy'])->name('pengguna.del');
         Route::delete('/penggunas/delSel', [PenggunaController::class, 'deleteSel'])->name('pengguna.delsel');
         Route::post('/pengguna/roleSel', [PenggunaController::class, 'roleSel'] )->name('pengguna.roleSel');
+        //menu organitation
+        Route::get('/organitation', [OrganitationController::class, 'index'] )->name('organitation.index');
     });
     
 

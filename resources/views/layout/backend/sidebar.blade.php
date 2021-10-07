@@ -18,13 +18,7 @@
         <div class="info">
           <div class="d-block text-light">
             <span class="badge badge-info">  
-              Login As 
-              @hasanyrole('admin')
-              Admin
-              @endhasanyrole
-              @hasanyrole('gurumapel')
-              Guru Mapel
-              @endhasanyrole
+              Login As {{Str::title(auth()->user()->roles()->pluck('name')->implode(', '))}}
             </span>
           </div>
         </div>
