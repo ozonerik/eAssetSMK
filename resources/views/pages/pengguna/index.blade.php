@@ -12,7 +12,7 @@
 @endpush
 @push('scripts')
 <!-- Select2 -->
-<script src="../../plugins/select2/js/select2.full.min.js"></script>
+<script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
   $(function () {
       //Initialize Select2 Elements
@@ -32,12 +32,6 @@
 <script src="{{url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{url('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 <script src="{{url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{url('plugins/jszip/jszip.min.js')}}"></script>
-<script src="{{url('plugins/pdfmake/pdfmake.min.js')}}"></script>
-<script src="{{url('plugins/pdfmake/vfs_fonts.js')}}"></script>
-<script src="{{url('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-<script src="{{url('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{url('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <!-- table setting -->
 <script src="{{url('plugins/toastr/toastr.min.js')}}"></script>
 <script>

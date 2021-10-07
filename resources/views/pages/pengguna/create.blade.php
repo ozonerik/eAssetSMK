@@ -7,7 +7,7 @@
 @endpush
 @push('scripts')
 <!-- Select2 -->
-<script src="../../plugins/select2/js/select2.full.min.js"></script>
+<script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
   $(function () {
       //Initialize Select2 Elements

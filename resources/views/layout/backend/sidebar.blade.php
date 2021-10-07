@@ -48,6 +48,12 @@
             </a>
             <ul class="nav nav-treeview">   
               <li class="nav-item">
+              @sectionMissing('menu_organisasi') <a href="/organitation" class="nav-link"> @else @yield('menu_organisasi') @endif
+                  <i class="far fa-circle nav-icon text-danger"></i>
+                  <p>Organisasi</p>
+                </a>
+              </li>
+              <li class="nav-item">
               @sectionMissing('menu_pengguna') <a href="/pengguna" class="nav-link"> @else @yield('menu_pengguna') @endif
                   <i class="far fa-circle nav-icon text-danger"></i>
                   <p>Pengguna</p>

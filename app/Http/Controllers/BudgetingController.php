@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Budgeting;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class BudgetingController extends Controller
 {
@@ -13,7 +14,7 @@ class BudgetingController extends Controller
         $org_id=Auth::user()->organitation_id;
         $budget = Budgeting::where('organitation_id', $org_id)->get();
         foreach($budget as $b){
-            print $b->name." dan ".$b->organitation->name."<br>";
+            print $b->code." | ".$b->name." | ".Str::upper($b->organitation->shortname)."<br>";
         }
 
     }
