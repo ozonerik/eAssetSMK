@@ -8,9 +8,9 @@
     </tr>
     <tr>
         <th>No</th>
-        <th>Nama</th>
+        <th>Name</th>
         <th>Email</th>
-        <th>Organisasi</th>
+        <th>Organitation</th>
         <th>Roles</th>
         <th>Permissions</th>
     </tr>
