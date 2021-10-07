@@ -14,8 +14,9 @@
       $('.select2').select2()
       $('.select2-selection').css('border-color','#DEE2E6');
       //Initialize Select2 Elements
-      $('.select2bs4').select2({
-      theme: 'bootstrap4'
+      $('.select2bs4').prepend('<option selected=""></option>').select2({
+      theme: 'bootstrap4',
+      allowClear: true
       })
   })
 </script>
@@ -99,6 +100,24 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="roles" class="col-sm-2 col-form-label">Organitation</label>
+                    <div class="col-sm-10">
+                      @php
+                          $old_roles = (old('_token') !== null) ? collect(old('organitation')) : $organitation->pluck('id');
+                      @endphp
+                      <select class="select2bs4 form-control @error('organitation') is-invalid @enderror" name="organitation" data-placeholder="Select a Organitation" style="width: 100%;">
+                      @foreach($organitation as $o)
+                        <option value="{{$o->id}}"
+                        {{in_array( $o->id, $old_roles->toArray() ) ? ' selected="selected" ':''}}
+                        >{{Str::upper($o->shortname)}}</option>
+                      @endforeach
+                      </select>
+                      @error('roles')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="roles" class="col-sm-2 col-form-label">Roles</label>
                     <div class="col-sm-10 select2-blue">
                       @php
@@ -108,7 +127,7 @@
                       @foreach($roles as $r)
                         <option value="{{$r->name}}"
                         {{in_array( $r->name, $old_roles->toArray() ) ? ' selected="selected" ':''}}
-                        >{{$r->name}}</option>
+                        >{{Str::title($r->name)}}</option>
                       @endforeach
                       </select>
                       @error('roles')
@@ -126,7 +145,7 @@
                       @foreach($permission as $p)
                       <option value="{{$p->name}}"
                         {{in_array( $p->name, $old_permissions->toArray() )?' selected="selected" ':''}}
-                      >{{$p->name}}</option>
+                      >{{Str::title($p->name)}}</option>
                       @endforeach
                       </select>
                       @error('permissions')

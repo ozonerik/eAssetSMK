@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Organitation;
 use Excel;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
@@ -22,7 +23,7 @@ class PenggunaController extends Controller
 {
     public function index()
     {
-        $data['users'] = User::with('roles')->with('permissions')->get();
+        $data['users'] = User::with(['roles','permissions'])->get();
         return view('pages.pengguna.index',$data);
     }
 
@@ -30,6 +31,7 @@ class PenggunaController extends Controller
     {
         $data['roles']= Role::all();
         $data['permission']= Permission::all();
+        $data['organitation']= Organitation::all();
         return view('pages.pengguna.create',$data);
     }
 
@@ -39,6 +41,7 @@ class PenggunaController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'organitation' => 'nullable',
             'roles' => 'nullable',
             'permissions' => 'nullable',
         ]);
@@ -51,6 +54,7 @@ class PenggunaController extends Controller
             'name'=>$request->input('name'),
             'email'=>$request->input('email'),
             'password'=>Hash::make($request->input('password')),
+            'organitation_id'=>$request->input('organitation'),
         ])->filter()->all();
         
         $user_roles = $request->input('roles');
@@ -106,9 +110,10 @@ class PenggunaController extends Controller
     {
         $id=Crypt::decryptString($id);    
         //dd($id);
-        $data['user'] = User::with('roles')->with('permissions')->where('id', $id)->first();
+        $data['user'] = User::with(['roles','permissions'])->where('id', $id)->first();
         $data['roles']= Role::all();
         $data['permission']= Permission::all();
+        $data['organitation']= Organitation::all();
         return view('pages.pengguna.edit',$data);
     }
 
@@ -119,6 +124,7 @@ class PenggunaController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'nullable|min:6',
+            'organitation' => 'nullable',
             'roles' => 'nullable',
             'permissions' => 'nullable',
         ]);
@@ -138,6 +144,7 @@ class PenggunaController extends Controller
             'name'=>$request->input('name'),
             'email'=>$request->input('email'),
             'password'=>$password,
+            'organitation_id'=>$request->input('organitation')
         ])->filter()->all();
         $user_roles = $request->input('roles');
         $user_permissions = $request->input('permissions'); 
@@ -172,6 +179,7 @@ class PenggunaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'userids' => 'required',
+            'organitation' => 'nullable',
             'roles' => 'nullable',
             'permissions' => 'nullable',
         ]);
@@ -181,10 +189,12 @@ class PenggunaController extends Controller
         }
         $userids = Str::of($request->input('userids'))->explode(',')->filter();
         $ids = $userids->all();
+        $organitation_id = $request->input('organitation');
         $user_roles = $request->input('roles');
         $user_permissions = $request->input('permissions'); 
         foreach($ids as $id){
             $user = User::find(Crypt::decryptString($id));
+            $user->update(['organitation_id' => $organitation_id]);
             $user->syncRoles($user_roles);
             $user->syncPermissions($user_permissions);
         }

@@ -43,13 +43,13 @@ class UsersExport implements FromView, WithStyles, ShouldAutoSize
         ];
         $usercount = User::with('roles')->with('permissions')->count()+2;
         $sheet->setTitle('users_sheet');
-        $sheet->getStyle('A1:E2')->applyFromArray($styleArray);
-        $sheet->getStyle('A3:E'.$usercount)->applyFromArray($styleDefault);
+        $sheet->getStyle('A1:F2')->applyFromArray($styleArray);
+        $sheet->getStyle('A3:F'.$usercount)->applyFromArray($styleDefault);
         
     }
     public function view(): View
     {       
-        $data['users'] = User::with('roles')->with('permissions')->get();
+        $data['users'] = User::with(['roles','permissions'])->get();
         return view('pages.pengguna.export',$data);
     }
 

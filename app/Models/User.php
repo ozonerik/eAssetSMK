@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'organitation_id'
     ];
 
     public function organitation()

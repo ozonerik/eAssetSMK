@@ -4,12 +4,13 @@
 <table>
 <thead>
     <tr>
-        <td colspan="5">Tabel User List</td>
+        <td colspan="6">Tabel User List</td>
     </tr>
     <tr>
         <th>No</th>
         <th>Nama</th>
         <th>Email</th>
+        <th>Organisasi</th>
         <th>Roles</th>
         <th>Permissions</th>
     </tr>
@@ -20,8 +21,9 @@
         <th>{{ $no++ }}</th>
         <td>{{$r->name}}</td>
         <td>{{$r->email}}</td>
-        <td>{{$r->roles->pluck('name')->implode(', ')}} </td>
-        <td>{{$r->permissions->pluck('name')->implode(', ')}} </td>
+        <td>{{Str::upper($r->organitation()->get()->pluck('shortname')->implode(', '))}}</td>
+        <td>{{Str::title($r->roles->pluck('name')->implode(', '))}} </td>
+        <td>{{Str::title($r->permissions->pluck('name')->implode(', '))}} </td>
     </tr>
 @endforeach
 </tbody>

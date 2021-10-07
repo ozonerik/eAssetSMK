@@ -10,11 +10,21 @@
         <div class='modal-body'>
                 {!! $message !!}
                 <div class="form-group row">
+                    <label for="roles" class="col-12 col-form-label">Organitation</label>
+                    <div class="col-12">
+                      <select class="select2bs4 form-control" name="organitation" data-placeholder="Select a Organitation" style="width: 100%;">
+                      @foreach($organitation as $o)
+                        <option value="{{$o->id}}">{{Str::upper($o->shortname)}}</option>
+                      @endforeach
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="roles" class="col-12 col-form-label">Roles</label>
                     <div class="col-12 select2-blue">
                       <select class="select2 form-control" name="roles[]" multiple="multiple" data-placeholder="Select a Role" data-dropdown-css-class="select2-blue" style="width: 100%;">
                       @foreach($roles as $r)
-                        <option value="{{$r->name}}">{{$r->name}}</option>
+                        <option value="{{$r->name}}">{{Str::title($r->name)}}</option>
                       @endforeach
                       </select>
                     </div>
@@ -24,7 +34,7 @@
                     <div class="col-12 select2-blue">
                       <select class="select2 form-control" name="permissions[]" multiple="multiple" data-placeholder="Select a Role" data-dropdown-css-class="select2-blue" style="width: 100%;">
                       @foreach($permissions as $p)
-                      <option value="{{$p->name}}">{{$p->name}}</option>
+                      <option value="{{$p->name}}">{{Str::title($p->name)}}</option>
                       @endforeach
                       </select>
                     </div>

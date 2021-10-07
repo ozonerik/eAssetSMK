@@ -19,8 +19,9 @@
       $('.select2').select2()
       $('.select2-selection').css('border-color','#DEE2E6');
       //Initialize Select2 Elements
-      $('.select2bs4').select2({
-      theme: 'bootstrap4'
+      $('.select2bs4').prepend('<option selected=""></option>').select2({
+      theme: 'bootstrap4',
+      allowClear: true
       })
   })
 </script>
@@ -70,8 +71,8 @@
       "responsive": true,
       "order": [[ 1, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [0,5,6] },
-        { "searchable": false, "targets": [6] }
+        { "orderable": false, "targets": [0,6,7] },
+        { "searchable": false, "targets": [7] }
       ]
     });
   });
@@ -176,10 +177,10 @@
               <form action="{{route('pengguna.roleSel')}}" method="post" class="d-inline mx-1">
                     @csrf
                     <input type="hidden" id="checkidsrole" name="userids">
-                    <x-pengguna.rolesmodal name="userroles" target="modal-userroles" title="Add/Edit User Roles & Permissions" 
-                    message="Berikan Role & Permission untuk :
+                    <x-pengguna.rolesmodal name="userroles" target="modal-userroles" title="Edit Users Selection" 
+                    message="Edit Users Berikut :
                     <div id='namesidrole'class='font-weight-bold'></div>
-                    " tombol="Save" jenis="primary" />
+                    " tombol="Update" jenis="primary" />
               </form>
               <form action="{{ route('pengguna.import') }}" method="post" enctype="multipart/form-data" class="d-inline mx-1">
                     @csrf
@@ -209,8 +210,8 @@
                   </button>
                   @endcan
                   @can('update.pengguna')
-                  <button type="button" id="rolebtn" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#modal-userroles" data-toggle="tooltip" data-placement="top" title="Add/Edit User Roles & Permissions">
-                    Roles & Permissions
+                  <button type="button" id="rolebtn" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#modal-userroles" data-toggle="tooltip" data-placement="top" title="Edit Users Selection">
+                    Edit Selection
                   </button>
                   @endcan
                   @can('delete.pengguna')
@@ -227,8 +228,9 @@
                     <tr>
                       <th scope="col"><input type="checkbox" id="master"></th>
                       <th scope="col">No</th>
-                      <th scope="col">Nama</th>
+                      <th scope="col">Name</th>
                       <th scope="col">Email</th>
+                      <th scope="col">Organitation</th>
                       <th scope="col">Roles</th>
                       <th scope="col">Permissions</th>
                       <th scope="col">Action</th>
@@ -243,10 +245,13 @@
                       <td>{{$r->name}}</td>
                       <td>{{$r->email}}</td>
                       <td>
-                        {{$r->roles->pluck('name')->implode(', ')}} 
+                        {{Str::upper($r->organitation()->get()->pluck('shortname')->implode(', '))}}
                       </td>
                       <td>
-                        {{$r->permissions->pluck('name')->implode(', ')}} 
+                        {{Str::title($r->roles->pluck('name')->implode(', '))}} 
+                      </td>
+                      <td>
+                        {{Str::title($r->permissions->pluck('name')->implode(', '))}} 
                       </td>
                       <td>
                         @can('update.pengguna')

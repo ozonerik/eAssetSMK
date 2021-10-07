@@ -5,10 +5,11 @@ namespace App\View\Components\Pengguna;
 use Illuminate\View\Component;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\Organitation;
 
 class Rolesmodal extends Component
 {
-    public $name,$target,$title,$message,$tombol,$jenis,$roles,$permissions;
+    public $name,$target,$title,$message,$tombol,$jenis,$roles,$permissions,$organitation;
     /**
      * Create a new component instance.
      *
@@ -24,6 +25,7 @@ class Rolesmodal extends Component
         $this->tombol=$tombol;
         $this->roles=Role::all();
         $this->permissions=Permission::all();
+        $this->organitation=Organitation::all();
         if($jenis=='danger'){
             $this->jenis='btn btn-danger';
         }elseif($jenis=='success'){
