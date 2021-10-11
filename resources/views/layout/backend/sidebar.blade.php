@@ -36,7 +36,67 @@
               </p>
             </a>
           </li>
-          <!-- menu admin -->
+          <!-- Sidebar Admin Kabeng dan Toolman -->
+          <!-- menu referensi -->
+          @hasanyrole('admin|kabeng|toolman')
+            @sectionMissing('menu_referensi') 
+              <li class="nav-item"> 
+            @else 
+              @yield('menu_referensi') 
+            @endif
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-cogs text-warning"></i>
+                  <p>
+                    Referensi
+                    <i class="right fas fa-angle-left "></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">   
+                  <li class="nav-item">
+                  @sectionMissing('menu_budgeting') 
+                    <a href="/budgeting" class="nav-link"> 
+                  @else 
+                      @yield('menu_budgeting') 
+                  @endif
+                      <i class="far fa-circle nav-icon text-warning"></i>
+                      <p>Pendanaan</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <!-- end menu referensi -->
+            <!-- menu profile -->
+            @sectionMissing('menu_profile') 
+              <li class="nav-item"> 
+            @else 
+              @yield('menu_profile') 
+            @endif
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-user text-primary"></i>
+                  <p>
+                    Profile
+                    <i class="right fas fa-angle-left "></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">   
+                  <li class="nav-item">
+                  @sectionMissing('menu_editprofile') 
+                    <a href="/profile" class="nav-link"> 
+                  @else 
+                      @yield('menu_editprofile') 
+                  @endif
+                      <i class="far fa-circle nav-icon text-primary"></i>
+                      <p>Edit Profile</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <!-- end menu profile -->
+          @endhasanyrole
+          <!-- End Sidebar Admin Kabeng dan Toolman -->
+
+          <!-- Sidebar ADMIN -->
+          <!-- menu konfig -->
           @hasanyrole('admin')
           @sectionMissing('menu_konfig') <li class="nav-item"> @else @yield('menu_konfig') @endif
             <a href="#" class="nav-link">
@@ -62,7 +122,7 @@
             </ul>
           </li>
           @endhasanyrole 
-          
+          <!-- End Sidebar ADMIN -->
           <li class="nav-header">KETERANGAN</li>
           <li class="nav-item">
             <a href="#" class="nav-link">

@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class PenggunaController extends Controller
@@ -199,6 +200,52 @@ class PenggunaController extends Controller
             $user->syncPermissions($user_permissions);
         }
         return redirect()->route('pengguna.index')->with('success','Roles & Permissions Update Success');
+    }
+
+    public function editprofile()
+    {  
+        $data['user'] = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        $data['roles']= Role::all();
+        $data['permission']= Permission::all();
+        $data['organitation']= Organitation::all();
+        return view('pages.pengguna.edit-profile',$data);
+    }
+
+    public function updateprofile(Request $request, $id)
+    {
+        $id=Crypt::decryptString($id);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6',
+            'current_password' => 'required|current_password|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->with('error','Update Failed')->withInput();
+        }
+
+        if(!empty($request->input('password'))) {
+            $password=Hash::make($request->input('password'));
+        } else {
+            $password=null;
+        }
+
+        //filter password yg kosong
+        $nilai = collect([
+            'name'=>$request->input('name'),
+            'email'=>$request->input('email'),
+            'password'=>$password,
+        ])->filter()->all();
+
+        //dd($nilai);
+
+        //update data
+        $user = User::find($id);
+        $user->update($nilai);
+        
+        return redirect()->route('profile')->with('success','Update Profile Success');
     }
 
 

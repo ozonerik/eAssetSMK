@@ -6,16 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\Budgeting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class BudgetingController extends Controller
 {
     public function index()
     {
         $org_id=Auth::user()->organitation_id;
-        $budget = Budgeting::where('organitation_id', $org_id)->get();
-        foreach($budget as $b){
-            print $b->code." | ".$b->name." | ".Str::upper($b->organitation->shortname)."<br>";
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['budget'] = Budgeting::all();
+        }else{
+            $data['budget'] = Budgeting::where('organitation_id', $org_id)->get();
         }
+        
+        return view('pages.budgeting.index',$data);
 
     }
 }
