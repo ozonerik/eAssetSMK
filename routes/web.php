@@ -27,11 +27,15 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth']], function () {
     // role untuk yang auth
     Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
-    //menu budgeting
-    Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
-    //menu profile
-    Route::get('/profile', [PenggunaController::class, 'editprofile'])->name('profile');
     Route::put('/profile/update/{id}', [PenggunaController::class, 'updateprofile'])->name('profile.update');
+    
+    // role untuk admin,kabeng, dan toolman
+    Route::group(['middleware' => ['role:admin|kabeng|toolman']], function () {
+        //menu budgeting
+        Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
+        //menu profile
+        Route::get('/profile', [PenggunaController::class, 'editprofile'])->name('profile');
+    });
     
     
     // role untuk admin
