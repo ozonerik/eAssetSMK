@@ -81,8 +81,6 @@
           @endhasanyrole
           <!-- End Sidebar Admin Kabeng dan Toolman -->
 
-          <!-- Sidebar All Role-->
-          @hasanyrole('admin|kabeng|toolman|user')
           <!-- menu profile -->
           @sectionMissing('menu_profile') 
               <li class="nav-item"> 
@@ -110,8 +108,6 @@
                 </ul>
               </li>
             <!-- end menu profile -->
-            @endhasanyrole
-            <!-- End Sidebar All Role-->
 
           <!-- Sidebar ADMIN -->
           <!-- menu konfig -->
