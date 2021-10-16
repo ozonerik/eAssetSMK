@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\OrganitationController;
 use App\Http\Controllers\BudgetingController;
+use App\Http\Controllers\FiscalyearController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +28,16 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth']], function () {
     // role untuk yang auth
     Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
+    //menu profile
+    Route::get('/profile', [PenggunaController::class, 'editprofile'])->name('profile');
     Route::put('/profile/update/{id}', [PenggunaController::class, 'updateprofile'])->name('profile.update');
     
     // role untuk admin,kabeng, dan toolman
     Route::group(['middleware' => ['role:admin|kabeng|toolman']], function () {
         //menu budgeting
         Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
-        //menu profile
-        Route::get('/profile', [PenggunaController::class, 'editprofile'])->name('profile');
+        //menu fiscal
+        Route::get('/fiscal', [FiscalyearController::class, 'index'] )->name('fiscal.index');
     });
     
     

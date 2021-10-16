@@ -25,4 +25,9 @@ class Organitation extends Model
         return $this->hasMany(Budgeting::class);
     }
 
+    public function fiscalyear()
+    {
+        return $this->hasMany(Fiscalyear::class);
+    }
+
 }

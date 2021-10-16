@@ -5,7 +5,7 @@
           <img src="{{url('dist/img/avatar5.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">
+          <a href="/profile" class="d-block">
             {{auth()->user()->name}}
           </a>
         </div>
@@ -36,6 +36,7 @@
               </p>
             </a>
           </li>
+
           <!-- Sidebar Admin Kabeng dan Toolman -->
           <!-- menu referensi -->
           @hasanyrole('admin|kabeng|toolman')
@@ -51,7 +52,8 @@
                     <i class="right fas fa-angle-left "></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">   
+                <ul class="nav nav-treeview">
+                  <!-- menu pendanaan -->   
                   <li class="nav-item">
                   @sectionMissing('menu_budgeting') 
                     <a href="/budgeting" class="nav-link"> 
@@ -62,11 +64,27 @@
                       <p>Pendanaan</p>
                     </a>
                   </li>
+                  <!-- menu tahun anggaran -->
+                  <li class="nav-item">
+                  @sectionMissing('menu_fiscal') 
+                    <a href="/fiscal" class="nav-link"> 
+                  @else 
+                      @yield('menu_fiscal')
+                  @endif
+                      <i class="far fa-circle nav-icon text-warning"></i>
+                      <p>Tahun Anggaran</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
             <!-- end menu referensi -->
-            <!-- menu profile -->
-            @sectionMissing('menu_profile') 
+          @endhasanyrole
+          <!-- End Sidebar Admin Kabeng dan Toolman -->
+
+          <!-- Sidebar All Role-->
+          @hasanyrole('admin|kabeng|toolman|user')
+          <!-- menu profile -->
+          @sectionMissing('menu_profile') 
               <li class="nav-item"> 
             @else 
               @yield('menu_profile') 
@@ -92,8 +110,8 @@
                 </ul>
               </li>
             <!-- end menu profile -->
-          @endhasanyrole
-          <!-- End Sidebar Admin Kabeng dan Toolman -->
+            @endhasanyrole
+            <!-- End Sidebar All Role-->
 
           <!-- Sidebar ADMIN -->
           <!-- menu konfig -->

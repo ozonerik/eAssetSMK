@@ -54,7 +54,7 @@
 </script>
 <script>
   $(function () {
-    $('#budget-table').DataTable({
+    $('#fiscal-table').DataTable({
       "paging": true,
       "pageLength": 10,
       "lengthChange": true,
@@ -72,18 +72,18 @@
   });
 </script>
 @endpush
-@section('judul_hal','Pendanaan')
+@section('judul_hal','Tahun Anggaran')
 @section('header_hal')
 <li class="breadcrumb-item"><a href="#">Referensi</a></li>
-<li class="breadcrumb-item active">Pendanaan</li>
+<li class="breadcrumb-item active">Tahun Anggaran</li>
 @endsection
 <!-- main menu sidebar -->
 @section('menu_referensi') 
 <li class="nav-item menu-open">
 @endsection
 <!-- sub menu sidebar -->
-@section('menu_budgeting')
-<a href="/budgeting" class="nav-link active">
+@section('menu_fiscal')
+<a href="/fiscal" class="nav-link active">
 @endsection
 
 @section('konten')  
@@ -95,7 +95,7 @@
             <div class="card card-outline card-dark">
               <div class="card-header">
                 <h3 class="card-title">
-                  Pendanaan
+                  Tahun Anggaran
                 </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-sm" data-card-widget="collapse">
@@ -108,55 +108,55 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.pendanaan')
+                  @can('create.tahun_anggaran')
                   <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
-                  Add Budgeting
+                  Add Tahun Anggaran
                   </a> 
                   @endcan
                 </div>
                 @php
                     $no = 1;
                 @endphp
-                <table id="budget-table" class="table table-hover">
+                <table id="fiscal-table" class="table table-hover">
                   <thead class="thead-dark">
                     <tr>
                       <th scope="col">No</th>
                       <th scope="col">Code</th>
-                      <th scope="col">Name</th>
+                      <th scope="col">Tahun Anggaran</th>
                       <th scope="col">Organitation</th>
                       <th scope="col">Created by</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
-                @can('read.pendanaan')
+                @can('read.tahun_anggaran')
                   <tbody>
-                  @foreach($budget as $row)
+                  @foreach($fiscal as $row)
                     <tr>
                       <th scope="row">{{ $no++ }}</th>
                       <td>{{$row->code}}</td>
-                      <td>{{$row->name}}</td>
+                      <td>{{$row->year}}</td>
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>
                       <td>
                       @hasanyrole('admin|kabeng')
-                        @can('update.pendanaan')
+                        @can('update.tahun_anggaran')
                         <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
                         Edit
                         </a> 
                         @endcan
-                        @can('delete.pendanaan')
+                        @can('delete.tahun_anggaran')
                         <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
                         Delete
                         </a> 
                         @endcan
                       @else
                         @if($row->user_id == Auth::user()->id)
-                          @can('update.pendanaan')
+                          @can('update.tahun_anggaran')
                           <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
                           Edit
                           </a> 
                           @endcan
-                          @can('delete.pendanaan')
+                          @can('delete.tahun_anggaran')
                           <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
                           Delete
                           </a> 
@@ -169,7 +169,7 @@
                   </tbody>
                 @else
                 <tr>
-                  <td colspan="6" class="text-center text-danger">Tidak Memiliki Akses Read Pendanaan </td>
+                  <td colspan="6" class="text-center text-danger">Tidak Memiliki Akses Read Tahun Anggaran </td>
                 </tr>
                 @endcan
                 </table>

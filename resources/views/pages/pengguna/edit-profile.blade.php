@@ -44,7 +44,7 @@
 @section('judul_hal','Edit Profil')
 @section('header_hal')
 <li class="breadcrumb-item"><a href="#">Profil</a></li>
-<li class="breadcrumb-item active"><a href="/profile">Edit Profil</a></li>
+<li class="breadcrumb-item active">Edit Profil</li>
 @endsection
 <!-- main menu sidebar -->
 @section('menu_profile') 

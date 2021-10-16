@@ -63,5 +63,23 @@ class UserSeeder extends Seeder
             ]);
         $toolman->assignRole('toolman');
 
+        $usermm = User::create(
+            [
+                'name' => 'User MM',
+                'email' => 'usermm@test.id',
+                'password' => bcrypt('12345678'),
+                'organitation_id' => '1',
+            ]);
+        $usermm->assignRole('user');
+
+        $usertkj = User::create(
+            [
+                'name' => 'User TKJ',
+                'email' => 'usertkj@test.id',
+                'password' => bcrypt('12345678'),
+                'organitation_id' => '2',
+            ]);
+        $usertkj->assignRole('user');
+
     }
 }

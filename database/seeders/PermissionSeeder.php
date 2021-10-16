@@ -22,15 +22,20 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'update.*']);
         Permission::create(['name' => 'delete.*']);
         // create permissions budget
-        Permission::create(['name' => 'create.budgeting']);
-        Permission::create(['name' => 'read.budgeting']);
-        Permission::create(['name' => 'update.budgeting']);
-        Permission::create(['name' => 'delete.budgeting']);
+        Permission::create(['name' => 'create.pendanaan']);
+        Permission::create(['name' => 'read.pendanaan']);
+        Permission::create(['name' => 'update.pendanaan']);
+        Permission::create(['name' => 'delete.pendanaan']);
         // create permissions organisasi
-        Permission::create(['name' => 'create.organitation']);
-        Permission::create(['name' => 'read.organitation']);
-        Permission::create(['name' => 'update.organitation']);
-        Permission::create(['name' => 'delete.organitation']);
+        Permission::create(['name' => 'create.organisasi']);
+        Permission::create(['name' => 'read.organisasi']);
+        Permission::create(['name' => 'update.organisasi']);
+        Permission::create(['name' => 'delete.organisasi']);
+        // create permissions fiscalyear
+        Permission::create(['name' => 'create.tahun_anggaran']);
+        Permission::create(['name' => 'read.tahun_anggaran']);
+        Permission::create(['name' => 'update.tahun_anggaran']);
+        Permission::create(['name' => 'delete.tahun_anggaran']);
 
     }
 }

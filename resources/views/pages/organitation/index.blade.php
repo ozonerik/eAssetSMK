@@ -108,7 +108,7 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.organitation')
+                  @can('create.organisasi')
                   <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Organitation">
                   Add Organitation
                   </a> 
@@ -127,7 +127,7 @@
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
-                @can('read.organitation')
+                @can('read.organisasi')
                   <tbody>
                   @foreach($org as $o)
                     <tr>
@@ -136,12 +136,12 @@
                       <td>{{Str::upper($o->shortname)}}</td>
                       <td>{{$o->name}}</td>
                       <td>
-                        @can('update.organitation')
+                        @can('update.organisasi')
                         <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Organitation">
                         Edit
                         </a> 
                         @endcan
-                        @can('delete.organitation')
+                        @can('delete.organisasi')
                         <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Organitation">
                         Delete
                         </a> 

@@ -21,7 +21,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="/home" class="brand-link">
       <img src="{{url('img/logo.png')}}" alt="{{ config('app.name') }}" class="brand-image elevation-1" style="opacity: .7">
       <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
