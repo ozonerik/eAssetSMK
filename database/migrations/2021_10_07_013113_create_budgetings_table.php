@@ -19,6 +19,7 @@ class CreateBudgetingsTable extends Migration
             $table->string('name');
             $table->timestamps();
             $table->foreignId('organitation_id')->nullable()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
         });
     }
 

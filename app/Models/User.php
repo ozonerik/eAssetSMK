@@ -31,6 +31,11 @@ class User extends Authenticatable
         return $this->belongsTo(Organitation::class);
     }
 
+    public function budgeting()
+    {
+        return $this->hasMany(Budgeting::class);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

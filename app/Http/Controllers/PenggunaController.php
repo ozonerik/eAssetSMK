@@ -111,7 +111,7 @@ class PenggunaController extends Controller
     {
         $id=Crypt::decryptString($id);    
         //dd($id);
-        $data['user'] = User::with(['roles','permissions'])->where('id', $id)->first();
+        $data['user'] = User::with(['roles','permissions','organitation'])->where('id', $id)->first();
         $data['roles']= Role::all();
         $data['permission']= Permission::all();
         $data['organitation']= Organitation::all();
@@ -145,14 +145,15 @@ class PenggunaController extends Controller
             'name'=>$request->input('name'),
             'email'=>$request->input('email'),
             'password'=>$password,
-            'organitation_id'=>$request->input('organitation')
         ])->filter()->all();
+        
         $user_roles = $request->input('roles');
         $user_permissions = $request->input('permissions'); 
 
         //update data
         $user = User::find($id);
         $user->update($nilai);
+        $user->update(['organitation_id'=>$request->input('organitation')]);
         $user->syncRoles($user_roles);
         $user->syncPermissions($user_permissions);
         

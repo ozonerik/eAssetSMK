@@ -14,8 +14,9 @@
       $('.select2').select2()
       $('.select2-selection').css('border-color','#DEE2E6');
       //Initialize Select2 Elements
-      $('.select2bs4').prepend('<option selected=""></option>').select2({
+      $('.select2bs4').select2({
       theme: 'bootstrap4',
+      placeholder: 'Select a Organitation',
       allowClear: true
       })
   })
@@ -103,16 +104,19 @@
                     <label for="roles" class="col-sm-2 col-form-label">Organitation</label>
                     <div class="col-sm-10">
                       @php
-                          $old_roles = (old('_token') !== null) ? collect(old('organitation')) : $organitation->pluck('id');
+                          $old_org = (old('_token') !== null) ? collect(old('organitation')) : $user->organitation()->get()->pluck('id')->implode(',');
+                          
                       @endphp
-                      <select class="select2bs4 form-control @error('organitation') is-invalid @enderror" name="organitation" data-placeholder="Select a Organitation" style="width: 100%;">
+
+                      <select class="select2bs4 form-control @error('organitation') is-invalid @enderror" name="organitation" style="width: 100%;">
+                      @if($old_org=="")
+                      <option value="" selected="selected" >&nbsp;</option>
+                      @endif
                       @foreach($organitation as $o)
-                        <option value="{{$o->id}}"
-                        {{in_array( $o->id, $old_roles->toArray() ) ? ' selected="selected" ':''}}
-                        >{{Str::upper($o->shortname)}}</option>
+                        <option value="{{$o->id}}" {{$o->id == $old_org ? ' selected="selected" ':'' }} >{{Str::upper($o->shortname)}}</option>
                       @endforeach
                       </select>
-                      @error('roles')
+                      @error('organitation')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
                     </div>

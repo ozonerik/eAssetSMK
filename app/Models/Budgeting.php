@@ -12,11 +12,18 @@ class Budgeting extends Model
     protected $fillable = [
         'code',
         'name',
+        'organitation_id',
+        'user_id',
     ];
 
     public function organitation()
     {
         return $this->belongsTo(Organitation::class);
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

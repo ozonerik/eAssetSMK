@@ -16,25 +16,29 @@ class BudgetingSeeder extends Seeder
     {
         Budgeting::create([
             'code' => '01',
-            'name' => 'Dana BOS',
+            'name' => 'Dana BOS MM',
             'organitation_id' => '1',
+            'user_id' => '2',
         ]);
 
         Budgeting::create([
             'code' => '02',
-            'name' => 'Dana Kas',
+            'name' => 'Dana Kas MM',
             'organitation_id' => '1',
+            'user_id' => '3',
         ]);
         Budgeting::create([
             'code' => '01',
-            'name' => 'Dana BOS',
+            'name' => 'Dana BOS TKJ',
             'organitation_id' => '2',
+            'user_id' => '4',
         ]);
 
         Budgeting::create([
             'code' => '02',
-            'name' => 'Dana Kas',
+            'name' => 'Dana Kas TKJ',
             'organitation_id' => '2',
+            'user_id' => '5',
         ]);
     }
 }

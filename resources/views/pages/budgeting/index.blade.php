@@ -65,8 +65,8 @@
       "responsive": true,
       "order": [[ 1, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [4] },
-        { "searchable": false, "targets": [4] }
+        { "orderable": false, "targets": [5] },
+        { "searchable": false, "targets": [5] }
       ]
     });
   });
@@ -124,6 +124,7 @@
                       <th scope="col">Code</th>
                       <th scope="col">Name</th>
                       <th scope="col">Organitation</th>
+                      <th scope="col">Created by</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -135,6 +136,7 @@
                       <td>{{$row->code}}</td>
                       <td>{{$row->name}}</td>
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
+                      <td>{{$row->user->name}}</td>
                       <td>
                         @can('update.budgeting')
                         <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
