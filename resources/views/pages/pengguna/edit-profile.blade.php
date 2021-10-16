@@ -101,7 +101,7 @@
                     <label for="organitation" class="col-sm-3 col-form-label">Organitation</label>
                     <div class="col-sm-9">
                       <input type="text" disabled name="organitation" 
-                      value="@empty($user->organitation->shortname)@else {{ Str::upper($user->organitation->shortname) }} @endempty"
+                      value="@empty($user->organitation->shortname)@else{{ Str::upper($user->organitation->shortname) }}@endempty"
                       class="form-control">
                     </div>
                 </div>

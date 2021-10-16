@@ -138,6 +138,7 @@
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>
                       <td>
+                      @hasanyrole('admin|kabeng')
                         @can('update.budgeting')
                         <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
                         Edit
@@ -148,13 +149,27 @@
                         Delete
                         </a> 
                         @endcan
+                      @else
+                        @if($row->user_id == Auth::user()->id)
+                          @can('update.budgeting')
+                          <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
+                          Edit
+                          </a> 
+                          @endcan
+                          @can('delete.budgeting')
+                          <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
+                          Delete
+                          </a> 
+                          @endcan
+                        @endif
+                      @endhasanyrole           
                       </td>
                     </tr>
                   @endforeach
                   </tbody>
                 @else
                 <tr>
-                  <td colspan="5" class="text-center text-danger">Tidak Memiliki Akses Read Pendanaan </td>
+                  <td colspan="6" class="text-center text-danger">Tidak Memiliki Akses Read Pendanaan </td>
                 </tr>
                 @endcan
                 </table>
