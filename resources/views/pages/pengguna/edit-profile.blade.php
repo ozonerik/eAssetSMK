@@ -41,10 +41,10 @@
   @endif
 </script>
 @endpush
-@section('judul_hal','Edit Profile')
+@section('judul_hal','Edit Profil')
 @section('header_hal')
-<li class="breadcrumb-item"><a href="#">Profile</a></li>
-<li class="breadcrumb-item active"><a href="/profile">Edit Profile</a></li>
+<li class="breadcrumb-item"><a href="#">Profil</a></li>
+<li class="breadcrumb-item active"><a href="/profile">Edit Profil</a></li>
 @endsection
 <!-- main menu sidebar -->
 @section('menu_profile') 

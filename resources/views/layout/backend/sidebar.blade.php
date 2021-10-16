@@ -74,7 +74,7 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-user text-primary"></i>
                   <p>
-                    Profile
+                    Profil
                     <i class="right fas fa-angle-left "></i>
                   </p>
                 </a>
@@ -86,7 +86,7 @@
                       @yield('menu_editprofile') 
                   @endif
                       <i class="far fa-circle nav-icon text-primary"></i>
-                      <p>Edit Profile</p>
+                      <p>Edit Profil</p>
                     </a>
                   </li>
                 </ul>
