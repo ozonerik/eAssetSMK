@@ -118,7 +118,7 @@
                     $no = 1;
                 @endphp
                 <table id="itemtype-table" class="table table-hover">
-                  <thead class="thead-dark">
+                  <thead class="thead-light">
                     <tr>
                       <th scope="col">No</th>
                       <th scope="col">Code</th>

@@ -218,7 +218,7 @@
                     $no = 1;
                 @endphp
                 <table id="users-table" class="table table-hover">
-                  <thead class="thead-dark">
+                  <thead class="thead-light">
                     <tr>
                       <th scope="col"><input type="checkbox" id="master"></th>
                       <th scope="col">No</th>

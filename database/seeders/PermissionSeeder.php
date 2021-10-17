@@ -36,6 +36,16 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'read.tahun_anggaran']);
         Permission::create(['name' => 'update.tahun_anggaran']);
         Permission::create(['name' => 'delete.tahun_anggaran']);
+        // create permissions itemtype
+        Permission::create(['name' => 'create.jenis_barang']);
+        Permission::create(['name' => 'read.jenis_barang']);
+        Permission::create(['name' => 'update.jenis_barang']);
+        Permission::create(['name' => 'delete.jenis_barang']);
+        // create permissions storages
+        Permission::create(['name' => 'create.penyimpanan']);
+        Permission::create(['name' => 'read.penyimpanan']);
+        Permission::create(['name' => 'update.penyimpanan']);
+        Permission::create(['name' => 'delete.penyimpanan']);
 
     }
 }

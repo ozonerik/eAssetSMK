@@ -54,7 +54,7 @@
 </script>
 <script>
   $(function () {
-    $('#org-table').DataTable({
+    $('#inventory-table').DataTable({
       "paging": true,
       "pageLength": 10,
       "lengthChange": true,
@@ -65,25 +65,25 @@
       "responsive": true,
       "order": [[ 1, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [4] },
-        { "searchable": false, "targets": [4] }
+        { "orderable": false, "targets": [9] },
+        { "searchable": false, "targets": [9] }
       ]
     });
   });
 </script>
 @endpush
-@section('judul_hal','Organisasi')
+@section('judul_hal','Inventaris')
 @section('header_hal')
-<li class="breadcrumb-item"><a href="#">Konfigurasi</a></li>
-<li class="breadcrumb-item active">Organisasi</li>
+<li class="breadcrumb-item"><a href="#">Asset</a></li>
+<li class="breadcrumb-item active">Inventaris</li>
 @endsection
 <!-- main menu sidebar -->
-@section('menu_konfig') 
+@section('menu_asset') 
 <li class="nav-item menu-open">
 @endsection
 <!-- sub menu sidebar -->
-@section('menu_organisasi')
-<a href="/organitation" class="nav-link active">
+@section('menu_inventaris')
+<a href="/inventory" class="nav-link active">
 @endsection
 
 @section('konten')  
@@ -95,7 +95,7 @@
             <div class="card card-outline card-dark">
               <div class="card-header">
                 <h3 class="card-title">
-                  Organisasi
+                  Inventaris
                 </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-sm" data-card-widget="collapse">
@@ -108,51 +108,79 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.organisasi')
-                  <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Organitation">
-                  Add Organitation
+                  @can('create.inventaris')
+                  <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
+                  Add Inventaris
                   </a> 
                   @endcan
                 </div>
                 @php
                     $no = 1;
                 @endphp
-                <table id="org-table" class="table table-hover">
+                <table id="inventory-table" class="table table-hover">
                   <thead class="thead-light">
+                  <tr>
+                      <th scope="col" rowspan="2">No</th>
+                      <th scope="col" rowspan="2">Qrcode</th>
+                      <th scope="col" rowspan="2">Nama </th>
+                      <th scope="col" class="text-center" colspan="4">Kondisi Barang</th>
+                      <th scope="col" rowspan="2">Org</th>
+                      <th scope="col" rowspan="2">By</th>
+                      <th scope="col" rowspan="2">Action</th>
+                    </tr>
                     <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Code</th>
-                      <th scope="col">Short Name</th>
-                      <th scope="col">Full Name</th>
-                      <th scope="col">Action</th>
+                      <th scope="col" data-toggle="tooltip" data-placement="top" title="Baik">B</th>
+                      <th scope="col" data-toggle="tooltip" data-placement="top" title="Sedang">S</th>
+                      <th scope="col" data-toggle="tooltip" data-placement="top" title="Rusak">R</th>
+                      <th scope="col" data-toggle="tooltip" data-placement="top" title="Hilang">H</th>
                     </tr>
                   </thead>
-                @can('read.organisasi')
+                @can('read.inventaris')
                   <tbody>
-                  @foreach($org as $row)
+                  @foreach($inventory as $row)
                     <tr>
                       <th scope="row">{{ $no++ }}</th>
-                      <td>{{Str::upper($row->code)}}</td>
-                      <td>{{Str::upper($row->shortname)}}</td>
+                      <td>{{Str::upper($row->qrcode)}}</td>
                       <td>{{$row->name}}</td>
+                      <td>{{$row->good_qty}}</td>
+                      <td>{{$row->med_qty}}</td>
+                      <td>{{$row->bad_qty}}</td>
+                      <td>{{$row->lose_qty}}</td>
+                      <td>{{Str::upper($row->organitation->shortname)}}</td>
+                      <td>{{$row->user->name}}</td>
                       <td>
-                        @can('update.organisasi')
-                        <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Organitation">
+                      @hasanyrole('admin|kabeng')
+                        @can('update.inventaris')
+                        <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
                         Edit
                         </a> 
                         @endcan
-                        @can('delete.organisasi')
-                        <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Organitation">
+                        @can('delete.inventaris')
+                        <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
                         Delete
                         </a> 
                         @endcan
+                      @else
+                        @if($row->user_id == Auth::user()->id)
+                          @can('update.inventaris')
+                          <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
+                          Edit
+                          </a> 
+                          @endcan
+                          @can('delete.inventaris')
+                          <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
+                          Delete
+                          </a> 
+                          @endcan
+                        @endif
+                      @endhasanyrole           
                       </td>
                     </tr>
                   @endforeach
                   </tbody>
                 @else
                 <tr>
-                  <td colspan="5" class="text-center text-danger">Tidak Memiliki Akses Read Organisasi </td>
+                  <td colspan="10" class="text-center text-danger">Tidak Memiliki Akses Read Inventaris </td>
                 </tr>
                 @endcan
                 </table>

@@ -9,6 +9,7 @@ use App\Http\Controllers\BudgetingController;
 use App\Http\Controllers\FiscalyearController;
 use App\Http\Controllers\ItemtypeController;
 use App\Http\Controllers\StorageController;
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,10 +41,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
         //menu fiscal
         Route::get('/fiscal', [FiscalyearController::class, 'index'] )->name('fiscal.index');
-        //menu fiscal
+        //menu itemtype
         Route::get('/itemtype', [ItemtypeController::class, 'index'] )->name('itemtype.index');
-        //menu fiscal
+        //menu storage
         Route::get('/storages', [StorageController::class, 'index'] )->name('storages.index');
+        //menu inventory
+        Route::get('/inventory', [InventoryController::class, 'index'] )->name('inventory.index');
     });
     
     

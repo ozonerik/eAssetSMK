@@ -118,7 +118,7 @@
                     $no = 1;
                 @endphp
                 <table id="budget-table" class="table table-hover">
-                  <thead class="thead-dark">
+                  <thead class="thead-light">
                     <tr>
                       <th scope="col">No</th>
                       <th scope="col">Code</th>
@@ -133,7 +133,7 @@
                   @foreach($budget as $row)
                     <tr>
                       <th scope="row">{{ $no++ }}</th>
-                      <td>{{$row->code}}</td>
+                      <td>{{Str::upper($row->code)}}</td>
                       <td>{{$row->name}}</td>
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>

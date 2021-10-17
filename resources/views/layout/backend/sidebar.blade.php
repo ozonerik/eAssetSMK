@@ -100,6 +100,34 @@
                 </ul>
               </li>
             <!-- end menu referensi -->
+            <!-- menu asset-->
+            @sectionMissing('menu_asset') 
+              <li class="nav-item"> 
+            @else 
+              @yield('menu_asset') 
+            @endif
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-cubes text-success"></i>
+                  <p>
+                    Asset
+                    <i class="right fas fa-angle-left "></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <!-- menu inventaris--> 
+                  <li class="nav-item">
+                  @sectionMissing('menu_inventaris') 
+                    <a href="/inventory" class="nav-link"> 
+                  @else 
+                      @yield('menu_inventaris') 
+                  @endif
+                      <i class="far fa-circle nav-icon text-success"></i>
+                      <p>Inventaris</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <!-- end menu asset -->
           @endhasanyrole
           <!-- End Sidebar Admin Kabeng dan Toolman -->
 
