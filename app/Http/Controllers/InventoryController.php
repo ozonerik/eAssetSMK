@@ -94,14 +94,28 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
-        $code_org= Organitation::where('id',Auth::user()->organitation_id)->get()->pluck('code')->implode('');
+        //pembuatan code inventaris
+        $user_id= Auth::user()->id;
+        $org_id=Auth::user()->organitation_id;
+        $code_org= Organitation::where('id',$org_id)->get()->pluck('code')->implode('');
         $code_budget= Budgeting::where('id',$request->input('budgeting'))->get()->pluck('code')->implode('');
         $code_fiscal= Fiscalyear::where('id',$request->input('fiscal'))->get()->pluck('code')->implode('');
         $code_itemtype= Itemtype::where('id',$request->input('itemtype'))->get()->pluck('code')->implode('');
-        $user_id= Auth::user()->id;
-        $code_inv=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.';
-
+        $max_noinv= Inventory::where([
+            ['organitation_id',$org_id],
+            ['budgeting_id',$request->input('budgeting')],
+            ['fiscalyear_id',$request->input('fiscal')],
+            ['itemtype_id',$request->input('itemtype')]
+            ])->max('no');
+        if(empty($max_noinv)){
+            $no=1;
+            $no_inv=sprintf('%05d', $no);
+        }else{
+            $no=$max_noinv+1;
+            $no_inv=sprintf('%05d', $no);
+        }
+        $code_inv=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.'.$no_inv;
+        //end pembuatan code inventaris
         dd($code_inv);
     }
 
