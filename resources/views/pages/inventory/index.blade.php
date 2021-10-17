@@ -65,11 +65,25 @@
       "responsive": true,
       "order": [[ 1, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [9] },
-        { "searchable": false, "targets": [9] }
+        { "orderable": false, "targets": [0,10] },
+        { "searchable": false, "targets": [0,10] }
       ]
     });
   });
+</script>
+<!-- checbox multi -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#master').on('click', function(e) {
+         if($(this).is(':checked',true))  
+         {
+            $(".sub_chk").prop('checked', true);  
+         } else {  
+            $(".sub_chk").prop('checked',false);  
+         }  
+        });
+
+    });
 </script>
 @endpush
 @section('judul_hal','Inventaris')
@@ -109,7 +123,7 @@
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
                   @can('create.inventaris')
-                  <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
+                  <a href="{{route('inventory.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
                   Add Inventaris
                   </a> 
                   @endcan
@@ -120,6 +134,7 @@
                 <table id="inventory-table" class="table table-hover">
                   <thead class="thead-light">
                   <tr>
+                      <th scope="col" rowspan="2"><input type="checkbox" id="master"></th>
                       <th scope="col" rowspan="2">No</th>
                       <th scope="col" rowspan="2">Qrcode</th>
                       <th scope="col" rowspan="2">Nama </th>
@@ -139,6 +154,7 @@
                   <tbody>
                   @foreach($inventory as $row)
                     <tr>
+                      <td><input type="checkbox" class="sub_chk" name="invid" value="{{Crypt::encryptString($row->id)}}" data-name="{{$row->qrcode}}"></td>  
                       <th scope="row">{{ $no++ }}</th>
                       <td>{{Str::upper($row->qrcode)}}</td>
                       <td>{{$row->name}}</td>
