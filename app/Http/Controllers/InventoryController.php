@@ -9,10 +9,12 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Organitation;
 use App\Models\Budgeting;
 use App\Models\Fiscalyear;
 use App\Models\Itemtype;
 use App\Models\Storage;
+use Illuminate\Support\Arr;
 
 class InventoryController extends Controller
 {
@@ -93,8 +95,14 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $code_budget= Budgeting::select('code')->find($request->input('budgeting'));
-        print($code_budget);
+        $code_org= Organitation::where('id',Auth::user()->organitation_id)->get()->pluck('code')->implode('');
+        $code_budget= Budgeting::where('id',$request->input('budgeting'))->get()->pluck('code')->implode('');
+        $code_fiscal= Fiscalyear::where('id',$request->input('fiscal'))->get()->pluck('code')->implode('');
+        $code_itemtype= Itemtype::where('id',$request->input('itemtype'))->get()->pluck('code')->implode('');
+        $user_id= Auth::user()->id;
+        $code_inv=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.';
+
+        dd($code_inv);
     }
 
 }
