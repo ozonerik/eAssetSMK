@@ -75,6 +75,28 @@
                       <p>Tahun Anggaran</p>
                     </a>
                   </li>
+                  <!-- menu item type-->
+                  <li class="nav-item">
+                  @sectionMissing('menu_itemtype') 
+                    <a href="/itemtype" class="nav-link"> 
+                  @else 
+                      @yield('menu_itemtype')
+                  @endif
+                      <i class="far fa-circle nav-icon text-warning"></i>
+                      <p>Jenis Barang</p>
+                    </a>
+                  </li>
+                  <!-- menu storage-->
+                  <li class="nav-item">
+                  @sectionMissing('menu_storage') 
+                    <a href="/storages" class="nav-link"> 
+                  @else 
+                      @yield('menu_storage')
+                  @endif
+                      <i class="far fa-circle nav-icon text-warning"></i>
+                      <p>Penyimpanan</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
             <!-- end menu referensi -->

@@ -26,4 +26,9 @@ class Budgeting extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
 }

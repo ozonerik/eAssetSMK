@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(BudgetingSeeder::class);
         $this->call(FiscalyearSeeder::class);
+        $this->call(ItemtypeSeeder::class);
+        $this->call(StorageSeeder::class);
+        $this->call(InventorySeeder::class);
         
     }
 }

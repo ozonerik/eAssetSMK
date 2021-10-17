@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fiscalyear extends Model
+class Itemtype extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'code',
-        'year',
+        'shortname',
+        'typename',
         'organitation_id',
         'user_id',
     ];

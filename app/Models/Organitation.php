@@ -30,4 +30,19 @@ class Organitation extends Model
         return $this->hasMany(Fiscalyear::class);
     }
 
+    public function itemtype()
+    {
+        return $this->hasMany(Itemtype::class);
+    }
+
+    public function storage()
+    {
+        return $this->hasMany(Storage::class);
+    }
+
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
 }

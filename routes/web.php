@@ -7,6 +7,8 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\OrganitationController;
 use App\Http\Controllers\BudgetingController;
 use App\Http\Controllers\FiscalyearController;
+use App\Http\Controllers\ItemtypeController;
+use App\Http\Controllers\StorageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
         //menu fiscal
         Route::get('/fiscal', [FiscalyearController::class, 'index'] )->name('fiscal.index');
+        //menu fiscal
+        Route::get('/itemtype', [ItemtypeController::class, 'index'] )->name('itemtype.index');
+        //menu fiscal
+        Route::get('/storages', [StorageController::class, 'index'] )->name('storages.index');
     });
     
     
