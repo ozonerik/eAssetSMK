@@ -125,12 +125,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Harga Barang</label>
-                    <div class="col-sm-9">
-                      <input type="number" name="purchase_price" required value="{{ old('purchase_price') }}"class="form-control @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ...">
-                      @error('purchase_price')
+                    <label class="col-sm-3 col-form-label">Harga Pembelian</label>
+                    <div class="col-sm-9 input-group" >
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="text" name="purchase_price" value="{{ old('purchase_price') }}" class="form-control datetimepicker-input @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
+                        @error('purchase_price')
                         <span class="invalid-feedback">{{ $message }}</span>
-                      @enderror
+                        @enderror
                     </div>
                 </div>
                 <a href="/inventory" class="btn btn-default gt">Cancel</a>
