@@ -13,6 +13,14 @@
 <!-- Datepicker -->
 <script src="{{url('plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{url('plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.id.js')}}" charset="UTF-8"></script>
+<!-- Jquery Mask -->
+<script src="{{url('plugins/jquery-mask/dist/jquery.mask.min.js')}}"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+      // Format mata uang.
+      $( '#hargabeli' ).mask('0.000.000.000', {reverse: true});
+  })
+</script>
 <script>  
   $('#tglbeli').datepicker({
     autoclose: true,
@@ -130,7 +138,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Rp.</div>
                         </div>
-                        <input type="text" name="purchase_price" value="{{ old('purchase_price') }}" class="form-control datetimepicker-input @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
+                        <input type="text" name="purchase_price" id="hargabeli" value="{{ old('purchase_price') }}" class="form-control datetimepicker-input @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
                         @error('purchase_price')
                         <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
