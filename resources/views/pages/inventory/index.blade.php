@@ -145,7 +145,7 @@
                     </tr>
                     <tr>
                       <th scope="col" data-toggle="tooltip" data-placement="top" title="Baik">B</th>
-                      <th scope="col" data-toggle="tooltip" data-placement="top" title="Sedang">S</th>
+                      <th scope="col" data-toggle="tooltip" data-placement="top" title="Cukup">C</th>
                       <th scope="col" data-toggle="tooltip" data-placement="top" title="Rusak">R</th>
                       <th scope="col" data-toggle="tooltip" data-placement="top" title="Hilang">H</th>
                     </tr>

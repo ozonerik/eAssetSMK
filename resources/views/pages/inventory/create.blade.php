@@ -6,6 +6,16 @@
 <link rel="stylesheet" href="{{url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 <!-- Datepicker -->
 <link rel="stylesheet" href="{{url('plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+<style>
+  #img-preview {
+  display: none; 
+}
+#img-preview img {  
+  width: 100%;
+  height: auto; 
+  display: block;   
+}
+</style>
 @endpush
 @push('scripts')
 <!-- Select2 -->
@@ -20,6 +30,27 @@
       // Format mata uang.
       $( '#hargabeli' ).mask('0.000.000.000', {reverse: true});
   })
+</script>
+<script>
+  $(document).ready(function() {
+    const chooseFile = document.getElementById("file-upload");
+    const imgPreview = document.getElementById("img-preview");
+    chooseFile.addEventListener("change", function () {
+        $("#file-name").text(this.files[0].name);
+        getImgData();
+    });
+    function getImgData() {
+      const files = chooseFile.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(files);
+        fileReader.addEventListener("load", function () {
+          imgPreview.style.display = "block";
+          imgPreview.innerHTML = '<img class="rounded" src="' + this.result + '" />';
+        });    
+      }
+    }
+  });
 </script>
 <script>  
   $('#tglbeli').datepicker({
@@ -144,8 +175,58 @@
                         @enderror
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Jumlah Barang [Baik]</label>
+                    <div class="col-sm-9">
+                      <input type="number" name="good_qty" value="{{ old('good_qty') }}"class="form-control @error('good_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Baik ...">
+                      @error('good_qty')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Jumlah Barang [Cukup]</label>
+                    <div class="col-sm-9">
+                      <input type="number" name="med_qty" value="{{ old('med_qty') }}"class="form-control @error('med_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Cukup Baik ...">
+                      @error('med_qty')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Jumlah Barang [Rusak]</label>
+                    <div class="col-sm-9">
+                      <input type="number" name="bad_qty" value="{{ old('bad_qty') }}"class="form-control @error('bad_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Rusak ...">
+                      @error('bad_qty')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Jumlah Barang [Hilang]</label>
+                    <div class="col-sm-9">
+                      <input type="number" name="lose_qty" value="{{ old('lose_qty') }}"class="form-control @error('lose_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
+                      @error('lose_qty')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Upload Foto Barang</label>
+                  <div class="col-sm-9">
+                    <div class='custom-file '>
+                          <input id='file-upload' type='file' name='picture' class='custom-file-input' id='inv_pic' accept="image/*" capture="camera">
+                          <label id='file-name' class='custom-file-label' style="color:#939ba2" for='inv_pic'>Upload Foto Barang ...</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Preview Foto Barang</label>
+                  <div id="img-preview" class="col-sm-9"></div>
+                </div>
+                <!-- <input type="file" accept="image/*" capture="camera"> -->
                 <a href="/inventory" class="btn btn-default gt">Cancel</a>
-                <button type="submit" class="btn btn-primary float-right ">Update</button>
+                <button type="submit" class="btn btn-primary float-right ">Simpan</button>
               </form>
               </div><!-- /.card-body -->
             </div>
