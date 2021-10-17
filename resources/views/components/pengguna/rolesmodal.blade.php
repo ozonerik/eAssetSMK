@@ -10,7 +10,7 @@
         <div class='modal-body'>
                 {!! $message !!}
                 <div class="form-group row">
-                    <label for="roles" class="col-12 col-form-label">Organitation</label>
+                    <label for="organitation" class="col-12 col-form-label">Organitation</label>
                     <div class="col-12">
                       <select class="select2bs4 form-control" name="organitation" data-placeholder="Select a Organitation" style="width: 100%;">
                       @foreach($organitation as $o)

@@ -72,10 +72,10 @@
   });
 </script>
 @endpush
-@section('judul_hal','Pendanaan')
+@section('judul_hal','Sumber Anggaran')
 @section('header_hal')
 <li class="breadcrumb-item"><a href="#">Referensi</a></li>
-<li class="breadcrumb-item active">Pendanaan</li>
+<li class="breadcrumb-item active">Sumber Anggaran</li>
 @endsection
 <!-- main menu sidebar -->
 @section('menu_referensi') 
@@ -95,7 +95,7 @@
             <div class="card card-outline card-dark">
               <div class="card-header">
                 <h3 class="card-title">
-                  Pendanaan
+                  Sumber Anggaran
                 </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-sm" data-card-widget="collapse">
@@ -108,9 +108,9 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.pendanaan')
+                  @can('create.sumber_anggaran')
                   <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
-                  Add Budgeting
+                  Add Sumber Anggaran
                   </a> 
                   @endcan
                 </div>
@@ -122,13 +122,13 @@
                     <tr>
                       <th scope="col">No</th>
                       <th scope="col">Code</th>
-                      <th scope="col">Name</th>
+                      <th scope="col">Sumber Anggaran</th>
                       <th scope="col">Organitation</th>
                       <th scope="col">Created by</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
-                @can('read.pendanaan')
+                @can('read.sumber_anggaran')
                   <tbody>
                   @foreach($budget as $row)
                     <tr>
@@ -139,24 +139,24 @@
                       <td>{{$row->user->name}}</td>
                       <td>
                       @hasanyrole('admin|kabeng')
-                        @can('update.pendanaan')
+                        @can('update.sumber_anggaran')
                         <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
                         Edit
                         </a> 
                         @endcan
-                        @can('delete.pendanaan')
+                        @can('delete.sumber_anggaran')
                         <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
                         Delete
                         </a> 
                         @endcan
                       @else
                         @if($row->user_id == Auth::user()->id)
-                          @can('update.pendanaan')
+                          @can('update.sumber_anggaran')
                           <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
                           Edit
                           </a> 
                           @endcan
-                          @can('delete.pendanaan')
+                          @can('delete.sumber_anggaran')
                           <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
                           Delete
                           </a> 

@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
                 'organitation_id' => '1',
             ]);
         $kabeng->assignRole('kabeng');
+        $kabeng->givePermissionTo(['create.*','read.*', 'update.*','delete.*']);
 
         $toolman = User::create(
             [

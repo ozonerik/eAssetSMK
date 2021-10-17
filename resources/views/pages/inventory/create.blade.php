@@ -131,8 +131,60 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-              <form method="POST" action="#">
+              <form method="POST" action="{{route('inventory.store')}}">
                 @csrf
+                <div class="form-group row">
+                    <label for="budgeting" class="col-sm-3 col-form-label">Sumber Anggaran</label>
+                    <div class="col-sm-9">
+                      <select class="select2bs4 form-control" name="budgeting" data-placeholder="Pilih Sumber Anggaran" style="width: 100%;">
+                      @foreach($budgeting as $row)
+                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->name}}</option>
+                      @endforeach
+                      </select>
+                      @error('budgeting')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fiscal" class="col-sm-3 col-form-label">Tahun Anggaran</label>
+                    <div class="col-sm-9">
+                      <select class="select2bs4 form-control" name="fiscal" data-placeholder="Pilih Tahun Anggaran" style="width: 100%;">
+                      @foreach($fiscal as $row)
+                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->year}}</option>
+                      @endforeach
+                      </select>
+                      @error('fiscal')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="itemtype" class="col-sm-3 col-form-label">Jenis Barang</label>
+                    <div class="col-sm-9">
+                      <select class="select2bs4 form-control" name="itemtype" data-placeholder="Pilih Jenis Barang" style="width: 100%;">
+                      @foreach($itemtype as $row)
+                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->typename}}</option>
+                      @endforeach
+                      </select>
+                      @error('itemtype')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="storages" class="col-sm-3 col-form-label">Tempat Penyimpanan</label>
+                    <div class="col-sm-9">
+                      <select class="select2bs4 form-control" name="storages" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
+                      @foreach($storages as $row)
+                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->storagename}}</option>
+                      @endforeach
+                      </select>
+                      @error('storages')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Name Barang</label>
                     <div class="col-sm-9">

@@ -61,7 +61,7 @@
                       @yield('menu_budgeting') 
                   @endif
                       <i class="far fa-circle nav-icon text-warning"></i>
-                      <p>Pendanaan</p>
+                      <p>Sumber Anggaran</p>
                     </a>
                   </li>
                   <!-- menu tahun anggaran -->

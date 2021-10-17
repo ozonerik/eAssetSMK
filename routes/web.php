@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
         //menu inventory
         Route::get('/inventory', [InventoryController::class, 'index'] )->name('inventory.index');
         Route::get('/inventory/add', [InventoryController::class, 'create'] )->name('inventory.create');
+        Route::post('/inventory/store', [InventoryController::class, 'store'] )->name('inventory.store');
     });
     
     

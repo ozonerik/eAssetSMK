@@ -22,10 +22,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'update.*']);
         Permission::create(['name' => 'delete.*']);
         // create permissions budget
-        Permission::create(['name' => 'create.pendanaan']);
-        Permission::create(['name' => 'read.pendanaan']);
-        Permission::create(['name' => 'update.pendanaan']);
-        Permission::create(['name' => 'delete.pendanaan']);
+        Permission::create(['name' => 'create.sumber_anggaran']);
+        Permission::create(['name' => 'read.sumber_anggaran']);
+        Permission::create(['name' => 'update.sumber_anggaran']);
+        Permission::create(['name' => 'delete.sumber_anggaran']);
         // create permissions organisasi
         Permission::create(['name' => 'create.organisasi']);
         Permission::create(['name' => 'read.organisasi']);

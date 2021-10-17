@@ -36,18 +36,65 @@ class InventoryController extends Controller
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         
         if($user->hasRole(['admin'])){
-            $data['budgeting']= Budgeting::all();
-            $data['fiscal']= Fiscalyear::all();
-            $data['itemtype']= Itemtype::all();
-            $data['storages']= Storage::all();
+            $data['budgeting']= Budgeting::all()->sortBy(
+                    [
+                        ['organitation_id', 'asc'],
+                        ['code', 'asc'],
+                    ]
+                );
+            $data['fiscal']= Fiscalyear::all()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['code', 'asc'],
+                ]
+            );
+            $data['itemtype']= Itemtype::all()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['code', 'asc'],
+                ]
+            );
+            $data['storages']= Storage::all()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['shortname', 'asc'],
+                ]
+            );
         }else{
-            $data['budgeting']= Budgeting::where('organitation_id', $org_id)->get();
-            $data['fiscal']= Fiscalyear::where('organitation_id', $org_id)->get();
-            $data['itemtype']= Itemtype::where('organitation_id', $org_id)->get();
-            $data['storages']= Storage::where('organitation_id', $org_id)->get();
+            $data['budgeting']= Budgeting::where('organitation_id', $org_id)->get()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['code', 'asc'],
+                ]
+            );
+            $data['fiscal']= Fiscalyear::where('organitation_id', $org_id)->get()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['code', 'asc'],
+                ]
+            );
+            $data['itemtype']= Itemtype::where('organitation_id', $org_id)->get()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['code', 'asc'],
+                ]
+            );
+            $data['storages']= Storage::where('organitation_id', $org_id)->get()->sortBy(
+                [
+                    ['organitation_id', 'asc'],
+                    ['shortname', 'asc'],
+                ]
+            );
         }
         
         return view('pages.inventory.create',$data);
+    }
+
+    public function store(Request $request)
+    {
+        //dd($request->all());
+        $code_budget= Budgeting::select('code')->find($request->input('budgeting'));
+        print($code_budget);
     }
 
 }
