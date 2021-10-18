@@ -65,11 +65,25 @@
       "responsive": true,
       "order": [[ 1, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [5] },
-        { "searchable": false, "targets": [5] }
+        { "orderable": false, "targets": [0,10] },
+        { "searchable": false, "targets": [0,10] }
       ]
     });
   });
+</script>
+<!-- checbox multi -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#master').on('click', function(e) {
+         if($(this).is(':checked',true))  
+         {
+            $(".sub_chk").prop('checked', true);  
+         } else {  
+            $(".sub_chk").prop('checked',false);  
+         }  
+        });
+
+    });
 </script>
 @endpush
 @section('judul_hal','Inventaris')
@@ -110,7 +124,7 @@
                 <div class="divider bg-dark rounded mb-4">
                   @can('create.inventaris')
                   <a href="{{route('inventory.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
-                    Add Inventaris
+                  Add Inventaris
                   </a> 
                   @endcan
                 </div>
@@ -119,13 +133,13 @@
                 @endphp
                 <table id="inv-table" class="table table-hover">
                   <thead class="thead-light">
-                    <tr>
+                  <tr>
                       <th scope="col"><input type="checkbox" id="master"></th>
                       <th scope="col">No</th>
-                      <th scope="col">QrCode</th>
-                      <th scope="col">Nama Barang</th>
+                      <th scope="col">Qrcode</th>
+                      <th scope="col">Nama </th>
                       <th scope="col">Foto Barang</th>
-                      <th scope="col">Organitation</th>
+                      <th scope="col">Org</th>
                       <th scope="col">By</th>
                       <th scope="col">Action</th>
                     </tr>
@@ -134,15 +148,15 @@
                   <tbody>
                   @foreach($inventory as $row)
                     <tr>
-                      <td><input type="checkbox" class="sub_chk" name="invid" value="{{$row->id}}" data-name="{{$row->qrcode}}"></td>  
+                      <td><input type="checkbox" class="sub_chk" name="invid" value="{{Crypt::encryptString($row->id)}}" data-name="{{$row->qrcode}}"></td>  
                       <th scope="row">{{ $no++ }}</th>
                       <td>{{Str::upper($row->qrcode)}}</td>
                       <td>{{$row->name}}</td>
                       <td>
                         @if(empty($row->picture))
-                          <img src="{{url('img/1920x1080.png')}}" alt="{{$row->qrcode}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                          <img src="{{url('img/400x250.png')}}" alt="{{Str::upper($row->qrcode)}}" class="img-thumbnail"/>
                         @else
-                          <img src="{{$row->picture}}" alt="{{$row->qrcode}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                          <img src="{{$row->picture}}" alt="{{Str::upper($row->qrcode)}}" class="img-thumbnail rounded"/>
                         @endif
                       </td>
                       <td>{{Str::upper($row->organitation->shortname)}}</td>

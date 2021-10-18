@@ -88,10 +88,10 @@
                   </li>
                   <!-- menu storage-->
                   <li class="nav-item">
-                  @sectionMissing('menu_storage') 
-                    <a href="/storages" class="nav-link"> 
+                  @sectionMissing('menu_storeroom') 
+                    <a href="/storeroom" class="nav-link"> 
                   @else 
-                      @yield('menu_storage')
+                      @yield('menu_storeroom')
                   @endif
                       <i class="far fa-circle nav-icon text-warning"></i>
                       <p>Penyimpanan</p>

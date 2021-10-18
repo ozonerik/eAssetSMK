@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Storage;
+use App\Models\Storeroom;
 
-class StorageSeeder extends Seeder
+class StoreroomSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,16 +14,16 @@ class StorageSeeder extends Seeder
      */
     public function run()
     {
-        Storage::create([
+        Storeroom::create([
             'shortname' => 'LAB-MM',
-            'storagename' => 'Laboratorium MM',
+            'roomname' => 'Laboratorium MM',
             'organitation_id' => '1',
             'user_id' => '2',
         ]);
 
-        Storage::create([
+        Storeroom::create([
             'shortname' => 'LAB-TKJ',
-            'storagename' => 'Laboratorium TKJ',
+            'roomname' => 'Laboratorium TKJ',
             'organitation_id' => '2',
             'user_id' => '4',
         ]);

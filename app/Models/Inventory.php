@@ -25,7 +25,7 @@ class Inventory extends Model
         'budgeting_id',
         'fiscalyear_id',
         'itemtype_id',
-        'storage_id',
+        'storeroom_id',
         'organitation_id',
         'user_id',
     ];
@@ -47,7 +47,7 @@ class Inventory extends Model
 
     public function storage()
     {
-        return $this->belongsTo(Storage::class);
+        return $this->belongsTo(Storeroom::class);
     }
 
     public function organitation()

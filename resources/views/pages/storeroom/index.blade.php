@@ -54,7 +54,7 @@
 </script>
 <script>
   $(function () {
-    $('#storage-table').DataTable({
+    $('#storeroom-table').DataTable({
       "paging": true,
       "pageLength": 10,
       "lengthChange": true,
@@ -82,8 +82,8 @@
 <li class="nav-item menu-open">
 @endsection
 <!-- sub menu sidebar -->
-@section('menu_storage')
-<a href="/storages" class="nav-link active">
+@section('menu_storeroom')
+<a href="/storeroom" class="nav-link active">
 @endsection
 
 @section('konten')  
@@ -117,7 +117,7 @@
                 @php
                     $no = 1;
                 @endphp
-                <table id="storage-table" class="table table-hover">
+                <table id="storeroom-table" class="table table-hover">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">No</th>
@@ -130,11 +130,11 @@
                   </thead>
                 @can('read.penyimpanan')
                   <tbody>
-                  @foreach($storages as $row)
+                  @foreach($storeroom as $row)
                     <tr>
                       <th scope="row">{{ $no++ }}</th>
                       <td>{{$row->shortname}}</td>
-                      <td>{{$row->storagename}}</td>
+                      <td>{{$row->roomname}}</td>
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>
                       <td>

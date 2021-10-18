@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Storage extends Model
+class Storeroom extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'shortname',
-        'storagename',
+        'roomname',
         'organitation_id',
         'user_id',
     ];

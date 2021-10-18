@@ -23,13 +23,22 @@
 <!-- Datepicker -->
 <script src="{{url('plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{url('plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.id.js')}}" charset="UTF-8"></script>
-<!-- Jquery Mask -->
-<script src="{{url('plugins/jquery-mask/dist/jquery.mask.min.js')}}"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-      // Format mata uang.
-      $( '#hargabeli' ).mask('0.000.000.000', {reverse: true});
-  })
+<!-- InputMask -->
+<script src="{{url('plugins/moment/moment.min.js')}}"></script>
+<script src="{{url('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+<script>
+  $(function () {
+    $('#hargabeli').inputmask({
+      alias: "decimal", 
+      groupSeparator: ".",
+      allowMinus: false, 
+      max: 9999999999,
+      rightAlign: false,
+      removeMaskOnSubmit:true,
+      showMaskOnHover: false,
+      showMaskOnFocus: false,
+      })
+  });
 </script>
 <script>
   $(document).ready(function() {
@@ -60,6 +69,7 @@
     language:'id',
     todayBtn:'linked',
     todayHighlight:true,
+    placeholder:" "
   })
 </script>
 <script>
@@ -131,7 +141,7 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-              <form method="POST" action="{{route('inventory.store')}}" enctype="multipart/form-data">
+              <form method="POST" action="{{route('inventory.store')}}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label for="budgeting" class="col-sm-3 col-form-label">Sumber Anggaran</label>
@@ -173,14 +183,14 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="storages" class="col-sm-3 col-form-label">Tempat Penyimpanan</label>
+                    <label for="storeroom" class="col-sm-3 col-form-label">Tempat Penyimpanan</label>
                     <div class="col-sm-9">
-                      <select class="select2bs4 form-control" name="storages" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
-                      @foreach($storages as $row)
+                      <select class="select2bs4 form-control" name="storeroom" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
+                      @foreach($storeroom as $row)
                         <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->storagename}}</option>
                       @endforeach
                       </select>
-                      @error('storages')
+                      @error('storeroom')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
                     </div>
@@ -221,7 +231,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Rp.</div>
                         </div>
-                        <input type="text" name="purchase_price" id="hargabeli" value="{{ old('purchase_price') }}" class="form-control datetimepicker-input @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
+                        <input id="hargabeli" type="text" name="purchase_price" value="{{ old('purchase_price') }}" class="form-control @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
                         @error('purchase_price')
                         <span class="invalid-feedback">{{ $message }}</span>
                         @enderror

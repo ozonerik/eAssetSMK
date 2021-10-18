@@ -46,9 +46,9 @@ class User extends Authenticatable
         return $this->hasMany(Itemtype::class);
     }
 
-    public function storage()
+    public function storeroom()
     {
-        return $this->hasMany(Storage::class);
+        return $this->hasMany(Storeroom::class);
     }
 
     public function inventory()

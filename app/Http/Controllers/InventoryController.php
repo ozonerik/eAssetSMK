@@ -13,8 +13,12 @@ use App\Models\Organitation;
 use App\Models\Budgeting;
 use App\Models\Fiscalyear;
 use App\Models\Itemtype;
-use App\Models\Storage;
+use App\Models\Storeroom;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class InventoryController extends Controller
 {
@@ -56,7 +60,7 @@ class InventoryController extends Controller
                     ['code', 'asc'],
                 ]
             );
-            $data['storages']= Storage::all()->sortBy(
+            $data['storeroom']= Storeroom::all()->sortBy(
                 [
                     ['organitation_id', 'asc'],
                     ['shortname', 'asc'],
@@ -81,7 +85,7 @@ class InventoryController extends Controller
                     ['code', 'asc'],
                 ]
             );
-            $data['storages']= Storage::where('organitation_id', $org_id)->get()->sortBy(
+            $data['storeroom']= Storeroom::where('organitation_id', $org_id)->get()->sortBy(
                 [
                     ['organitation_id', 'asc'],
                     ['shortname', 'asc'],
@@ -94,7 +98,6 @@ class InventoryController extends Controller
 
     //fungsi membuat kode inventaris
     function code_inv($budgeting,$fiscal,$itemtype){
-        //pembuatan code inventaris
         $user_id= Auth::user()->id;
         if(empty(Auth::user()->organitation_id)){
             $org_id="00";
@@ -121,23 +124,78 @@ class InventoryController extends Controller
             $no_inv=sprintf('%05d', $no);
         }
         $data['no']=$no;
-        $data['code_inv']=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.'.$no_inv;
-        $data['file_inv'] = Str::replace('.', '_', $data['code_inv']);
+        $data['code_org']=$code_org;
+        $data['code_budget']=$code_budget;
+        $data['code_fiscal']=$code_fiscal;
+        $data['code_itemtype']=$code_itemtype;
+        $data['qrcode_inv']=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.'.$no_inv;
+        $data['file_inv'] = Str::replace('.', '_', $data['qrcode_inv']);
         return $data;
-        //end pembuatan code inventaris
+    }
+    //end fungsi membuat kode inventaris
+
+    //fungsi resize picture and watermark
+    function imgResWat($source,$dest,$filename){
+        $img = Image::make($source->path());
+        $source->move(public_path($dest), $filename);
+        //aspect ratio 16:9
+        $img->resize(960,540);
+        $img->insert(public_path('img/watermark_logo.png'), 'bottom-right');
+        $img->save(public_path($dest).'/'.$filename);
+        $path = $dest.'/'.$filename;
+        return $path;
     }
 
     public function store(Request $request)
     {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'purchase_date' => 'nullable|date',
+            'picture' => 'file|mimes:jpg,png,jpeg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->with('error','Add Inventaris Failed')->withInput();
+        }
+
         $budget_id=$request->input('budgeting');
         $fiscal_id=$request->input('fiscal');
         $itemtype_id=$request->input('itemtype');
-        $file = $request->file('picture');
-        $file_ext = $file->extension();
-        $code_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_inv'];
+        $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
+        $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
         $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
-        $filename = $file_inv.".".$file_ext;
-        dd($file_inv);
+        
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $ext = $file->extension();
+            $filename = $file_inv.".".$ext;
+            $destpath = 'photo';
+            $invpath= $this->imgResWat($file,$destpath,$filename);
+        }else{
+            $invpath='';
+        }
+        $data = [
+            'no' => $no,
+            'qrcode' => $qrcode_inv,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'purchase_date' => $request->input('purchase_date'),
+            'purchase_price' => $request->input('purchase_price'),
+            'good_qty' => $request->input('good_qty'),
+            'med_qty' => $request->input('med_qty'),
+            'bad_qty' => $request->input('bad_qty'),
+            'lose_qty' => $request->input('lose_qty'),
+            'picture' => $invpath,
+            'qrpicture' => '',
+            'budgeting_id' => $budget_id,
+            'fiscalyear_id' => $fiscal_id,
+            'itemtype_id' => $itemtype_id,
+            'storeroom_id' => $request->input('storeroom'),
+            'organitation_id' => Auth::user()->organitation_id,
+            'user_id' => Auth::user()->id,
+        ];
+        dd($data);
     }
 
 }

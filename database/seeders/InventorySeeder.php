@@ -30,7 +30,7 @@ class InventorySeeder extends Seeder
             'budgeting_id' => '1',
             'fiscalyear_id' => '1',
             'itemtype_id' => '1',
-            'storage_id' => '1',
+            'storeroom_id' => '1',
             'organitation_id' => '1',
             'user_id' => '2',
         ]);

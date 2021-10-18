@@ -180,7 +180,7 @@
                     @csrf
                     <x-modal name="user_import" target="modal-userimport" title="User Import" 
                     message="
-                    <a href='{{url('/storage/uploads/upload_users.xlsx')}}' >Download Contoh File User Import</a>
+                    <a href='{{url('sample/upload_users.xlsx')}}' >Download Contoh File User Import</a>
                     <div class='custom-file'>
                       <input id='file-upload' type='file' name='user_file' class='custom-file-input' id='user_import'>
                       <label id='file-name' class='custom-file-label' for='user_import'>Choose file</label>

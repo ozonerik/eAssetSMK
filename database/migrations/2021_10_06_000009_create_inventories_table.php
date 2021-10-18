@@ -31,7 +31,7 @@ class CreateInventoriesTable extends Migration
             $table->foreignId('budgeting_id')->nullable()->constrained();
             $table->foreignId('fiscalyear_id')->nullable()->constrained();
             $table->foreignId('itemtype_id')->nullable()->constrained();
-            $table->foreignId('storage_id')->nullable()->constrained();
+            $table->foreignId('storeroom_id')->nullable()->constrained();
             $table->foreignId('organitation_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
         });

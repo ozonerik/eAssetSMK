@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BudgetingSeeder::class);
         $this->call(FiscalyearSeeder::class);
         $this->call(ItemtypeSeeder::class);
-        $this->call(StorageSeeder::class);
+        $this->call(StoreroomSeeder::class);
         $this->call(InventorySeeder::class);
         
     }
