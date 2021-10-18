@@ -131,7 +131,7 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-              <form method="POST" action="{{route('inventory.store')}}">
+              <form method="POST" action="{{route('inventory.store')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label for="budgeting" class="col-sm-3 col-form-label">Sumber Anggaran</label>

@@ -96,8 +96,14 @@ class InventoryController extends Controller
     function code_inv($budgeting,$fiscal,$itemtype){
         //pembuatan code inventaris
         $user_id= Auth::user()->id;
-        $org_id=Auth::user()->organitation_id;
-        $code_org= Organitation::where('id',$org_id)->get()->pluck('code')->implode('');
+        if(empty(Auth::user()->organitation_id)){
+            $org_id="00";
+            $code_org = $org_id;
+        }else{
+            $org_id=Auth::user()->organitation_id;
+            $code_org= Organitation::where('id',$org_id)->get()->pluck('code')->implode('');
+        }
+        
         $code_budget= Budgeting::where('id',$budgeting)->get()->pluck('code')->implode('');
         $code_fiscal= Fiscalyear::where('id',$fiscal)->get()->pluck('code')->implode('');
         $code_itemtype= Itemtype::where('id',$itemtype)->get()->pluck('code')->implode('');
@@ -116,6 +122,7 @@ class InventoryController extends Controller
         }
         $data['no']=$no;
         $data['code_inv']=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.'.$no_inv;
+        $data['file_inv'] = Str::replace('.', '_', $data['code_inv']);
         return $data;
         //end pembuatan code inventaris
     }
@@ -125,9 +132,12 @@ class InventoryController extends Controller
         $budget_id=$request->input('budgeting');
         $fiscal_id=$request->input('fiscal');
         $itemtype_id=$request->input('itemtype');
-        $photo_inv = $request->file('picture');
+        $file = $request->file('picture');
+        $file_ext = $file->extension();
         $code_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_inv'];
-        dd($photo_inv);
+        $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
+        $filename = $file_inv.".".$file_ext;
+        dd($file_inv);
     }
 
 }
