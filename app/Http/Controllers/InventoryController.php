@@ -122,11 +122,12 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
-        $budgeting=$request->input('budgeting');
-        $fiscal=$request->input('fiscal');
-        $itemtype=$request->input('itemtype');
-        $coba=$this->code_inv($budgeting,$fiscal,$itemtype)['code_inv'];
-        dd($coba);
+        $budget_id=$request->input('budgeting');
+        $fiscal_id=$request->input('fiscal');
+        $itemtype_id=$request->input('itemtype');
+        $photo_inv = $request->file('picture');
+        $code_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_inv'];
+        dd($photo_inv);
     }
 
 }

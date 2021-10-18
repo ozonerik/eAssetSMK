@@ -178,6 +178,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         //excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //image
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -234,6 +236,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //excel
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        //image
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
