@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use QrCode;
 
 class InventoryController extends Controller
 {
@@ -146,6 +147,15 @@ class InventoryController extends Controller
         return $path;
     }
 
+    function makeQr($qrtext,$size){
+        $fileqr=$qrtext.".png";
+        QrCode::size($size)
+            ->format('png')
+            ->generate($qrtext, public_path('qrcode/'.$fileqr));
+        $pathqr='qrcode/'.$fileqr;
+        return $pathqr;
+    }
+
     public function store(Request $request)
     {
         //dd($request->all());
@@ -187,7 +197,7 @@ class InventoryController extends Controller
             'bad_qty' => $request->input('bad_qty'),
             'lose_qty' => $request->input('lose_qty'),
             'picture' => $invpath,
-            'qrpicture' => '',
+            'qrpicture' =>$this->makeQr($file_inv,500),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,
@@ -195,6 +205,9 @@ class InventoryController extends Controller
             'organitation_id' => Auth::user()->organitation_id,
             'user_id' => Auth::user()->id,
         ];
+        //store to db
+        Inventory::create($data);
+        return redirect()->route('inventory.index')->with('success','Add Inventaris Success');
         dd($data);
     }
 

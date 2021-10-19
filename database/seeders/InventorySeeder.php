@@ -16,7 +16,7 @@ class InventorySeeder extends Seeder
     {
         Inventory::create([
             'no' => '1',
-            'qrcode' => '01.01.21.001.00001',
+            'qrcode' => '01.01.20.001.00001',
             'name' => 'Laptop',
             'description' => 'Laptop Dari Dana BOS',
             'purchase_date' => '2021-09-11',

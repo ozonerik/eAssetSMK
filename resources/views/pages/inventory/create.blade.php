@@ -37,6 +37,14 @@
       removeMaskOnSubmit:true,
       showMaskOnHover: false,
       showMaskOnFocus: false,
+      });
+      $('#tglbeli').inputmask({
+      alias: "datetime", 
+      inputFormat: "dd/mm/yyyy",
+      outputFormat: "yyyy-mm-dd",
+      removeMaskOnSubmit:true,
+      showMaskOnHover: false,
+      showMaskOnFocus: false,
       })
   });
 </script>
@@ -64,12 +72,11 @@
 <script>  
   $('#tglbeli').datepicker({
     autoclose: true,
-    format: 'yyyy-mm-dd',
     todayHighlight:true,
     language:'id',
     todayBtn:'linked',
     todayHighlight:true,
-    placeholder:" "
+    format: 'dd/mm/yyyy'
   })
 </script>
 <script>
@@ -215,9 +222,9 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Tanggal Pembelian</label>
-                    <div class="col-sm-9 input-group date" id="tglbeli" data-target-input="nearest">
-                        <input type="text" name="purchase_date" value="{{ old('purchase_date') }}" class="form-control datetimepicker-input @error('purchase_date') is-invalid @enderror" data-target="#tglbeli" placeholder="Tanggal Pembelian Barang ..."/>
-                        <div class="input-group-append" data-target="#tglbeli" data-toggle="datetimepicker">
+                    <div class="col-sm-9 input-group date">
+                        <input type="text" name="purchase_date" id="tglbeli" value="{{ old('purchase_date') }}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
+                        <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                         @error('purchase_date')

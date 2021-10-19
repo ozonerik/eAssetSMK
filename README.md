@@ -6,6 +6,9 @@
 
 eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
 
+Prsayarat:
+1. extensi Imagick di PHP harus enable (<a href="Link: https://www.youtube.com/watch?v=qZ9_rq6c9uY">Totorial</a> )
+
 Instalasi:
 1. Install Composer: https://getcomposer.org/Composer-Setup.exe
 2. Install Git: https://git-scm.com/download/win

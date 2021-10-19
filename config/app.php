@@ -180,6 +180,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         //image
         Intervention\Image\ImageServiceProvider::class,
+        //qrcode
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
 
     ],
 
@@ -238,6 +240,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         //image
         'Image' => Intervention\Image\Facades\Image::class,
+        //qrcode
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
 
     ],
 

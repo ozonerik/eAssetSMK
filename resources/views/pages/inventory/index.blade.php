@@ -136,13 +136,19 @@
                     <tr>
                       <td><input type="checkbox" class="sub_chk" name="invid" value="{{$row->id}}" data-name="{{$row->qrcode}}"></td>  
                       <th scope="row">{{ $no++ }}</th>
-                      <td>{{Str::upper($row->qrcode)}}</td>
+                      <td>
+                        @if(empty($row->qrpicture))
+                          <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
+                        @else
+                          <img src="{{$row->qrpicture}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
+                        @endif
+                      </td>
                       <td>{{$row->name}}</td>
                       <td>
                         @if(empty($row->picture))
-                          <img src="{{url('img/1920x1080.png')}}" alt="{{$row->qrcode}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                          <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                         @else
-                          <img src="{{$row->picture}}" alt="{{$row->qrcode}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                          <img src="{{$row->picture}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                         @endif
                       </td>
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
