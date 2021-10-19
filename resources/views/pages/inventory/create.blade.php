@@ -85,7 +85,7 @@
       $('.select2').select2()
       $('.select2-selection').css('border-color','#DEE2E6');
       //Initialize Select2 Elements
-      $('.select2bs4').prepend('<option selected=""></option>').select2({
+      $('.select2bs4').select2({
       theme: 'bootstrap4',
       allowClear: true
       })
@@ -154,8 +154,11 @@
                     <label for="budgeting" class="col-sm-3 col-form-label">Sumber Anggaran</label>
                     <div class="col-sm-9">
                       <select class="select2bs4 form-control" name="budgeting" data-placeholder="Pilih Sumber Anggaran" style="width: 100%;">
+                      @if(empty(old('budgeting')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
                       @foreach($budgeting as $row)
-                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->name}}</option>
+                        <option value="{{$row->id}}" {{$row->id}}" {{old('budgeting')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->name}}</option>
                       @endforeach
                       </select>
                       @error('budgeting')
@@ -167,8 +170,11 @@
                     <label for="fiscal" class="col-sm-3 col-form-label">Tahun Anggaran</label>
                     <div class="col-sm-9">
                       <select class="select2bs4 form-control" name="fiscal" data-placeholder="Pilih Tahun Anggaran" style="width: 100%;">
+                      @if(empty(old('fiscal')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
                       @foreach($fiscal as $row)
-                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->year}}</option>
+                        <option value="{{$row->id}}" {{old('fiscal')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->year}}</option>
                       @endforeach
                       </select>
                       @error('fiscal')
@@ -180,8 +186,11 @@
                     <label for="itemtype" class="col-sm-3 col-form-label">Jenis Barang</label>
                     <div class="col-sm-9">
                       <select class="select2bs4 form-control" name="itemtype" data-placeholder="Pilih Jenis Barang" style="width: 100%;">
+                      @if(empty(old('itemtype')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
                       @foreach($itemtype as $row)
-                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->typename}}</option>
+                        <option value="{{$row->id}}" {{old('itemtype')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->typename}}</option>
                       @endforeach
                       </select>
                       @error('itemtype')
@@ -193,8 +202,11 @@
                     <label for="storeroom" class="col-sm-3 col-form-label">Tempat Penyimpanan</label>
                     <div class="col-sm-9">
                       <select class="select2bs4 form-control" name="storeroom" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
+                      @if(empty(old('storeroom')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
                       @foreach($storeroom as $row)
-                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->roomname}}</option>
+                        <option value="{{$row->id}}" {{old('storeroom')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->roomname}}</option>
                       @endforeach
                       </select>
                       @error('storeroom')
@@ -214,7 +226,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Deskripsi Barang</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" rows="3" placeholder="Deksripsi Barang ..."></textarea>
+                      <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Deksripsi Barang ...">{{ old('description') }}</textarea>
                       @error('description')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -223,7 +235,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Tanggal Pembelian</label>
                     <div class="col-sm-9 input-group date">
-                        <input type="text" name="purchase_date" id="tglbeli" value="{{ old('purchase_date') }}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
+                        <input type="text" name="purchase_date" id="tglbeli" value="{{old('purchase_date')}}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>

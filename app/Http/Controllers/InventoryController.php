@@ -176,9 +176,9 @@ class InventoryController extends Controller
     {
         //dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'purchase_date' => 'nullable|date',
-            'picture' => 'file|mimes:jpg,png,jpeg|max:2048',
+            'name' => 'required|size:12',
+            'purchase_date' => 'required|date',
+            'picture' => 'required|file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -191,12 +191,12 @@ class InventoryController extends Controller
         $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
         $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
         $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
+        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_org'];
         
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
             $ext = $file->extension();
             $filename = $file_inv.".".$ext;
-            $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_org'];
             $invpath= $this->imgResWat($file,$destpath,$filename);
         }else{
             $invpath='';
