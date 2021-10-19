@@ -23,6 +23,14 @@ use QrCode;
 
 class InventoryController extends Controller
 {
+    public function cek($code)
+    {
+        //dd($code);
+        $inv=Inventory::where('qrcode', $code)->get();
+        foreach($inv as $row){
+            print($row->name.'<br>');
+        }
+    }
     public function index()
     {
         $org_id=Auth::user()->organitation_id;
@@ -147,11 +155,11 @@ class InventoryController extends Controller
         return $path;
     }
 
-    function makeQr($qrtext,$size){
-        $fileqr=$qrtext.".png";
+    function makeQr($qrfile,$text,$size){
+        $fileqr=$qrfile.".png";
         QrCode::size($size)
             ->format('png')
-            ->generate($qrtext, public_path('qrcode/'.$fileqr));
+            ->generate($text, public_path('qrcode/'.$fileqr));
         $pathqr='qrcode/'.$fileqr;
         return $pathqr;
     }
@@ -197,7 +205,7 @@ class InventoryController extends Controller
             'bad_qty' => $request->input('bad_qty'),
             'lose_qty' => $request->input('lose_qty'),
             'picture' => $invpath,
-            'qrpicture' =>$this->makeQr($file_inv,500),
+            'qrpicture' =>$this->makeQr($file_inv,$qrcode_inv,500),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,

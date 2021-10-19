@@ -142,6 +142,8 @@
                         @else
                           <img src="{{$row->qrpicture}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
                         @endif
+                        <br>
+                        {{$row->qrcode}}
                       </td>
                       <td>{{$row->name}}</td>
                       <td>

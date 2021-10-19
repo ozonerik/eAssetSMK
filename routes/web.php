@@ -27,8 +27,11 @@ Route::get('/home', function () {return view('pages.home');})->name('home');
 Route::get('/login', [LoginController::class, 'getLogin'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::post('/logout', [LoginController::class, 'logout']);
+//cek barang
+Route::get('/cek/{code}', [InventoryController::class, 'cek'] )->name('inventory.cek');
 //backend page
 Route::group(['middleware' => ['auth']], function () {
+    //Route::get('/cek/{code}', [InventoryController::class, 'cek'] )->name('inventory.cek');
     // role untuk yang auth
     Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
     //menu profile
