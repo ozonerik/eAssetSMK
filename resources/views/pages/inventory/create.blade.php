@@ -194,7 +194,7 @@
                     <div class="col-sm-9">
                       <select class="select2bs4 form-control" name="storeroom" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
                       @foreach($storeroom as $row)
-                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->storagename}}</option>
+                        <option value="{{$row->id}}">[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->roomname}}</option>
                       @endforeach
                       </select>
                       @error('storeroom')
