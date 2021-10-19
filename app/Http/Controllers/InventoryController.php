@@ -146,21 +146,21 @@ class InventoryController extends Controller
     //fungsi resize picture and watermark
     function imgResWat($source,$dest,$filename){
         $img = Image::make($source->path());
-        $source->move(public_path($dest), $filename);
+        $source->move(public_path('photo/'.$dest), $filename);
         //aspect ratio 16:9
         $img->resize(960,540);
         $img->insert(public_path('img/watermark_logo.png'), 'bottom-right');
-        $img->save(public_path($dest).'/'.$filename);
-        $path = $dest.'/'.$filename;
+        $img->save(public_path('photo/'.$dest).'/'.$filename);
+        $path = 'photo/'.$dest.'/'.$filename;
         return $path;
     }
 
-    function makeQr($qrfile,$text,$size){
+    function makeQr($code_org,$qrfile,$text,$size){
         $fileqr=$qrfile.".png";
         QrCode::size($size)
             ->format('png')
-            ->generate($text, public_path('qrcode/'.$fileqr));
-        $pathqr='qrcode/'.$fileqr;
+            ->generate($text, public_path('qrcode/'.$code_org.'/'.$fileqr));
+        $pathqr='qrcode/'.$code_org.'/'.$fileqr;
         return $pathqr;
     }
 
@@ -188,7 +188,7 @@ class InventoryController extends Controller
             $file = $request->file('picture');
             $ext = $file->extension();
             $filename = $file_inv.".".$ext;
-            $destpath = 'photo';
+            $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_org'];
             $invpath= $this->imgResWat($file,$destpath,$filename);
         }else{
             $invpath='';
@@ -205,7 +205,7 @@ class InventoryController extends Controller
             'bad_qty' => $request->input('bad_qty'),
             'lose_qty' => $request->input('lose_qty'),
             'picture' => $invpath,
-            'qrpicture' =>$this->makeQr($file_inv,$qrcode_inv,500),
+            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('inventory.cek',$qrcode_inv),500),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,
