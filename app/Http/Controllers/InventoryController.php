@@ -157,6 +157,14 @@ class InventoryController extends Controller
 
     function makeQr($code_org,$qrfile,$text,$size){
         $fileqr=$qrfile.".png";
+        $folderPath = public_path('qrcode/'.$code_org);
+        if (!file_exists($folderPath)) {
+            /**
+           * 0755 - Permission
+           * true - recursive?
+           */
+          mkdir($folderPath, 0755, true);
+        }
         QrCode::size($size)
             ->format('png')
             ->generate($text, public_path('qrcode/'.$code_org.'/'.$fileqr));
