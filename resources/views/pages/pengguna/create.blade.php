@@ -14,7 +14,7 @@
       $('.select2').select2()
       $('.select2-selection').css('border-color','#DEE2E6');
       //Initialize Select2 Elements
-      $('.select2bs4').prepend('<option selected=""></option>').select2({
+      $('.select2bs4').select2({
       theme: 'bootstrap4',
       allowClear: true
       })
@@ -103,10 +103,11 @@
                     <label for="roles" class="col-sm-2 col-form-label">Organitation</label>
                     <div class="col-sm-10">
                       <select style="width: 100%;" data-placeholder="Select a Organitation" class="select2bs4 form-control @error('organitation') is-invalid @enderror" name="organitation">
+                      @if(empty(old('organitation')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
                       @foreach($organitation as $o)
-                        <option value="{{$o->id}}"
-                        {{in_array( $o->id, collect(old('organitation'))->toArray() ) ? ' selected="selected" ':''}}
-                        >{{Str::upper($o->shortname)}}</option>
+                        <option value="{{$o->id}}" {{old('organitation')==$o->id ? ' selected="selected" ' : ''}} >{{Str::upper($o->shortname)}}</option>
                       @endforeach
                       </select>
                       @error('organitation')
