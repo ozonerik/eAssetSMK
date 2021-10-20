@@ -150,7 +150,7 @@
                         @endif
                       </td>
                       <td class="font-size">
-                        <br>
+                        <br class="d-md-none">
                         <b>Code :</b> {{Str::upper($row->qrcode)}}<br>
                         <b>Nama :</b> {{$row->name}}<br>
                         <b>Tgl.Beli :</b> @empty($row->purchase_date) - @else {{date('d/m/Y', strtotime($row->purchase_date))}} @endempty<br>
