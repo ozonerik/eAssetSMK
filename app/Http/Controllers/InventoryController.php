@@ -31,6 +31,10 @@ class InventoryController extends Controller
             print($row->name.'<br>');
         }
     }
+    public function grafik()
+    {
+        return view('pages.inventory.graph');
+    }
     public function index()
     {
         $org_id=Auth::user()->organitation_id;

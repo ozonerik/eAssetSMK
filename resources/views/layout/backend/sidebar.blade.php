@@ -125,6 +125,17 @@
                       <p>Inventaris</p>
                     </a>
                   </li>
+                  <!-- menu grafik--> 
+                  <li class="nav-item">
+                  @sectionMissing('menu_graph') 
+                    <a href="/inventory/graph" class="nav-link"> 
+                  @else 
+                      @yield('menu_graph') 
+                  @endif
+                      <i class="far fa-circle nav-icon text-success"></i>
+                      <p>Grafik Inventaris</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
             <!-- end menu asset -->
