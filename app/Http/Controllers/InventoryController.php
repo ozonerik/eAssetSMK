@@ -176,9 +176,9 @@ class InventoryController extends Controller
     {
         //dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name' => 'required|size:12',
-            'purchase_date' => 'required|date',
-            'picture' => 'required|file|mimes:jpg,png,jpeg|max:2048',
+            'name' => 'required',
+            'purchase_date' => 'date',
+            'picture' => 'file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         if ($validator->fails()) {

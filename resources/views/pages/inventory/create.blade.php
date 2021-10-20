@@ -235,7 +235,14 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Tanggal Pembelian</label>
                     <div class="col-sm-9 input-group date">
-                        <input type="text" name="purchase_date" id="tglbeli" value="{{old('purchase_date')}}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
+                        @php
+                        if(empty(old('purchase_date'))){
+                          $old_purchase='';
+                        }else{
+                          $old_purchase= date('d/m/Y', strtotime(old('purchase_date')));
+                        };
+                        @endphp
+                        <input type="text" name="purchase_date" id="tglbeli" value="{{$old_purchase}}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
