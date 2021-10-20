@@ -104,10 +104,10 @@
                     <label for="roles" class="col-sm-2 col-form-label">Organitation</label>
                     <div class="col-sm-10">
                       @php
-                          $old_org = (old('_token') !== null) ? collect(old('organitation')) : $user->organitation()->get()->pluck('id')->implode(',');                
+                          $old_org = (old('_token') !== null) ? old('organitation') : $user->organitation_id;                
                       @endphp
                       <select class="select2bs4 form-control @error('organitation') is-invalid @enderror" name="organitation" style="width: 100%;">
-                      @if($old_org=="")
+                      @if(empty($old_org))
                       <option value="" selected="selected" >&nbsp;</option>
                       @endif
                       @foreach($organitation as $o)
