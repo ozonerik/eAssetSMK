@@ -293,8 +293,8 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Hilang]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="lose_qty" value="{{ old('lose_qty') }}"class="form-control @error('lose_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
-                      @error('lose_qty')
+                      <input type="number" name="lost_qty" value="{{ old('lost_qty') }}"class="form-control @error('lost_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
+                      @error('lost_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
                     </div>

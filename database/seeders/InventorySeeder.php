@@ -24,7 +24,7 @@ class InventorySeeder extends Seeder
             'good_qty' => '15',
             'med_qty' => '0',
             'bad_qty' => '0',
-            'lose_qty' => '0',
+            'lost_qty' => '0',
             'picture' => '',
             'qrpicture' => '',
             'budgeting_id' => '1',

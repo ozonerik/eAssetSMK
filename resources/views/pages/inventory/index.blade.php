@@ -122,11 +122,9 @@
                     <tr>
                       <th scope="col"><input type="checkbox" id="master"></th>
                       <th scope="col">No</th>
-                      <th scope="col">QrCode</th>
-                      <th scope="col">Nama Barang</th>
+                      <th scope="col">Qrcode</th>
                       <th scope="col">Foto Barang</th>
-                      <th scope="col">Organitation</th>
-                      <th scope="col">By</th>
+                      <th scope="col">Deskripsi</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -135,26 +133,30 @@
                   @foreach($inventory as $row)
                     <tr>
                       <td><input type="checkbox" class="sub_chk" name="invid" value="{{$row->id}}" data-name="{{$row->qrcode}}"></td>  
-                      <th scope="row">{{ $no++ }}</th>
-                      <td>
+                      <th scope="row" class="align-middle">{{ $no++ }}</th>
+                      <td class="align-middle">
                         @if(empty($row->qrpicture))
                           <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
                         @else
                           <img src="{{$row->qrpicture}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
                         @endif
                         <br>
-                        {{$row->qrcode}}
                       </td>
-                      <td>{{$row->name}}</td>
-                      <td>
+                      <td class="align-middle">
                         @if(empty($row->picture))
                           <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                         @else
                           <img src="{{$row->picture}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                         @endif
                       </td>
-                      <td>{{Str::upper($row->organitation->shortname)}}</td>
-                      <td>{{$row->user->name}}</td>
+                      <td class="font-size">
+                        <b>Code :</b> {{Str::upper($row->qrcode)}}<br>
+                        <b>Nama :</b> {{$row->name}}<br>
+                        <b>Tgl.Beli :</b> @empty($row->purchase_date) - @else {{date('d/m/Y', strtotime($row->purchase_date))}} @endempty<br>
+                        <b>Harga Beli :</b> Rp. {{number_format($row->purchase_price,0,',','.')}}<br>
+                        <b>Jumlah:</b> B= @empty($row->good_qty) 0 @else {{$row->good_qty}} @endempty , S= @empty($row->med_qty) 0 @else {{$row->med_qty}} @endempty ,  R= @empty($row->bad_qty) 0 @else {{$row->bad_qty}} @endempty , H= @empty($row->lost_qty) 0 @else {{$row->lost_qty}} @endempty<br>
+                        <b>By :</b> [{{Str::upper($row->organitation->shortname)}}] {{$row->user->name}}<br>
+                      </td>
                       <td>
                       @hasanyrole('admin|kabeng')
                         @can('update.inventaris')
@@ -187,7 +189,7 @@
                   </tbody>
                 @else
                 <tr>
-                  <td colspan="8" class="text-center text-danger">Tidak Memiliki Akses Read Inventaris </td>
+                  <td colspan="6" class="text-center text-danger">Tidak Memiliki Akses Read Inventaris </td>
                 </tr>
                 @endcan
                 </table>

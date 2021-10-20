@@ -19,7 +19,7 @@ class Inventory extends Model
         'good_qty',
         'med_qty',
         'bad_qty',
-        'lose_qty',
+        'lost_qty',
         'picture',
         'qrpicture',
         'budgeting_id',

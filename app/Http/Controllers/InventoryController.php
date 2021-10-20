@@ -177,8 +177,8 @@ class InventoryController extends Controller
         //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'purchase_date' => 'date',
-            'picture' => 'file|mimes:jpg,png,jpeg|max:2048',
+            'purchase_date' => 'nullable|date',
+            'picture' => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -211,7 +211,7 @@ class InventoryController extends Controller
             'good_qty' => $request->input('good_qty'),
             'med_qty' => $request->input('med_qty'),
             'bad_qty' => $request->input('bad_qty'),
-            'lose_qty' => $request->input('lose_qty'),
+            'lost_qty' => $request->input('lost_qty'),
             'picture' => $invpath,
             'qrpicture' =>$this->makeQr($destpath,$file_inv,route('inventory.cek',$qrcode_inv),500),
             'budgeting_id' => $budget_id,
