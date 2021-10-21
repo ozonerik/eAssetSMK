@@ -31,10 +31,29 @@ class InventoryController extends Controller
             print($row->name.'<br>');
         }
     }
+
+    function datagraph($budgeting_id){
+            $org_id=Auth::user()->organitation_id;
+            $data['budget']=Inventory::selectRaw("sum(good_qty) as good, sum(med_qty) as med, sum(bad_qty) as bad, sum(lost_qty) as lost")
+                        ->where('organitation_id', $org_id)
+                        ->where('budgeting_id', $budgeting_id)
+                        ->groupBy('budgeting_id')
+                        ->get();
+            return $data;
+    }
+
     public function grafik()
     {
-        return view('pages.inventory.graph');
+        $org_id=Auth::user()->organitation_id;
+        $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
+                        ->where('organitation_id', $org_id)
+                        ->groupBy('budgeting_id')
+                        ->get();
+        $data['budget']=$budget;
+        //dd($data->toJson(JSON_NUMERIC_CHECK ));
+        return view('pages.inventory.graph',$data);
     }
+
     public function index()
     {
         $org_id=Auth::user()->organitation_id;

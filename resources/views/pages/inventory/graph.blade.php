@@ -2,6 +2,48 @@
 @push('css')
 @endpush
 @push('scripts')
+<!-- ChartJS -->
+<script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
+<script>
+  $(function () {
+
+    var jsonData=<?php echo json_encode($budget); ?>;
+    
+    const selectbudget = document.getElementById('selectbudget');
+    selectbudget.addEventListener('change',budgetTracker)
+    function budgetTracker(){
+      console.log(selectbudget.value.split(','));
+      myChart.data.datasets[0].data=selectbudget.value.split(',');
+      myChart.update();
+    }
+
+    var ctx = document.getElementById('chart1').getContext('2d')
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: 
+          {
+            labels: [
+                'Baik',
+                'Sedang',
+                'Rusak',
+                'Hilang'
+            ],
+            datasets: [
+              {
+                data: [700,500,400,600],
+                backgroundColor : ['#0464FF', '#00F15C', '#FFDB00', '#FD3434'],
+              }
+            ]
+          },
+      options: 
+          {
+            maintainAspectRatio : false,
+            responsive : true,
+          }
+    })
+
+  })
+</script>
 @endpush
 @section('judul_hal','Grafik Inventaris')
 @section('header_hal')
@@ -23,7 +65,7 @@
           <!-- Left col -->
           <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
-            <div class="card card-outline card-dark">
+            <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">
                   Judul Grafik 1
@@ -38,7 +80,14 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-                Isi Grafik 1
+                <label>Select</label>
+                <select class="form-control" id="selectbudget">
+                  <option value="">&nbsp;</option>
+                  @foreach($budget as $row)
+                  <option value="{{$row->datagraph}}">{{$row->budgeting_id}}</option>
+                  @endforeach
+                </select>
+                <canvas id="chart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -48,7 +97,7 @@
           <!-- right col -->
           <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
-            <div class="card card-outline card-dark">
+            <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">
                   Judul Grafik 2
@@ -63,7 +112,7 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-                Isi Grafik 2
+                  <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
