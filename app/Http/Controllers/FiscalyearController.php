@@ -17,7 +17,7 @@ class FiscalyearController extends Controller
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
-            $data['fiscal'] = Fiscalyear::all();
+            $data['fiscal'] = Fiscalyear::orderBy('organitation_id', 'asc')->get();
         }else{
             $data['fiscal'] = Fiscalyear::where('organitation_id', $org_id)->get();
         }

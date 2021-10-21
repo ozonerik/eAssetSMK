@@ -17,7 +17,7 @@ class BudgetingController extends Controller
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
-            $data['budget'] = Budgeting::all();
+            $data['budget'] = Budgeting::orderBy('organitation_id', 'asc')->get();
         }else{
             $data['budget'] = Budgeting::where('organitation_id', $org_id)->get();
         }

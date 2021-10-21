@@ -65,8 +65,8 @@
       "responsive": true,
       "order": [[ 1, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [5] },
-        { "searchable": false, "targets": [5] }
+        { "orderable": false, "targets": [0,5] },
+        { "searchable": false, "targets": [0,5] }
       ]
     });
   });

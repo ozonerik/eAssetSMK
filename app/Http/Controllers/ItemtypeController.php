@@ -17,7 +17,7 @@ class ItemtypeController extends Controller
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
-            $data['itemtype'] = Itemtype::all();
+            $data['itemtype'] = Itemtype::orderBy('organitation_id', 'asc')->get();
         }else{
             $data['itemtype'] = Itemtype::where('organitation_id', $org_id)->get();
         }

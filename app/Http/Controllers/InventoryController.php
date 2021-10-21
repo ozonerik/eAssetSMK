@@ -45,11 +45,24 @@ class InventoryController extends Controller
     public function grafik()
     {
         $org_id=Auth::user()->organitation_id;
-        $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
-                        ->where('organitation_id', $org_id)
-                        ->groupBy('budgeting_id')
-                        ->with('budgeting')
-                        ->get();
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        
+        if($user->hasRole(['admin'])){
+            //budgeting admin
+            $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
+            ->groupBy('budgeting_id')
+            ->with('budgeting')
+            ->get();
+        }else{
+            //budgeting
+            $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
+            ->where('organitation_id', $org_id)
+            ->groupBy('budgeting_id')
+            ->with('budgeting')
+            ->get();
+        }
+
+
         $data['budget']=$budget;
         //dd($data['budget']->toArray());
         return view('pages.inventory.graph',$data);
@@ -60,7 +73,7 @@ class InventoryController extends Controller
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
-            $data['inventory'] = Inventory::all();
+            $data['inventory'] = Inventory::orderBy('qrcode', 'asc')->get();
         }else{
             $data['inventory'] = Inventory::where('organitation_id', $org_id)->get();
         }
@@ -75,55 +88,23 @@ class InventoryController extends Controller
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         
         if($user->hasRole(['admin'])){
-            $data['budgeting']= Budgeting::all()->sortBy(
-                    [
-                        ['organitation_id', 'asc'],
-                        ['code', 'asc'],
-                    ]
-                );
-            $data['fiscal']= Fiscalyear::all()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['code', 'asc'],
-                ]
-            );
-            $data['itemtype']= Itemtype::all()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['code', 'asc'],
-                ]
-            );
-            $data['storeroom']= Storeroom::all()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['shortname', 'asc'],
-                ]
-            );
+            $data['budgeting']= Budgeting::orderBy('organitation_id', 'asc')
+                                ->orderBy('code', 'asc')
+                                ->get();
+            $data['fiscal']= Fiscalyear::orderBy('organitation_id', 'asc')
+                                ->orderBy('code', 'asc')
+                                ->get();                            
+            $data['itemtype']= Itemtype::orderBy('organitation_id', 'asc')
+                                ->orderBy('code', 'asc')
+                                ->get();
+            $data['storeroom']= Storeroom::orderBy('organitation_id', 'asc')
+                                ->orderBy('shortname', 'asc')
+                                ->get();
         }else{
-            $data['budgeting']= Budgeting::where('organitation_id', $org_id)->get()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['code', 'asc'],
-                ]
-            );
-            $data['fiscal']= Fiscalyear::where('organitation_id', $org_id)->get()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['code', 'asc'],
-                ]
-            );
-            $data['itemtype']= Itemtype::where('organitation_id', $org_id)->get()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['code', 'asc'],
-                ]
-            );
-            $data['storeroom']= Storeroom::where('organitation_id', $org_id)->get()->sortBy(
-                [
-                    ['organitation_id', 'asc'],
-                    ['shortname', 'asc'],
-                ]
-            );
+            $data['budgeting']= Budgeting::where('organitation_id', $org_id)->orderBy('code', 'asc')->get();
+            $data['fiscal']= Fiscalyear::where('organitation_id', $org_id)->orderBy('code', 'asc')->get();
+            $data['itemtype']= Itemtype::where('organitation_id', $org_id)->orderBy('code', 'asc')->get();
+            $data['storeroom']= Storeroom::where('organitation_id', $org_id)->orderBy('shortname', 'asc')->get();
         }
         
         return view('pages.inventory.create',$data);

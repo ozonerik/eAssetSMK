@@ -17,7 +17,7 @@ class StoreroomController extends Controller
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
-            $data['storeroom'] = Storeroom::all();
+            $data['storeroom'] = Storeroom::orderBy('organitation_id', 'asc')->get();
         }else{
             $data['storeroom'] = Storeroom::where('organitation_id', $org_id)->get();
         }
