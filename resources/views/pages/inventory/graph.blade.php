@@ -30,7 +30,7 @@
             ],
             datasets: [
               {
-                data: [700,500,400,600],
+                data: [0,0,0,0],
                 backgroundColor : ['#0464FF', '#00F15C', '#FFDB00', '#FD3434'],
               }
             ]
@@ -68,7 +68,7 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">
-                  Judul Grafik 1
+                  Kondisi Barang Berdasarkan Sumber Dana
                 </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-sm" data-card-widget="collapse">
@@ -80,11 +80,11 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-                <label>Select</label>
+                <label>Sumber Dana</label>
                 <select class="form-control" id="selectbudget">
                   <option value="">&nbsp;</option>
                   @foreach($budget as $row)
-                  <option value="{{$row->datagraph}}">{{$row->budgeting_id}}</option>
+                  <option value="{{$row->datagraph}}">{{$row->budgeting->name}}</option>
                   @endforeach
                 </select>
                 <canvas id="chart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>

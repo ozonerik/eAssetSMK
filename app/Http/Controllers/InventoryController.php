@@ -48,9 +48,10 @@ class InventoryController extends Controller
         $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
                         ->where('organitation_id', $org_id)
                         ->groupBy('budgeting_id')
+                        ->with('budgeting')
                         ->get();
         $data['budget']=$budget;
-        //dd($data->toJson(JSON_NUMERIC_CHECK ));
+        //dd($data['budget']->toArray());
         return view('pages.inventory.graph',$data);
     }
 
