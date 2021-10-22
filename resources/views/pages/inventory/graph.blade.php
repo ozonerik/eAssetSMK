@@ -1,7 +1,9 @@
 @extends('layout.backend.main')
 @push('css')
+@livewireStyles
 @endpush
 @push('scripts')
+@livewireScripts
 <!-- ChartJS -->
 <script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
 <script>
@@ -112,6 +114,7 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
+              <livewire:counter />
                   <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
               </div><!-- /.card-body -->
             </div>
