@@ -2,14 +2,14 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/u8195880/public_html/eassetsmk/
-    - /bin/cp -R app $DEPLOYPAT
-    - /bin/cp -R bootstrap $DEPLOYPAT
-    - /bin/cp -R config $DEPLOYPAT
-    - /bin/cp -R database $DEPLOYPAT
-    - /bin/cp -R resources $DEPLOYPAT
-    - /bin/cp -R route $DEPLOYPAT
-    - /bin/cp -R storage $DEPLOYPAT
-    - /bin/cp -R test $DEPLOYPAT
+    - /bin/cp -R app $DEPLOYPATH
+    - /bin/cp -R bootstrap $DEPLOYPATH
+    - /bin/cp -R config $DEPLOYPATH
+    - /bin/cp -R database $DEPLOYPATH
+    - /bin/cp -R resources $DEPLOYPATH
+    - /bin/cp -R route $DEPLOYPATH
+    - /bin/cp -R storage $DEPLOYPATH
+    - /bin/cp -R test $DEPLOYPATH
     - /bin/cp .editorconfig $DEPLOYPATH
     - /bin/cp .env.example $DEPLOYPATH
     - /bin/cp .gitattributes $DEPLOYPATH
