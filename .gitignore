@@ -4,6 +4,8 @@
 /storage/*.key
 /vendor
 .xlsx
+.sql
+.zip
 .env
 .env.backup
 .phpunit.result.cache
