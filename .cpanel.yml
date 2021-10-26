@@ -2,4 +2,24 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/u8195880/public_html/eassetsmk/
+    - /bin/cp -R app $DEPLOYPAT
+    - /bin/cp -R bootstrap $DEPLOYPAT
+    - /bin/cp -R config $DEPLOYPAT
+    - /bin/cp -R database $DEPLOYPAT
+    - /bin/cp -R resources $DEPLOYPAT
+    - /bin/cp -R route $DEPLOYPAT
+    - /bin/cp -R storage $DEPLOYPAT
+    - /bin/cp -R test $DEPLOYPAT
+    - /bin/cp .editorconfig $DEPLOYPATH
+    - /bin/cp .env.example $DEPLOYPATH
+    - /bin/cp .gitattributes $DEPLOYPATH
+    - /bin/cp .gitignore $DEPLOYPATH
+    - /bin/cp .styleci.yml $DEPLOYPATH
     - /bin/cp README.md $DEPLOYPATH
+    - /bin/cp artisan $DEPLOYPATH
+    - /bin/cp composer.json $DEPLOYPATH
+    - /bin/cp composer.lock $DEPLOYPATH
+    - /bin/cp package.json $DEPLOYPATH
+    - /bin/cp phpunit.xml $DEPLOYPATH
+    - /bin/cp server.php $DEPLOYPATH
+    - /bin/cp webpack.mix.js $DEPLOYPATH
