@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/u8195880/public_html/eassetsmk/
+    - /bin/cp README.md $DEPLOYPATH

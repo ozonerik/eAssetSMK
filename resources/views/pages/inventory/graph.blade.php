@@ -1,64 +1,81 @@
 @extends('layout.backend.main')
 @push('css')
-@livewireStyles
+  @livewireStyles
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{url('plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 @endpush
 @push('scripts')
-@livewireScripts
-<!-- ChartJS -->
-<script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
-<script>
-  $(function () {
-
-    var jsonData=<?php echo json_encode($budget); ?>;
-    
-    const selectbudget = document.getElementById('selectbudget');
-    selectbudget.addEventListener('change',budgetTracker)
-    function budgetTracker(){
-      console.log(selectbudget.value.split(','));
-      myChart.data.datasets[0].data=selectbudget.value.split(',');
-      myChart.update();
-    }
-
-    var ctx = document.getElementById('chart1').getContext('2d')
-    const myChart = new Chart(ctx, {
-      type: 'pie',
-      data: 
-          {
-            labels: [
-                'Baik',
-                'Sedang',
-                'Rusak',
-                'Hilang'
-            ],
-            datasets: [
-              {
-                data: [0,0,0,0],
-                backgroundColor : ['#0464FF', '#00F15C', '#FFDB00', '#FD3434'],
-              }
-            ]
-          },
-      options: 
-          {
-            maintainAspectRatio : false,
-            responsive : true,
-          }
+  @livewireScripts
+  <!-- Select2 -->
+  <script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
+  <script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+        $('.select2-selection').css('border-color','#DEE2E6');
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+        theme: 'bootstrap4',
+        allowClear: true
+        })
     })
+  </script>
+  <!-- ChartJS -->
+  <script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
+  <script>
+    $(function () {
 
-  })
-</script>
+      var jsonData=<?php echo json_encode($budget); ?>;
+      
+      const selectbudget = document.getElementById('selectbudget');
+      selectbudget.addEventListener('change',budgetTracker)
+      function budgetTracker(){
+        console.log(selectbudget.value.split(','));
+        myChart.data.datasets[0].data=selectbudget.value.split(',');
+        myChart.update();
+      }
+
+      var ctx = document.getElementById('chart1').getContext('2d')
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: 
+            {
+              labels: [
+                  'Baik',
+                  'Sedang',
+                  'Rusak',
+                  'Hilang'
+              ],
+              datasets: [
+                {
+                  data: [0,0,0,0],
+                  backgroundColor : ['#0464FF', '#00F15C', '#FFDB00', '#FD3434'],
+                }
+              ]
+            },
+        options: 
+            {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+      })
+
+    })
+  </script>
 @endpush
 @section('judul_hal','Grafik Inventaris')
 @section('header_hal')
-<li class="breadcrumb-item"><a href="#">Asset</a></li>
-<li class="breadcrumb-item active">Grafik Inventaris</li>
+  <li class="breadcrumb-item"><a href="#">Asset</a></li>
+  <li class="breadcrumb-item active">Grafik Inventaris</li>
 @endsection
 <!-- main menu sidebar -->
 @section('menu_asset') 
-<li class="nav-item menu-open">
+  <li class="nav-item menu-open">
 @endsection
 <!-- sub menu sidebar -->
 @section('menu_graph')
-<a href="/inventory/graph" class="nav-link active">
+  <a href="/inventory/graph" class="nav-link active">
 @endsection
 
 @section('konten')  
@@ -114,8 +131,7 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-              <livewire:counter />
-                  <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <livewire:livegraph />
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
