@@ -185,7 +185,7 @@ class InventoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'purchase_date' => 'nullable|date',
-            'picture' => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
+            'picture' => 'nullable|image',
         ]);
 
         if ($validator->fails()) {
