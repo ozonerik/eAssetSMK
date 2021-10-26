@@ -304,7 +304,7 @@
                   <label class="col-sm-3 col-form-label">Upload Foto Barang</label>
                   <div class="col-sm-9">
                     <div class='custom-file '>
-                          <input id='file-upload' type='file' name='picture' class='custom-file-input' id='photo_inv' accept="image/*" capture>
+                          <input id='file-upload' type='file' name='picture' class='custom-file-input' id='photo_inv' accept="image/*" >
                           <label id='file-name' class='custom-file-label' style="color:#939ba2" for='photo_inv'>Upload Foto Barang ...</label>
                     </div>
                   </div>
