@@ -76,7 +76,8 @@
     language:'id',
     todayBtn:'linked',
     todayHighlight:true,
-    format: 'dd/mm/yyyy'
+    format: 'dd/mm/yyyy',
+    endDate: '0',
   })
 </script>
 <script>
@@ -303,7 +304,7 @@
                   <label class="col-sm-3 col-form-label">Upload Foto Barang</label>
                   <div class="col-sm-9">
                     <div class='custom-file '>
-                          <input id='file-upload' type='file' name='picture' class='custom-file-input' id='photo_inv' accept="image/*" capture="camera">
+                          <input id='file-upload' type='file' name='picture' class='custom-file-input' id='photo_inv' accept="image/*" capture>
                           <label id='file-name' class='custom-file-label' style="color:#939ba2" for='photo_inv'>Upload Foto Barang ...</label>
                     </div>
                   </div>
