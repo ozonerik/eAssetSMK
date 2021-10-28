@@ -1,42 +1,26 @@
 @extends('layout.backend.main')
 @push('css')
   @livewireStyles
-  <!-- Select2 -->
-  <link rel="stylesheet" href="{{url('plugins/select2/css/select2.min.css')}}">
-  <link rel="stylesheet" href="{{url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 @endpush
 @push('scripts')
   @livewireScripts
-  <!-- Select2 -->
-  <script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
-  <script>
-    $(function () {
-        //Initialize Select2 Elements
-        $('.select2').select2()
-        $('.select2-selection').css('border-color','#DEE2E6');
-        //Initialize Select2 Elements
-        $('.select2bs4').select2({
-        theme: 'bootstrap4',
-        allowClear: true
-        })
-    })
-  </script>
   <!-- ChartJS -->
   <script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+  <!-- graph 2 -->
   <script>
     $(function () {
+      const data2 = document.getElementById('data2');
 
-      var jsonData=<?php echo json_encode($budget); ?>;
-      
-      const selectbudget = document.getElementById('selectbudget');
-      selectbudget.addEventListener('change',budgetTracker)
-      function budgetTracker(){
-        console.log(selectbudget.value.split(','));
-        myChart.data.datasets[0].data=selectbudget.value.split(',');
+      $("#btnGraph").click(graph2Tracker);
+
+      function graph2Tracker(){
+        console.log(data2.value.split(','));
+        myChart.data.datasets[0].data=data2.value.split(',');
         myChart.update();
       }
 
-      var ctx = document.getElementById('chart1').getContext('2d')
+      var ctx = document.getElementById('chart2').getContext('2d')
       const myChart = new Chart(ctx, {
         type: 'pie',
         data: 
@@ -54,10 +38,16 @@
                 }
               ]
             },
+        plugins: [ChartDataLabels],
         options: 
             {
               maintainAspectRatio : false,
               responsive : true,
+              plugins: {
+                datalabels: {
+                  color: '#000000'
+                }
+              }
             }
       })
 
@@ -81,13 +71,11 @@
 @section('konten')  
         <!-- Main row -->
         <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-6 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
+          <section class="col-lg-12 connectedSortable">
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">
-                  Kondisi Barang Berdasarkan Sumber Dana
+                  Grafik Kondisi Barang Inventaris
                 </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-sm" data-card-widget="collapse">
@@ -97,46 +85,13 @@
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
-                <label>Sumber Dana</label>
-                <select class="form-control" id="selectbudget">
-                  <option value="">&nbsp;</option>
-                  @foreach($budget as $row)
-                  <option value="{{$row->datagraph}}">{{$row->budgeting->name}}</option>
-                  @endforeach
-                </select>
-                <canvas id="chart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div><!-- /.card-body -->
+                @livewire('livegraph')
+                <canvas id="chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
             </div>
-            <!-- /.card -->
           </section>
-          <!-- /.Left col -->
-
-          <!-- right col -->
-          <section class="col-lg-6 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card card-success">
-              <div class="card-header">
-                <h3 class="card-title">
-                  Judul Grafik 2
-                </h3>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <livewire:livegraph />
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </section>
-          <!-- /.right col -->
         </div>
         <!-- /.row (main row) -->
 @endsection

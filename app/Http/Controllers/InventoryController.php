@@ -44,30 +44,7 @@ class InventoryController extends Controller
 
     public function grafik()
     {
-        $org_id=Auth::user()->organitation_id;
-        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
-        
-        if($user->hasRole(['admin'])){
-            //budgeting admin
-            $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
-            ->groupBy('budgeting_id')
-            ->with('budgeting')
-            ->orderBy('organitation_id', 'asc')
-            ->get();
-        }else{
-            //budgeting
-            $budget=Inventory::selectRaw("budgeting_id,concat(sum(good_qty),',',sum(med_qty),',',sum(bad_qty),',',sum(lost_qty)) as datagraph")
-            ->where('organitation_id', $org_id)
-            ->groupBy('budgeting_id')
-            ->with('budgeting')
-            ->orderBy('organitation_id', 'asc')
-            ->get();
-        }
-
-
-        $data['budget']=$budget;
-        //dd($data['budget']->toArray());
-        return view('pages.inventory.graph',$data);
+        return view('pages.inventory.graph');
     }
 
     public function index()
