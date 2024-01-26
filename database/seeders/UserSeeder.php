@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@test.id',
             'password' => bcrypt('12345678'),
+            'organitation_id' => '3',
         ]);
         $admin->assignRole('admin');
         $admin->givePermissionTo(['create.*','read.*', 'update.*','delete.*']);

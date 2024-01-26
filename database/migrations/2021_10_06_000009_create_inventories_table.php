@@ -21,10 +21,10 @@ class CreateInventoriesTable extends Migration
             $table->text('description')->nullable();
             $table->date('purchase_date')->nullable();
             $table->float('purchase_price',20,2)->nullable()->default('0');
-            $table->smallInteger('good_qty')->nullable()->default('0');
-            $table->smallInteger('med_qty')->nullable()->default('0');
-            $table->smallInteger('bad_qty')->nullable()->default('0');
-            $table->smallInteger('lost_qty')->nullable()->default('0');
+            $table->smallInteger('good_qty')->default('0');
+            $table->smallInteger('med_qty')->default('0');
+            $table->smallInteger('bad_qty')->default('0');
+            $table->smallInteger('lost_qty')->default('0');
             $table->string('picture')->nullable();
             $table->string('qrpicture')->nullable();
             $table->timestamps();

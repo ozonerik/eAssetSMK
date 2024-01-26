@@ -160,28 +160,25 @@
                       </td>
                       <td>
                       @hasanyrole('admin|kabeng')
-                        @can('update.inventaris')
-                        <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
-                        Edit
-                        </a> 
-                        @endcan
-                        @can('delete.inventaris')
-                        <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
-                        Delete
-                        </a> 
-                        @endcan
-                      @else
-                        @if($row->user_id == Auth::user()->id)
                           @can('update.inventaris')
-                          <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
-                          Edit
-                          </a> 
+                            <form action="{{ route('inventory.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                            @csrf
+                            @method('GET')
+                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Inventaris">Edit</button>
+                            </form>
                           @endcan
                           @can('delete.inventaris')
-                          <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
-                          Delete
-                          </a> 
+                          <form action="{{ route('inventory.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                            @csrf
+                            @method('DELETE')                      
+                            <button type="submit" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Inventaris">
+                              Delete
+                            </button>
+                            </form>
                           @endcan
+                      @else
+                        @if($row->user_id == Auth::user()->id)
+                          Tidak Memiliki Akses Update/Delete Asset
                         @endif
                       @endhasanyrole           
                       </td>

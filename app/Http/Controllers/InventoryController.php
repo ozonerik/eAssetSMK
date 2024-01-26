@@ -18,6 +18,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 use Image;
 use QrCode;
 
@@ -87,6 +88,86 @@ class InventoryController extends Controller
         }
         
         return view('pages.inventory.create',$data);
+    }
+
+    public function edit($id)
+    {
+        $id=Crypt::decryptString($id);    
+        //dd($id);
+        $data['inv'] = Inventory::with(['budgeting','fiscalyear','itemtype','storage','organitation','user'])->where('id', $id)->first();
+        $data['budgeting']= Budgeting::all();
+        $data['fiscal']= Fiscalyear::all();
+        $data['itemtype']= Itemtype::all();
+        $data['storeroom']= Storeroom::all();
+        $data['organitation']= Organitation::all();
+        return view('pages.inventory.edit',$data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        //dd($request->all());
+        $id=Crypt::decryptString($id);
+        $inv = Inventory::with(['budgeting','fiscalyear','itemtype','storage','organitation','user'])->where('id', $id)->first();
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'purchase_date' => 'nullable|date',
+            'picture' => 'nullable|image',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->with('error','Add Inventaris Failed')->withInput();
+        }
+
+        $budget_id=$request->input('budgeting');
+        $fiscal_id=$request->input('fiscal');
+        $itemtype_id=$request->input('itemtype');
+        $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
+        $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
+        $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
+        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_org'];
+        
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $ext = $file->extension();
+            $filename = $file_inv.".".$ext;
+            $invpath= $this->imgResWat($file,$destpath,$filename);
+        }else{
+            $invpath=$inv->picture;
+        }
+        $data = [
+            'no' => $no,
+            'qrcode' => $qrcode_inv,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'purchase_date' => $request->input('purchase_date'),
+            'purchase_price' => $request->input('purchase_price'),
+            'good_qty' => $request->input('good_qty'),
+            'med_qty' => $request->input('med_qty'),
+            'bad_qty' => $request->input('bad_qty'),
+            'lost_qty' => $request->input('lost_qty'),
+            'picture' => $invpath,
+            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('inventory.cek',$qrcode_inv),500),
+            'budgeting_id' => $budget_id,
+            'fiscalyear_id' => $fiscal_id,
+            'itemtype_id' => $itemtype_id,
+            'storeroom_id' => $request->input('storeroom'),
+            'organitation_id' => Auth::user()->organitation_id,
+            'user_id' => Auth::user()->id,
+        ];
+        //store to db
+        //dd($data);
+        $inv = Inventory::find($id);
+        $inv->update($data);
+        return redirect()->route('inventory.index')->with('success','Add Inventaris Success');
+        dd($data);
+    }
+
+    public function destroy($id)
+    {
+        $id=Crypt::decryptString($id);    
+        //dd($id);
+        Inventory::where('id',$id)->delete();
+        return redirect()->route('inventory.index')->with('success','Delete Success');
     }
 
     //fungsi membuat kode inventaris
