@@ -36,7 +36,7 @@ Prsayarat:
 
 Instalasi:
 1. Download dan Install Laragon https://laragon.org/download/index.html
-2. PHP harus versi 7.4
+2. PHP harus versi 7.4 ( https://windows.php.net/downloads/releases/archives/ )
 <pre>
 <code>
 -> git clone https://github.com/ozonerik/eAssetSMK
