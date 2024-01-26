@@ -7,25 +7,22 @@
 eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
 
 Prsayarat:
-1. extensi Imagick di PHP harus enable (<a href="Link: https://www.youtube.com/watch?v=qZ9_rq6c9uY">Totorial</a> )
+1. extensi Imagick di PHP harus enable ( https://laksmisetiawati.github.io/articles/php-windows-imagick.html )
 
 Instalasi:
-1. Install Composer: https://getcomposer.org/Composer-Setup.exe
-2. Install Git: https://git-scm.com/download/win
-3. Install xampp : https://www.apachefriends.org/xampp-files/7.4.23/xampp-windows-x64-7.4.23-0-VC15-installer.exe
-4. buka git bash 
+1. Download dan Install Laragon https://laragon.org/download/index.html
+2. PHP harus versi 7.4
 <pre>
 <code>
--> cd c:/xampp/htdocs/ejadwal
--> git clone https://github.com/smkn1krangkeng/eJadwal.git
+-> git clone https://github.com/ozonerik/eAssetSMK
 -> cd ejadwal
 -> composer install
 -> cp .env.example .env
 -> php artisan key:generate
 // buka file .env setting database:
-DB_DATABASE=ejadwal
-DB_USERNAME=ejadwal
-DB_PASSWORD=ejadwal
+DB_DATABASE=eassetsmk
+DB_USERNAME=root
+DB_PASSWORD=
 -> php artisan migrate
 -> php artisan db:seed
 // optional
