@@ -19,8 +19,9 @@ Fitur yang belum selesai:
 9. Edit,Del Asset Barang
 10. Add,Edit,Del Organisasi
 11. Detail Informasi Qrcode
-12. Print Label QrCode
-13. Print Laporan Daftar Inventaris
+12. Update status Asset via Link QrCode (user must login)
+13. Print Label QrCode
+14. Print Laporan Daftar Inventaris
 </pre>
 
 Fitur yang sudah selesai:
