@@ -6,7 +6,7 @@
 
 eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
 
-<b>Fitur yang belum selesai:</b>
+Fitur yang belum selesai:
 <code>
 1. Editing Landing Page
 2. Dashboard Information
@@ -23,7 +23,7 @@ eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah ya
 13. Print Laporan Daftar Inventaris
 </code>
 
-<b>Fitur yang sudah selesai:</b>
+Fitur yang sudah selesai:
 <code>
 1. Konfigurasi Pengguna
 2. Edit Profile
