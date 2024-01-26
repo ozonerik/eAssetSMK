@@ -7,7 +7,7 @@
 eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
 
 Fitur yang belum selesai:
-<code>
+<pre>
 1. Editing Landing Page
 2. Dashboard Information
 3. Changelogs Informations
@@ -21,15 +21,15 @@ Fitur yang belum selesai:
 11. Detail Informasi Qrcode
 12. Print Label QrCode
 13. Print Laporan Daftar Inventaris
-</code>
+</pre>
 
 Fitur yang sudah selesai:
-<code>
+<pre>
 1. Konfigurasi Pengguna
 2. Edit Profile
 3. QrCode Generate
 4. QrCode Link Status
-</code>
+</pre>
 
 Prsayarat:
 1. extensi Imagick di PHP harus enable ( https://laksmisetiawati.github.io/articles/php-windows-imagick.html )
