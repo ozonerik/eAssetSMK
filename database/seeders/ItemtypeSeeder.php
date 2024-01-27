@@ -18,7 +18,7 @@ class ItemtypeSeeder extends Seeder
             'code' => '001',
             'shortname' => 'COMP',
             'typename' => 'Peralatan Komputer',
-            'organitation_id' => '1',
+            'organitation_id' => '2',
             'user_id' => '2',
         ]);
 
@@ -26,7 +26,7 @@ class ItemtypeSeeder extends Seeder
             'code' => '002',
             'shortname' => 'CAM',
             'typename' => 'Peralatan Kamera',
-            'organitation_id' => '1',
+            'organitation_id' => '2',
             'user_id' => '3',
         ]);
 
@@ -34,7 +34,7 @@ class ItemtypeSeeder extends Seeder
             'code' => '001',
             'shortname' => 'NET',
             'typename' => 'Peralatan Jaringan',
-            'organitation_id' => '2',
+            'organitation_id' => '3',
             'user_id' => '4',
         ]);
 
@@ -42,7 +42,7 @@ class ItemtypeSeeder extends Seeder
             'code' => '002',
             'shortname' => 'BOOK',
             'typename' => 'Buku Sumber Ajar',
-            'organitation_id' => '2',
+            'organitation_id' => '3',
             'user_id' => '5',
         ]);
 

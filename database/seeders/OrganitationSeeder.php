@@ -15,19 +15,21 @@ class OrganitationSeeder extends Seeder
     public function run()
     {
         Organitation::create([
+            'code' => '00',
+            'shortname' => 'ADMIN',
+            'name' => 'Admin',
+        ]);
+
+        Organitation::create([
                 'code' => '01',
                 'shortname' => 'mm',
                 'name' => 'Multimedia',
             ]);
+        
         Organitation::create([
                 'code' => '02',
                 'shortname' => 'tkj',
                 'name' => 'Teknik Komputer dan Jaringan',
             ]);
-        Organitation::create([
-            'code' => '00',
-            'shortname' => 'ADMIN',
-            'name' => 'Admin',
-        ]);
     }
 }

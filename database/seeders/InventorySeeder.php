@@ -31,8 +31,8 @@ class InventorySeeder extends Seeder
             'fiscalyear_id' => '1',
             'itemtype_id' => '1',
             'storeroom_id' => '1',
-            'organitation_id' => '1',
-            'user_id' => '2',
+            'organitation_id' => '2',
+            'user_id' => '3',
         ]);
     }
 }

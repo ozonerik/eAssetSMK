@@ -17,28 +17,28 @@ class FiscalyearSeeder extends Seeder
         Fiscalyear::create([
             'code' => '20',
             'year' => '2020',
-            'organitation_id' => '1',
+            'organitation_id' => '2',
             'user_id' => '2',
         ]);
 
         Fiscalyear::create([
             'code' => '21',
             'year' => '2021',
-            'organitation_id' => '1',
+            'organitation_id' => '2',
             'user_id' => '3',
         ]);
 
         Fiscalyear::create([
             'code' => '20',
             'year' => '2020',
-            'organitation_id' => '2',
+            'organitation_id' => '3',
             'user_id' => '4',
         ]);
 
         Fiscalyear::create([
             'code' => '21',
             'year' => '2021',
-            'organitation_id' => '2',
+            'organitation_id' => '3',
             'user_id' => '5',
         ]);
     }

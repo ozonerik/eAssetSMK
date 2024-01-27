@@ -17,14 +17,14 @@ class StoreroomSeeder extends Seeder
         Storeroom::create([
             'shortname' => 'LAB-MM',
             'roomname' => 'Laboratorium MM',
-            'organitation_id' => '1',
+            'organitation_id' => '2',
             'user_id' => '2',
         ]);
 
         Storeroom::create([
             'shortname' => 'LAB-TKJ',
             'roomname' => 'Laboratorium TKJ',
-            'organitation_id' => '2',
+            'organitation_id' => '3',
             'user_id' => '4',
         ]);
 
