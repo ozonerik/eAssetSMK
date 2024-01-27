@@ -1,5 +1,6 @@
 <?php
-function cobahelper(){
-    $a = "ini coba helper";
+function changelogs(){
+    $a = 'versi 1.0';
+    
     return $a;
 }
