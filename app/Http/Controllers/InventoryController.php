@@ -164,8 +164,8 @@ class InventoryController extends Controller
 
     public function destroy($id)
     {
-        $id=Crypt::decryptString($id);    
-        //dd($id);
+        $id=Crypt::decryptString($id);
+        $this->hapusfile($id);
         Inventory::where('id',$id)->delete();
         return redirect()->route('inventory.index')->with('success','Delete Success');
     }
@@ -208,21 +208,42 @@ class InventoryController extends Controller
     }
     //end fungsi membuat kode inventaris
 
+    private function deletefile($pathfile){
+        if(Storage::disk('public')->exists($pathfile)){
+            Storage::disk('public')->delete($pathfile);
+        }
+    }
+
+    private function hapusfile($id){
+        $this->oldpicture = Inventory::findOrFail($id)->picture;
+        $this->oldqrpicture = Inventory::findOrFail($id)->qrpicture;
+        if(!empty($this->oldpicture)){
+            $this->deletefile($this->oldpicture);
+        }
+        if(!empty($this->oldqrpicture)){
+            $this->deletefile($this->oldqrpicture);
+        }
+    }
+
     //fungsi resize picture and watermark
     function imgResWat($source,$dest,$filename){
-        $img = Image::make($source->path());
-        $source->move(public_path('photo/'.$dest), $filename);
-        //aspect ratio 16:9
-        $img->resize(960,540);
-        $img->insert(public_path('img/watermark_logo.png'), 'bottom-right');
-        $img->save(public_path('photo/'.$dest).'/'.$filename);
-        $path = 'photo/'.$dest.'/'.$filename;
-        return $path;
+        $dir='photo'; 
+        if(!empty($source)){
+            $newpath=$source->storeAs($dir.'/'.$dest,$filename,'public');
+        }else{
+            $newpath='';
+        }
+        $path=public_path('storage/'.$newpath);
+        $img = Image::make($path)->resize(960,540)->insert(public_path('img/watermark_logo.png'), 'bottom-right');
+        $img->save($path);
+        return $newpath;
+
     }
 
     function makeQr($code_org,$qrfile,$text,$size){
         $fileqr=$qrfile.".png";
-        $folderPath = public_path('qrcode/'.$code_org);
+        $path='qrcode/'.$code_org;
+        $folderPath = public_path('storage/'.$path);
         if (!file_exists($folderPath)) {
             /**
            * 0755 - Permission
@@ -232,8 +253,8 @@ class InventoryController extends Controller
         }
         QrCode::size($size)
             ->format('png')
-            ->generate($text, public_path('qrcode/'.$code_org.'/'.$fileqr));
-        $pathqr='qrcode/'.$code_org.'/'.$fileqr;
+            ->generate($text, public_path('storage/'.$path.'/'.$fileqr));
+        $pathqr=$path.'/'.$fileqr;
         return $pathqr;
     }
 

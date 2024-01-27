@@ -136,17 +136,17 @@
                       <th scope="row" class="align-middle">{{ $no++ }}</th>
                       <td class="align-middle">
                         @if(empty($row->qrpicture))
-                          <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
+                          <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
                         @else
-                          <img src="{{$row->qrpicture}}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
+                          <img src="{{ asset('storage/'. $row->qrpicture) }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
                         @endif
                         <br>
                       </td>
                       <td class="align-middle">
                         @if(empty($row->picture))
-                          <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                          <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                         @else
-                          <img src="{{$row->picture}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                          <img src=" {{ asset('storage/'.$row->picture) }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                         @endif
                       </td>
                       <td class="font-size">
