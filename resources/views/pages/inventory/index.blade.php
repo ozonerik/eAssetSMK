@@ -167,15 +167,17 @@
                                 <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Inventaris">Edit</button>
                             </form>
                           @endcan
-                          @can('delete.inventaris')
                           <form action="{{ route('inventory.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                            @csrf
-                            @method('DELETE')                      
-                            <button type="submit" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Inventaris">
-                              Delete
-                            </button>
-                            </form>
-                          @endcan
+                          @csrf
+                          @method('DELETE')                      
+                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->name}}" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
+                        </form>
+                        
+                        @can('delete.pengguna')
+                        <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
+                          Delete
+                        </button>
+                        @endcan
                       @else
                         @if($row->user_id == Auth::user()->id)
                           Tidak Memiliki Akses Update/Delete Asset
