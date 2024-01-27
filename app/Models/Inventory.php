@@ -45,7 +45,7 @@ class Inventory extends Model
         return $this->belongsTo(Itemtype::class);
     }
 
-    public function storage()
+    public function storeroom()
     {
         return $this->belongsTo(Storeroom::class);
     }

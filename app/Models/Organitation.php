@@ -35,7 +35,7 @@ class Organitation extends Model
         return $this->hasMany(Itemtype::class);
     }
 
-    public function storage()
+    public function storeroom()
     {
         return $this->hasMany(Storeroom::class);
     }

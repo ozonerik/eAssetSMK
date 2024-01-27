@@ -27,10 +27,8 @@ class InventoryController extends Controller
     public function cek($code)
     {
         //dd($code);
-        $inv=Inventory::where('qrcode', $code)->get();
-        foreach($inv as $row){
-            print($row->name.'<br>');
-        }
+        $data['inv']=Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('qrcode', $code)->first();
+        return view('pages.cek',$data);
     }
 
     function datagraph($budgeting_id){
@@ -94,7 +92,7 @@ class InventoryController extends Controller
     {
         $id=Crypt::decryptString($id);    
         //dd($id);
-        $data['inv'] = Inventory::with(['budgeting','fiscalyear','itemtype','storage','organitation','user'])->where('id', $id)->first();
+        $data['inv'] = Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('id', $id)->first();
         $data['budgeting']= Budgeting::all();
         $data['fiscal']= Fiscalyear::all();
         $data['itemtype']= Itemtype::all();
@@ -107,7 +105,7 @@ class InventoryController extends Controller
     {
         //dd($request->all());
         $id=Crypt::decryptString($id);
-        $inv = Inventory::with(['budgeting','fiscalyear','itemtype','storage','organitation','user'])->where('id', $id)->first();
+        $inv = Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('id', $id)->first();
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'purchase_date' => 'nullable|date',
