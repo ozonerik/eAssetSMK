@@ -109,7 +109,7 @@
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
                   @can('create.penyimpanan')
-                  <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
+                  <a href="{{ route('storeroom.create') }}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Penyimpanan">
                   Add Penyimpanan
                   </a> 
                   @endcan
@@ -139,27 +139,43 @@
                       <td>{{$row->user->name}}</td>
                       <td>
                       @hasanyrole('admin|kabeng')
-                        @can('update.penyimpanan')
-                        <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
-                        Edit
-                        </a> 
-                        @endcan
-                        @can('delete.penyimpanan')
-                        <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
-                        Delete
-                        </a> 
-                        @endcan
+                          @can('update.penyimpanan')
+                            <form action="{{ route('storeroom.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                            @csrf
+                            @method('GET')
+                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Jenis Barang">Edit</button>
+                            </form>
+                          @endcan
+
+                          <form action="{{ route('storeroom.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                          @csrf
+                          @method('DELETE')                      
+                          <x-modal name="delstoreroom" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan penyimpanan <b> {{$row->roomname}} </b>" divid="{{$row->roomname}}" tombol="Delete" jenis="danger" />
+                          </form>
+                          @can('delete.penyimpanan')
+                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
+                            Delete
+                          </button>
+                          @endcan
                       @else
                         @if($row->user_id == Auth::user()->id)
                           @can('update.penyimpanan')
-                          <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Budgeting">
-                          Edit
-                          </a> 
+                            <form action="{{ route('storeroom.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                            @csrf
+                            @method('GET')
+                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Jenis Barang">Edit</button>
+                            </form>
                           @endcan
+
+                          <form action="{{ route('storeroom.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                          @csrf
+                          @method('DELETE')                      
+                          <x-modal name="delstoreroom" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan penyimpanan <b> {{$row->roomname}} </b>" divid="{{$row->roomname}}" tombol="Delete" jenis="danger" />
+                          </form>
                           @can('delete.penyimpanan')
-                          <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Budgeting">
-                          Delete
-                          </a> 
+                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
+                            Delete
+                          </button>
                           @endcan
                         @endif
                       @endhasanyrole           

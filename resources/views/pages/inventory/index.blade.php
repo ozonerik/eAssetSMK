@@ -120,7 +120,6 @@
                 <table id="inv-table" class="table table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th scope="col"><input type="checkbox" id="master"></th>
                       <th scope="col">No</th>
                       <th scope="col">Qrcode</th>
                       <th scope="col">Foto Barang</th>
@@ -131,8 +130,7 @@
                 @can('read.inventaris')
                   <tbody>
                   @foreach($inventory as $row)
-                    <tr>
-                      <td><input type="checkbox" class="sub_chk" name="invid" value="{{$row->id}}" data-name="{{$row->qrcode}}"></td>  
+                    <tr>  
                       <th scope="row" class="align-middle">{{ $no++ }}</th>
                       <td class="align-middle">
                         @if(empty($row->qrpicture))

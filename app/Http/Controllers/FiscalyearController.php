@@ -113,9 +113,6 @@ class FiscalyearController extends Controller
             }
           }
 
-        //$pathphoto=public_path('storage/photo/'.$organitation->code.'/'.$budgeting->code);
-        //$pathqrcode=public_path('storage/qrode/'.$organitation->code.'/'.$budgeting->code);
-        //$this->deleteDir($pathphoto);
         Fiscalyear::where('id',$id)->delete();
         return redirect()->route('fiscal.index')->with('success','Delete Success');
     }

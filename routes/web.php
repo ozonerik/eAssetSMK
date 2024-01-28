@@ -94,6 +94,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/pengguna/roleSel', [PenggunaController::class, 'roleSel'] )->name('pengguna.roleSel');
         //menu organitation
         Route::get('/organitation', [OrganitationController::class, 'index'] )->name('organitation.index');
+        Route::get('/organitation/add', [OrganitationController::class, 'create'] )->name('organitation.create');
+        Route::post('/organitation/store', [OrganitationController::class, 'store'] )->name('organitation.store');
+        Route::get('/organitation/edit/{id}', [OrganitationController::class, 'edit'] )->name('organitation.edit');
+        Route::post('/organitation/update/{id}', [OrganitationController::class, 'update'] )->name('organitation.update');
+        Route::delete('/organitation/del/{id}', [OrganitationController::class, 'destroy'] )->name('organitation.del');
     });
     
 

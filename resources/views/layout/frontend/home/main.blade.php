@@ -15,10 +15,6 @@
     @include('layout.frontend.home.navbar') 
     <main class="page landing-page">
         @yield('home1')
-        @yield('home2')
-        @yield('home3')
-        @yield('home4')
-        @yield('home5')
     </main>
     @include('layout.frontend.home.footer')    
     @include('layout.frontend.home.scripts') 

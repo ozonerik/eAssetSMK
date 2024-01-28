@@ -109,7 +109,7 @@
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
                   @can('create.organisasi')
-                  <a href="#" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Organitation">
+                  <a href="{{route('organitation.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Organitation">
                   Add Organitation
                   </a> 
                   @endcan
@@ -136,16 +136,24 @@
                       <td>{{Str::upper($row->shortname)}}</td>
                       <td>{{$row->name}}</td>
                       <td>
-                        @can('update.organisasi')
-                        <a href="#" class="btn btn-sm btn-primary"  role="button" data-toggle="tooltip" data-placement="top" title="Edit Organitation">
-                        Edit
-                        </a> 
-                        @endcan
-                        @can('delete.organisasi')
-                        <a href="#" class="btn btn-sm btn-danger mx-2"  role="button" data-toggle="tooltip" data-placement="top" title="Delete Organitation">
-                        Delete
-                        </a> 
-                        @endcan
+                          @can('update.organisasi')
+                            <form action="{{ route('organitation.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                            @csrf
+                            @method('GET')
+                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Organisasi">Edit</button>
+                            </form>
+                          @endcan
+
+                          <form action="{{ route('organitation.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
+                          @csrf
+                          @method('DELETE')                      
+                          <x-modal name="delorg" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset pada organisasi <b> {{$row->name}} </b>" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
+                          </form>
+                          @can('delete.organisasi')
+                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
+                            Delete
+                          </button>
+                          @endcan
                       </td>
                     </tr>
                   @endforeach

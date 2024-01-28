@@ -216,7 +216,7 @@ class InventoryController extends Controller
         $data['code_itemtype']=$code_itemtype;
         $data['qrcode_inv']=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.'.$no_inv;
         $data['file_inv'] = Str::replace('.', '_', $data['qrcode_inv']);
-        $data['path']=$code_org.'/'.$code_budget.'/'.$code_fiscal.'/'.$code_itemtype.'/'.$no_inv;
+        $data['path']=$code_org.'/'.$code_budget.'/'.$code_fiscal.'/'.$code_itemtype;
         return $data;
     }
     //end fungsi membuat kode inventaris

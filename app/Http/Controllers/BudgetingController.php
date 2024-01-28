@@ -102,6 +102,7 @@ class BudgetingController extends Controller
         $pathphoto=public_path('storage/photo/'.$organitation->code.'/'.$budgeting->code);
         $pathqrcode=public_path('storage/qrode/'.$organitation->code.'/'.$budgeting->code);
         $this->deleteDir($pathphoto);
+        $this->deleteDir($pathqrcode);
         Budgeting::where('id',$id)->delete();
         return redirect()->route('budgeting.index')->with('success','Delete Success');
     }
