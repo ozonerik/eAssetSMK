@@ -65,7 +65,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Kode Tahun Anggaran</label>
                     <div class="col-sm-9">
-                      <input type="text" name="code" required value="{{ old('code',$fiscalyear->code) }}"class="form-control @error('code') is-invalid @enderror" placeholder="Kode Tahun Anggaran ...">
+                      <input type="text" name="code" disabled required value="{{ old('code',$fiscalyear->code) }}"class="form-control @error('code') is-invalid @enderror" placeholder="Kode Tahun Anggaran ...">
                       @error('code')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror

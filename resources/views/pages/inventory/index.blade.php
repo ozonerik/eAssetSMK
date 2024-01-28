@@ -171,7 +171,7 @@
                           <form action="{{ route('inventory.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                           @csrf
                           @method('DELETE')                      
-                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->name}}" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
+                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus asset yang bernama <b> {{$row->name}} </b>" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.inventaris')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
@@ -192,7 +192,7 @@
                           <form action="{{ route('inventory.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                           @csrf
                           @method('DELETE')                      
-                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->name}}" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
+                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus asset yang bernama <b> {{$row->name}} </b>" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.inventaris')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">

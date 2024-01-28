@@ -152,7 +152,7 @@
                           <form action="{{ route('itemtype.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                           @csrf
                           @method('DELETE')                      
-                          <x-modal name="delitemtype" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->typename}}" divid="{{$row->typename}}" tombol="Delete" jenis="danger" />
+                          <x-modal name="delitemtype" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan jenis barang <b> {{$row->typename}} </b>" divid="{{$row->typename}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.jenis_barang')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
@@ -172,7 +172,7 @@
                           <form action="{{ route('itemtype.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                           @csrf
                           @method('DELETE')                      
-                          <x-modal name="delitemtype" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->typename}}" divid="{{$row->typename}}" tombol="Delete" jenis="danger" />
+                          <x-modal name="delitemtype" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan jenis barang <b> {{$row->typename}} </b>" divid="{{$row->typename}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.jenis_barang')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">

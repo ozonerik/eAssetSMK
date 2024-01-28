@@ -150,7 +150,7 @@
                           <form action="{{ route('fiscal.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                           @csrf
                           @method('DELETE')                      
-                          <x-modal name="delfiscal" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->year}}" divid="{{$row->year}}" tombol="Delete" jenis="danger" />
+                          <x-modal name="delfiscal" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan tahun anggaran <b> {{$row->year}} </b>" divid="{{$row->year}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.tahun_anggaran')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
@@ -170,7 +170,7 @@
                           <form action="{{ route('fiscal.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                           @csrf
                           @method('DELETE')                      
-                          <x-modal name="delfiscal" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->year}}" divid="{{$row->year}}" tombol="Delete" jenis="danger" />
+                          <x-modal name="delfiscal" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan tahun anggaran <b> {{$row->year}} </b>" divid="{{$row->year}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.tahun_anggaran')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
