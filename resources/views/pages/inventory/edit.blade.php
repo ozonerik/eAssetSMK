@@ -11,7 +11,7 @@
   display: none; 
 }
 #img-preview img {  
-  width: 100%;
+  max-width: 420px;
   height: auto; 
   display: block;   
 }
