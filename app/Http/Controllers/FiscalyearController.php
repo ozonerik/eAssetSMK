@@ -102,17 +102,18 @@ class FiscalyearController extends Controller
         foreach ($budgeting as $r) {
             $path=public_path('storage/photo/'.$organitation->code.'/'.$r->code.'/'.$fiscalyear->code);
             if(File::exists($path)){
-                echo $path. " --> ada <br>";
+                //echo $path. " --> ada <br>";
+                $this->deleteDir($path);
             }else{
-                echo $path. " --> tidak ada <br>";
+                //echo $path. " --> tidak ada <br>";
             }
           }
 
         //$pathphoto=public_path('storage/photo/'.$organitation->code.'/'.$budgeting->code);
         //$pathqrcode=public_path('storage/qrode/'.$organitation->code.'/'.$budgeting->code);
         //$this->deleteDir($pathphoto);
-        //Fiscalyear::where('id',$id)->delete();
-        //return redirect()->route('fiscal.index')->with('success','Delete Success');
+        Fiscalyear::where('id',$id)->delete();
+        return redirect()->route('fiscal.index')->with('success','Delete Success');
     }
 
     private function deleteDir($pathDir){
