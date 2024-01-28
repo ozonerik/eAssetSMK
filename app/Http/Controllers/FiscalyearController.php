@@ -104,8 +104,12 @@ class FiscalyearController extends Controller
             if(File::exists($path)){
                 //echo $path. " --> ada <br>";
                 $this->deleteDir($path);
-            }else{
-                //echo $path. " --> tidak ada <br>";
+            }
+
+            $pathqr=public_path('storage/qrcode/'.$organitation->code.'/'.$r->code.'/'.$fiscalyear->code);
+            if(File::exists($pathqr)){
+                //echo $path. " --> ada <br>";
+                $this->deleteDir($pathqr);
             }
           }
 

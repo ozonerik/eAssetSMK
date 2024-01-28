@@ -139,7 +139,7 @@
                       <td>{{$row->user->name}}</td>
                       <td>
                       @hasanyrole('admin|kabeng')
-                          @can('update.budgeting')
+                          @can('update.sumber_anggaran')
                             <form action="{{ route('budgeting.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf
                             @method('GET')
@@ -152,14 +152,14 @@
                           @method('DELETE')                      
                           <x-modal name="delbudget" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->name}}" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
                           </form>
-                          @can('delete.budgeting')
+                          @can('delete.sumber_anggaran')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
                             Delete
                           </button>
                           @endcan
                       @else
                         @if($row->user_id == Auth::user()->id)
-                          @can('update.budgeting')
+                          @can('update.sumber_anggaran')
                             <form action="{{ route('budgeting.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf
                             @method('GET')
@@ -172,7 +172,7 @@
                           @method('DELETE')                      
                           <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus {{$row->name}}" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
                           </form>
-                          @can('delete.budgeting')
+                          @can('delete.sumber_anggaran')
                           <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
                             Delete
                           </button>
