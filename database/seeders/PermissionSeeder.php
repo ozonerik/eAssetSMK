@@ -46,6 +46,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'read.penyimpanan']);
         Permission::create(['name' => 'update.penyimpanan']);
         Permission::create(['name' => 'delete.penyimpanan']);
+        // create permissions storages
+        Permission::create(['name' => 'create.inventaris']);
+        Permission::create(['name' => 'read.inventaris']);
+        Permission::create(['name' => 'update.inventaris']);
+        Permission::create(['name' => 'delete.inventaris']);
 
     }
 }

@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
                 'organitation_id' => '2',
             ]);
         $toolman->assignRole('toolman');
-        $toolman->givePermissionTo(['create.*','read.*', 'update.*','delete.*']);
+        $toolman->givePermissionTo(['create.inventaris','read.inventaris', 'update.inventaris','delete.inventaris']);
 
         $kabeng = User::create(
             [
@@ -66,7 +66,7 @@ class UserSeeder extends Seeder
                 'organitation_id' => '3',
             ]);
         $toolman->assignRole('toolman');
-        $toolman->givePermissionTo(['create.*','read.*', 'update.*','delete.*']);
+        $toolman->givePermissionTo(['create.inventaris','read.inventaris', 'update.inventaris','delete.inventaris']);
 
         $usermm = User::create(
             [

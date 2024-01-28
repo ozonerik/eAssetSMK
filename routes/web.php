@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/profile/update/{id}', [PenggunaController::class, 'updateprofile'])->name('profile.update');
     
     // role untuk admin,kabeng, dan toolman
-    Route::group(['middleware' => ['role:admin|kabeng|toolman']], function () {
+    Route::group(['middleware' => ['role:kabeng|toolman']], function () {
         //menu budgeting
         Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
         Route::get('/budgeting/add', [BudgetingController::class, 'create'] )->name('budgeting.create');

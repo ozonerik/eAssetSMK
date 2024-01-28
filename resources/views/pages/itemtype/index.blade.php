@@ -108,11 +108,13 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.jenis_barang')
-                  <a href="{{ route('itemtype.create') }}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Jenis Barang">
-                  Add Jenis Barang
-                  </a> 
-                  @endcan
+                  @hasanyrole('toolman|kabeng')
+                      @can('create.jenis_barang')
+                      <a href="{{route('itemtype.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Jenis Barang">
+                      Add Jenis Barang
+                      </a> 
+                      @endcan
+                  @endhasanyrole
                 </div>
                 @php
                     $no = 1;
@@ -140,7 +142,7 @@
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>
                       <td>
-                      @hasanyrole('admin|kabeng')
+                      @hasanyrole('toolman|kabeng')
                           @can('update.jenis_barang')
                             <form action="{{ route('itemtype.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf
@@ -159,27 +161,6 @@
                             Delete
                           </button>
                           @endcan
-                      @else
-                        @if($row->user_id == Auth::user()->id)
-                          @can('update.jenis_barang')
-                            <form action="{{ route('itemtype.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                            @csrf
-                            @method('GET')
-                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Jenis Barang">Edit</button>
-                            </form>
-                          @endcan
-
-                          <form action="{{ route('itemtype.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                          @csrf
-                          @method('DELETE')                      
-                          <x-modal name="delitemtype" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan jenis barang <b> {{$row->typename}} </b>" divid="{{$row->typename}}" tombol="Delete" jenis="danger" />
-                          </form>
-                          @can('delete.jenis_barang')
-                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
-                            Delete
-                          </button>
-                          @endcan
-                        @endif
                       @endhasanyrole           
                       </td>
                     </tr>

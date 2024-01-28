@@ -108,11 +108,13 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.inventaris')
-                  <a href="{{route('inventory.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
+                @hasanyrole('toolman|kabeng')
+                    @can('create.inventaris')
+                    <a href="{{route('inventory.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Inventaris">
                     Add Inventaris
-                  </a> 
-                  @endcan
+                    </a> 
+                    @endcan
+                @endhasanyrole 
                 </div>
                 @php
                     $no = 1;
@@ -157,7 +159,7 @@
                         <b>By :</b> [{{Str::upper($row->organitation->shortname)}}] {{$row->user->name}}<br>
                       </td>
                       <td>
-                      @hasanyrole('admin|kabeng')
+                      @hasanyrole('toolman|kabeng')
                           @can('update.inventaris')
                             <form action="{{ route('inventory.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf
@@ -176,28 +178,6 @@
                             Delete
                           </button>
                           @endcan
-                          
-                      @else
-                        @if($row->user_id == Auth::user()->id)
-                          @can('update.inventaris')
-                            <form action="{{ route('inventory.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                            @csrf
-                            @method('GET')
-                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Inventaris">Edit</button>
-                            </form>
-                          @endcan
-
-                          <form action="{{ route('inventory.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                          @csrf
-                          @method('DELETE')                      
-                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus asset yang bernama <b> {{$row->name}} </b>" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
-                          </form>
-                          @can('delete.inventaris')
-                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
-                            Delete
-                          </button>
-                          @endcan
-                        @endif
                       @endhasanyrole           
                       </td>
                     </tr>

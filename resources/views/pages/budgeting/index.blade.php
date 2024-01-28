@@ -108,11 +108,13 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @can('create.sumber_anggaran')
-                  <a href="{{route('budgeting.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
-                  Add Sumber Anggaran
-                  </a> 
-                  @endcan
+                @hasanyrole('toolman|kabeng')
+                    @can('create.sumber_anggaran')
+                    <a href="{{route('budgeting.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Budgeting">
+                    Add Sumber Anggaran
+                    </a> 
+                    @endcan
+                @endhasanyrole   
                 </div>
                 @php
                     $no = 1;
@@ -138,7 +140,7 @@
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>
                       <td>
-                      @hasanyrole('admin|kabeng')
+                      @hasanyrole('toolman|kabeng')
                           @can('update.sumber_anggaran')
                             <form action="{{ route('budgeting.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf
@@ -157,27 +159,6 @@
                             Delete
                           </button>
                           @endcan
-                      @else
-                        @if($row->user_id == Auth::user()->id)
-                          @can('update.sumber_anggaran')
-                            <form action="{{ route('budgeting.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                            @csrf
-                            @method('GET')
-                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Sumber Anggaran">Edit</button>
-                            </form>
-                          @endcan
-
-                          <form action="{{ route('budgeting.del', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
-                          @csrf
-                          @method('DELETE')                      
-                          <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus semua asset dengan sumber anggaran <b> {{$row->name}} </b>" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
-                          </form>
-                          @can('delete.sumber_anggaran')
-                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
-                            Delete
-                          </button>
-                          @endcan
-                        @endif
                       @endhasanyrole           
                       </td>
                     </tr>

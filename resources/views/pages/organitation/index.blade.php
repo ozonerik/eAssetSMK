@@ -109,8 +109,8 @@
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
                   @can('create.organisasi')
-                  <a href="{{route('organitation.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Organitation">
-                  Add Organitation
+                  <a href="{{route('organitation.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Organisasi">
+                  Add Organisasi
                   </a> 
                   @endcan
                 </div>

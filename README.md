@@ -8,20 +8,9 @@ eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah ya
 
 Fitur yang belum selesai:
 <pre>
-1. Editing Landing Page
-2. Dashboard Information
-3. Changelogs Informations
-4. Add,Edit,Del Sumber Anggaran
-5. Add,Edit,Del Tahun Anggaran
-6. Add,Edit,Del Jenis Barang
-7. Add,Edit,Del Penyimpanan
-8. Add,Edit,Del Sumber Anggaran
-9. Edit,Del Asset Barang
-10. Add,Edit,Del Organisasi
-11. Detail Informasi Qrcode
-12. Update status Asset via Link QrCode (user must login)
-13. Print Label QrCode
-14. Print Laporan Daftar Inventaris
+1. Update status Asset via Link QrCode (user must login)
+2. Print Label QrCode
+3. Print Laporan Daftar Inventaris
 </pre>
 
 Fitur yang sudah selesai:
@@ -30,6 +19,17 @@ Fitur yang sudah selesai:
 2. Edit Profile
 3. QrCode Generate
 4. QrCode Link Status
+5. Editing Landing Page
+6. Dashboard Information
+7. Changelogs Informations
+8. Add,Edit,Del Sumber Anggaran
+9. Add,Edit,Del Tahun Anggaran
+10. Add,Edit,Del Jenis Barang
+11. Add,Edit,Del Penyimpanan
+12. Add,Edit,Del Sumber Anggaran
+13. Edit,Del Asset Barang
+14. Add,Edit,Del Organisasi
+15. Detail Informasi Qrcode
 </pre>
 
 Prsayarat:
@@ -66,3 +66,7 @@ untuk reset database gunakan perintah: php artisan migrate:fresh --seed
 </pre>
 Login default:
 admin@test.id / 12345678
+kabengmm@test.id / 12345678
+kabengtkj@test.id / 12345678
+toolmanmm@test.id / 12345678
+toolmantkj@test.id / 12345678
