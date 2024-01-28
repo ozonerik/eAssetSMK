@@ -90,14 +90,29 @@ class InventoryController extends Controller
 
     public function edit($id)
     {
-        $id=Crypt::decryptString($id);    
-        //dd($id);
+        $id=Crypt::decryptString($id); 
+        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();   
         $data['inv'] = Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('id', $id)->first();
-        $data['budgeting']= Budgeting::all();
-        $data['fiscal']= Fiscalyear::all();
-        $data['itemtype']= Itemtype::all();
-        $data['storeroom']= Storeroom::all();
-        $data['organitation']= Organitation::all();
+        if($user->hasRole(['admin'])){
+            $data['budgeting']= Budgeting::orderBy('organitation_id', 'asc')
+                                ->orderBy('code', 'asc')
+                                ->get();
+            $data['fiscal']= Fiscalyear::orderBy('organitation_id', 'asc')
+                                ->orderBy('code', 'asc')
+                                ->get();                            
+            $data['itemtype']= Itemtype::orderBy('organitation_id', 'asc')
+                                ->orderBy('code', 'asc')
+                                ->get();
+            $data['storeroom']= Storeroom::orderBy('organitation_id', 'asc')
+                                ->orderBy('shortname', 'asc')
+                                ->get();
+        }else{
+            $data['budgeting']= Budgeting::where('organitation_id', $org_id)->orderBy('code', 'asc')->get();
+            $data['fiscal']= Fiscalyear::where('organitation_id', $org_id)->orderBy('code', 'asc')->get();
+            $data['itemtype']= Itemtype::where('organitation_id', $org_id)->orderBy('code', 'asc')->get();
+            $data['storeroom']= Storeroom::where('organitation_id', $org_id)->orderBy('shortname', 'asc')->get();
+        }
         return view('pages.inventory.edit',$data);
     }
 
@@ -113,7 +128,7 @@ class InventoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator)->with('error','Add Inventaris Failed')->withInput();
+            return back()->withErrors($validator)->with('error','Update Inventaris Failed')->withInput();
         }
 
         $budget_id=$request->input('budgeting');
@@ -122,7 +137,7 @@ class InventoryController extends Controller
         $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
         $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
         $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
-        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_org'];
+        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['path'];
         
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
@@ -154,9 +169,8 @@ class InventoryController extends Controller
         ];
         //store to db
         //dd($data);
-        $inv = Inventory::find($id);
-        $inv->update($data);
-        return redirect()->route('inventory.index')->with('success','Add Inventaris Success');
+        Inventory::find($id)->update($data);
+        return redirect()->route('inventory.index')->with('success','Update Inventaris Success');
         dd($data);
     }
 
@@ -202,6 +216,7 @@ class InventoryController extends Controller
         $data['code_itemtype']=$code_itemtype;
         $data['qrcode_inv']=$code_org.'.'.$code_budget.'.'.$code_fiscal.'.'.$code_itemtype.'.'.$no_inv;
         $data['file_inv'] = Str::replace('.', '_', $data['qrcode_inv']);
+        $data['path']=$code_org.'/'.$code_budget.'/'.$code_fiscal.'/'.$code_itemtype.'/'.$no_inv;
         return $data;
     }
     //end fungsi membuat kode inventaris
@@ -275,8 +290,8 @@ class InventoryController extends Controller
         $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
         $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
         $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
-        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['code_org'];
-        
+        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['path'];
+        //dd($destpath);
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
             $ext = $file->extension();
@@ -308,7 +323,6 @@ class InventoryController extends Controller
         //store to db
         Inventory::create($data);
         return redirect()->route('inventory.index')->with('success','Add Inventaris Success');
-        dd($data);
     }
 
 }

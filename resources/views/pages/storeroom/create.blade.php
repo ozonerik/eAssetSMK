@@ -113,11 +113,11 @@
   @endif
 </script>
 @endpush
-@section('judul_hal','Edit Inventaris')
+@section('judul_hal','Add Inventaris')
 @section('header_hal')
 <li class="breadcrumb-item"><a href="#">Asset</a></li>
 <li class="breadcrumb-item"><a href="/inventory">Inventaris</a></li>
-<li class="breadcrumb-item active">Edit</li>
+<li class="breadcrumb-item active">Add Inventaris</li>
 @endsection
 <!-- main menu sidebar -->
 @section('menu_asset') 
@@ -149,38 +149,17 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-              <form method="POST" action="{{ route('inventory.update', Crypt::encryptString($inv->id)) }}" autocomplete="off"  enctype="multipart/form-data">
+              <form method="POST" action="{{route('inventory.store')}}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
-                <div class="form-group row">
-                  <div class="col-sm-6 text-left">
-                    @if(empty($inv->qrpicture))
-                      <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px" />
-                    @else
-                      <img src="{{ asset('storage/'.$inv->qrpicture) }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
-                      <br>
-                      <b>Kode : </b>{{$inv->qrcode}}
-                    @endif
-                  </div>
-                  <div class="col-sm-6 text-right">
-                    @if(empty($inv->picture))
-                      <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
-                    @else
-                      <img src="{{ asset('storage/'.$inv->picture) }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
-                    @endif
-                  </div>
-                </div>
                 <div class="form-group row">
                     <label for="budgeting" class="col-sm-3 col-form-label">Sumber Anggaran</label>
                     <div class="col-sm-9">
-                      @php
-                          $old_budget = (old('_token') !== null) ? old('budgeting') : $inv->budgeting_id;            
-                      @endphp
                       <select class="select2bs4 form-control" name="budgeting" data-placeholder="Pilih Sumber Anggaran" style="width: 100%;">
-                      @if(empty($old_budget))
+                      @if(empty(old('budgeting')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
                       @foreach($budgeting as $row)
-                        <option value="{{$row->id}}" {{$old_budget==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->name}}</option>
+                        <option value="{{$row->id}}" {{$row->id}}" {{old('budgeting')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->name}}</option>
                       @endforeach
                       </select>
                       @error('budgeting')
@@ -191,15 +170,12 @@
                 <div class="form-group row">
                     <label for="fiscal" class="col-sm-3 col-form-label">Tahun Anggaran</label>
                     <div class="col-sm-9">
-                      @php
-                          $old_fiscal = (old('_token') !== null) ? old('fiscalyear') : $inv->fiscalyear_id;            
-                      @endphp
                       <select class="select2bs4 form-control" name="fiscal" data-placeholder="Pilih Tahun Anggaran" style="width: 100%;">
-                      @if(empty($old_fiscal))
+                      @if(empty(old('fiscal')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
                       @foreach($fiscal as $row)
-                        <option value="{{$row->id}}" {{$old_fiscal==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->year}}</option>
+                        <option value="{{$row->id}}" {{old('fiscal')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->year}}</option>
                       @endforeach
                       </select>
                       @error('fiscal')
@@ -210,15 +186,12 @@
                 <div class="form-group row">
                     <label for="itemtype" class="col-sm-3 col-form-label">Jenis Barang</label>
                     <div class="col-sm-9">
-                      @php
-                          $old_itemtype = (old('_token') !== null) ? old('itemtype') : $inv->itemtype_id;            
-                      @endphp
                       <select class="select2bs4 form-control" name="itemtype" data-placeholder="Pilih Jenis Barang" style="width: 100%;">
-                      @if(empty($old_itemtype))
+                      @if(empty(old('itemtype')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
                       @foreach($itemtype as $row)
-                        <option value="{{$row->id}}" {{$old_itemtype==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->typename}}</option>
+                        <option value="{{$row->id}}" {{old('itemtype')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->code)}} ] {{$row->typename}}</option>
                       @endforeach
                       </select>
                       @error('itemtype')
@@ -229,15 +202,12 @@
                 <div class="form-group row">
                     <label for="storeroom" class="col-sm-3 col-form-label">Tempat Penyimpanan</label>
                     <div class="col-sm-9">
-                      @php
-                          $old_storeroom = (old('_token') !== null) ? old('storeroom') : $inv->storeroom_id;            
-                      @endphp
                       <select class="select2bs4 form-control" name="storeroom" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
-                      @if(empty($old_storeroom))
+                      @if(empty(old('storeroom')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
                       @foreach($storeroom as $row)
-                        <option value="{{$row->id}}" {{$old_storeroom==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->roomname}}</option>
+                        <option value="{{$row->id}}" {{old('storeroom')==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->organitation->shortname)}} ] [ {{Str::upper($row->shortname)}} ] {{$row->roomname}}</option>
                       @endforeach
                       </select>
                       @error('storeroom')
@@ -248,7 +218,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Name Barang</label>
                     <div class="col-sm-9">
-                      <input type="text" name="name" required value="{{ old('name',$inv->name) }}"class="form-control @error('name') is-invalid @enderror" placeholder="Nama Barang ...">
+                      <input type="text" name="name" required value="{{ old('name') }}"class="form-control @error('name') is-invalid @enderror" placeholder="Nama Barang ...">
                       @error('name')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -257,7 +227,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Deskripsi Barang</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Deksripsi Barang ...">{{ old('description',$inv->description) }}</textarea>
+                      <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Deksripsi Barang ...">{{ old('description') }}</textarea>
                       @error('description')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -267,9 +237,13 @@
                     <label class="col-sm-3 col-form-label">Tanggal Pembelian</label>
                     <div class="col-sm-9 input-group date">
                         @php
-                        $old_purchase= date('d/m/Y', strtotime(old('purchase_date',$inv->purchase_date)));
+                        if(empty(old('purchase_date'))){
+                          $old_purchase='';
+                        }else{
+                          $old_purchase= date('d/m/Y', strtotime(old('purchase_date')));
+                        };
                         @endphp
-                        <input type="text" name="purchase_date" id="tglbeli" value="{{ $old_purchase }}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
+                        <input type="text" name="purchase_date" id="tglbeli" value="{{$old_purchase}}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -284,7 +258,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Rp.</div>
                         </div>
-                        <input id="hargabeli" type="text" name="purchase_price" value="{{ old('purchase_price',$inv->purchase_date) }}" class="form-control @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
+                        <input id="hargabeli" type="text" name="purchase_price" value="{{ old('purchase_price',0) }}" class="form-control @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
                         @error('purchase_price')
                         <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -293,7 +267,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Baik]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="good_qty" value="{{ old('good_qty',$inv->good_qty) }}"class="form-control @error('good_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Baik ...">
+                      <input type="number" name="good_qty" value="{{ old('good_qty',0) }}"class="form-control @error('good_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Baik ...">
                       @error('good_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -302,7 +276,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Cukup]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="med_qty" value="{{ old('med_qty',$inv->med_qty) }}"class="form-control @error('med_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Cukup Baik ...">
+                      <input type="number" name="med_qty" value="{{ old('med_qty',0) }}"class="form-control @error('med_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Cukup Baik ...">
                       @error('med_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -311,7 +285,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Rusak]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="bad_qty" value="{{ old('bad_qty',$inv->bad_qty) }}"class="form-control @error('bad_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Rusak ...">
+                      <input type="number" name="bad_qty" value="{{ old('bad_qty',0) }}"class="form-control @error('bad_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Rusak ...">
                       @error('bad_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -320,7 +294,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Hilang]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="lost_qty" value="{{ old('lost_qty',$inv->lost_qty) }}"class="form-control @error('lost_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
+                      <input type="number" name="lost_qty" value="{{ old('lost_qty',0) }}"class="form-control @error('lost_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
                       @error('lost_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -332,7 +306,6 @@
                     <div class='custom-file '>
                           <input id='file-upload' type='file' name='picture' class='custom-file-input' id='photo_inv' accept="image/*" >
                           <label id='file-name' class='custom-file-label' style="color:#939ba2" for='photo_inv'>Upload Foto Barang ...</label>
-                    
                     </div>
                   </div>
                 </div>

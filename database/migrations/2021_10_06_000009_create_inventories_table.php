@@ -28,12 +28,12 @@ class CreateInventoriesTable extends Migration
             $table->string('picture')->nullable();
             $table->string('qrpicture')->nullable();
             $table->timestamps();
-            $table->foreignId('budgeting_id')->nullable()->constrained();
-            $table->foreignId('fiscalyear_id')->nullable()->constrained();
-            $table->foreignId('itemtype_id')->nullable()->constrained();
-            $table->foreignId('storeroom_id')->nullable()->constrained();
-            $table->foreignId('organitation_id')->nullable()->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('budgeting_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('fiscalyear_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('itemtype_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('storeroom_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('organitation_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 

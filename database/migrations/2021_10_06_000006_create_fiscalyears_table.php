@@ -18,8 +18,8 @@ class CreateFiscalyearsTable extends Migration
             $table->string('code',2);
             $table->year('year');
             $table->timestamps();
-            $table->foreignId('organitation_id')->nullable()->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('organitation_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 

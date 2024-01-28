@@ -152,20 +152,11 @@
               <form method="POST" action="{{ route('inventory.update', Crypt::encryptString($inv->id)) }}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                  <div class="col-sm-6 text-left">
-                    @if(empty($inv->qrpicture))
-                      <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px" />
-                    @else
-                      <img src="{{ asset('storage/'.$inv->qrpicture) }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
-                      <br>
-                      <b>Kode : </b>{{$inv->qrcode}}
-                    @endif
-                  </div>
-                  <div class="col-sm-6 text-right">
+                  <div class="col-sm-9">
                     @if(empty($inv->picture))
-                      <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                      <img src="{{url('img/1920x1080.png')}}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                     @else
-                      <img src="{{ asset('storage/'.$inv->picture) }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
+                      <img src="{{ url($inv->picture) }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                     @endif
                   </div>
                 </div>
