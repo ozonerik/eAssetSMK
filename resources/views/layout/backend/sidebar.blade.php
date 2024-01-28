@@ -107,7 +107,7 @@
               @yield('menu_asset') 
             @endif
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-cubes text-success"></i>
+                  <i class="nav-icon fas fa-cubes text-info"></i>
                   <p>
                     Asset
                     <i class="right fas fa-angle-left "></i>
@@ -121,7 +121,7 @@
                   @else 
                       @yield('menu_inventaris') 
                   @endif
-                      <i class="far fa-circle nav-icon text-success"></i>
+                      <i class="far fa-circle nav-icon text-info"></i>
                       <p>Inventaris</p>
                     </a>
                   </li>
@@ -132,13 +132,52 @@
                   @else 
                       @yield('menu_graph') 
                   @endif
-                      <i class="far fa-circle nav-icon text-success"></i>
+                      <i class="far fa-circle nav-icon text-info"></i>
                       <p>Grafik Inventaris</p>
                     </a>
                   </li>
                 </ul>
               </li>
             <!-- end menu asset -->
+            <!-- menu print-->
+            @sectionMissing('menu_print') 
+              <li class="nav-item"> 
+            @else 
+              @yield('menu_print') 
+            @endif
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-print text-success"></i>
+                  <p>
+                    Print
+                    <i class="right fas fa-angle-left "></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <!-- menu printasset--> 
+                  <li class="nav-item">
+                  @sectionMissing('menu_printasset') 
+                    <a href="/prints/assets" class="nav-link"> 
+                  @else 
+                      @yield('menu_printasset') 
+                  @endif
+                      <i class="far fa-circle nav-icon text-success"></i>
+                      <p>Print Asset</p>
+                    </a>
+                  </li>
+                  <!-- menu printlabel--> 
+                  <li class="nav-item">
+                  @sectionMissing('menu_printlabel') 
+                    <a href="/prints/labels" class="nav-link"> 
+                  @else 
+                      @yield('menu_printlabel') 
+                  @endif
+                      <i class="far fa-circle nav-icon text-success"></i>
+                      <p>Print Label</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <!-- end menu print -->
           @endhasanyrole
           <!-- End Sidebar Admin Kabeng dan Toolman -->
 
