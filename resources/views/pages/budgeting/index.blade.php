@@ -166,7 +166,7 @@
                   </tbody>
                 @else
                 <tr>
-                  <td colspan="6" class="text-center text-danger">Tidak Memiliki Akses Read Pendanaan </td>
+                  <td colspan="6" class="text-center text-danger">Tidak Memiliki Akses Read Sumber Anggaran </td>
                 </tr>
                 @endcan
                 </table>
