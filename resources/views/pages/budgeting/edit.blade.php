@@ -24,7 +24,7 @@
   @endif
 </script>
 @endpush
-@section('judul_hal','Edit Budgeting')
+@section('judul_hal','Edit Sumber Anggaran')
 @section('header_hal')
 <li class="breadcrumb-item"><a href="#">Referensi</a></li>
 <li class="breadcrumb-item"><a href="/budgeting">Sumber Anggaran</a></li>

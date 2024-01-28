@@ -40,9 +40,10 @@ class BudgetingController extends Controller
 
     public function store(Request $request)
     {
-
+        $org_id=Auth::user()->organitation_id;
+        //dd($org_id);
         $validator = Validator::make($request->all(), [
-            'code' => 'required',
+            'code' => 'required|size:2|unique:budgetings,code,NULL,id,organitation_id,'.$org_id,
             'name' => 'required',
         ]);
 
@@ -72,8 +73,9 @@ class BudgetingController extends Controller
     public function update(Request $request, $id)
     {
         $id=Crypt::decryptString($id);
+        $org_id=Auth::user()->organitation_id;
         $validator = Validator::make($request->all(), [
-            'code' => 'required',
+            'code' => 'required|size:2|unique:budgetings,code,'.$id.',id,organitation_id,'.$org_id,
             'name' => 'required',
         ]);
 
