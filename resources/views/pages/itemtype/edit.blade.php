@@ -65,7 +65,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Kode Jenis Barang</label>
                     <div class="col-sm-9">
-                      <input type="text" name="code" disabled required value="{{ old('code',$itemtype->code) }}"class="form-control @error('code') is-invalid @enderror" placeholder="Kode Jenis Barang...">
+                      <input type="text" name="code" readonly required value="{{ old('code',$itemtype->code) }}"class="form-control @error('code') is-invalid @enderror" placeholder="Kode Jenis Barang...">
                       @error('code')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
