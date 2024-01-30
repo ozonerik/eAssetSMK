@@ -28,7 +28,7 @@ class PrintController extends Controller
             'user',
         ])
         ->where('organitation_id',Auth::user()->organitation_id)
-        ->orderBy(
+/*         ->orderBy(
             Fiscalyear::select('year')
                 ->whereColumn('fiscalyear_id', 'fiscalyears.id')
                 ->orderBy('year', 'asc')
@@ -38,7 +38,7 @@ class PrintController extends Controller
                 ->whereColumn('budgeting_id', 'budgetings.id')
                 ->orderBy('code', 'asc')
         )
-        ->orderBy('name')
+        ->orderBy('name') */
         ->get();
         
         $pdf = PDF::loadView('pages.print.assets',$data)->setPaper('a4', 'landscape');
@@ -65,7 +65,7 @@ class PrintController extends Controller
             'user',
         ])
         ->where('organitation_id',Auth::user()->organitation_id)
-        ->orderBy(
+/*         ->orderBy(
             Fiscalyear::select('year')
                 ->whereColumn('fiscalyear_id', 'fiscalyears.id')
                 ->orderBy('year', 'asc')
@@ -75,7 +75,7 @@ class PrintController extends Controller
                 ->whereColumn('budgeting_id', 'budgetings.id')
                 ->orderBy('code', 'asc')
         )
-        ->orderBy('name')
+        ->orderBy('name') */
         ->get();
         
         $data['labels']=$data['inv']->toArray();

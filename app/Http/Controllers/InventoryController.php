@@ -51,7 +51,7 @@ class InventoryController extends Controller
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
-            $data['inventory'] = Inventory::orderBy('qrcode', 'asc')->get();
+            $data['inventory'] = Inventory::get();
         }else{
             $data['inventory'] = Inventory::where('organitation_id', $org_id)->get();
         }
