@@ -167,7 +167,7 @@
                   <!-- menu printlabel--> 
                   <li class="nav-item">
                   @sectionMissing('menu_printlabel') 
-                    <a href="/prints/labels" class="nav-link"> 
+                    <a href="/print/labels" class="nav-link"> 
                   @else 
                       @yield('menu_printlabel') 
                   @endif

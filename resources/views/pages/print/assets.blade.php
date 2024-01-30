@@ -45,6 +45,7 @@
     table.table-bordered{
     border:1px solid black;
     margin-top:20px;
+    margin-bottom:20px;
     }
     table.table-bordered > thead > tr > th{
         border:1px solid black;
