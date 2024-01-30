@@ -115,7 +115,30 @@
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
-                  {{ changelogs() }}
+              <h3>About eAssetSMK</h3>
+              <p>
+                <b>eAssetSMK</b> adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
+              </p>
+              <div class="badge badge-primary" >V.1.0.2</div>
+              <div class="font-weight-bold text-danger">Fitur yang belum selesai:</div>
+              <ul class="list-style">
+                <li>Update status Asset via Link QrCode (user must login)</li>
+              </ul>
+
+              <div class="font-weight-bold text-primary">Fitur yang sudah selesai:</div>
+              <ul class="list-style">
+                <li>CRUD Pengguna</li>
+                <li>CRUD Profil</li>
+                <li>QrCode Generate</li>
+                <li>QrCode Link Status</li>
+                <li>Editing Landing Page</li>
+                <li>Dashboard Information</li>
+                <li>CRUD Sumber Anggaran, Tahun Anggaran, Jenis Barang, Penyimpanan, Sumber Anggaran</li>
+                <li>CRUD Asset Barang</li>
+                <li>CRUD Organisasi</li>
+                <li>Print Asset, Label (PDF)</li>
+              </ul>
+              <div><i class="fas fa-envelope text-success"></i> <a href="mailto:ozonerik@gmail.com"> ozonerik@gmail.com</a> </div>
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->

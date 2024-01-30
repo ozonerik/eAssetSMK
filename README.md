@@ -9,8 +9,6 @@ eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah ya
 Fitur yang belum selesai:
 <pre>
 1. Update status Asset via Link QrCode (user must login)
-2. Print Label QrCode
-3. Print Laporan Daftar Inventaris
 </pre>
 
 Fitur yang sudah selesai:
@@ -30,6 +28,8 @@ Fitur yang sudah selesai:
 13. Edit,Del Asset Barang
 14. Add,Edit,Del Organisasi
 15. Detail Informasi Qrcode
+16. Print Label QrCode
+17. Print Laporan Daftar Inventaris
 </pre>
 
 Prsayarat:

@@ -5,6 +5,6 @@ function changelogs(){
 }
 
 function versi(){
-    $v = '1.0.1';
+    $v = '1.0.2';
     return $v;
 }
