@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Daftar Inventaris - Print</title>
+  <title>Label Inventaris - Print</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
@@ -46,7 +46,7 @@
 </head>
 <body>
 <header>
-    <div>Daftar Inventaris {{$org->name}} Tahun {{ date("Y") }} </div>
+    <div>Label Inventaris {{$org->name}} Tahun {{ date("Y") }} </div>
 </header>
 <footer>
     <?php
@@ -63,6 +63,7 @@
 @endphp
     <table class="table w-auto" style="margin-top:20px; margin-bottom:20px">
     @foreach ($value as $row)
+            <tr><td colspan="2" style="border-color: black; border-style: none;"></td></tr>
             <tr>
             @foreach ($row as $r)
                 <td style="border-color: black; border-style: solid; border-width: 1px 0px 1px 1px; width:120px;">
@@ -76,6 +77,7 @@
                     {{ $r['qrcode'] }}<br>
                     {{ $r['name'] }}
                 </td>
+                <td style="border-color: black; border-style: none; width:5px;"></td>
             @endforeach
             </tr>
     @endforeach

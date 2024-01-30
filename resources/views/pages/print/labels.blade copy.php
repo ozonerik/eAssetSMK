@@ -59,7 +59,7 @@
 
 <div class="container">
 @php
-    $value = array_chunk($labels, 3);
+    $value = array_chunk($inv, 3);
 @endphp
     <table class="table w-auto" style="margin-top:20px; margin-bottom:20px">
     @foreach ($value as $row)

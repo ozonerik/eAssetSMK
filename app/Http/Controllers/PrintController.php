@@ -80,7 +80,10 @@ class PrintController extends Controller
         
         $data['labels']=$data['inv']->toArray();
          
-/*         $pdf = PDF::loadView('pages.print.labels',$data)->setPaper('a4', 'landscape');
+/*         $pdf = PDF::loadView('pages.print.labels',$data)
+        ->set_option('isRemoteEnabled', true)
+        ->set_option('isPhpEnabled', true)
+        ->setPaper('a4', 'landscape');
         $pdf->output();
         $domPdf = $pdf->getDomPDF();
   
