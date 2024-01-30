@@ -11,6 +11,7 @@ use App\Http\Controllers\ItemtypeController;
 use App\Http\Controllers\StoreroomController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\labelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
         //menu print
         Route::get('/print/assets', [PrintController::class, 'assets'] )->name('print.assets');
         Route::get('/print/labels', [PrintController::class, 'labels'] )->name('print.labels');
+        //Route::get('/print/labels', [labelController::class, 'index'] )->name('print.labels');
     });
     
     

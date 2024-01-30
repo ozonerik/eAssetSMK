@@ -48,7 +48,7 @@ class PrintController extends Controller
         $canvas = $domPdf->get_canvas();
         $canvas->page_text(755, 552, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, [0, 0, 0]);
  
-        return $pdf->stream('pdfview.pdf');
+        return $pdf->stream('Daftar_'.date('d_m_Y', strtotime(now())).'.pdf');
         
         //return view('pages.print.assets',$data);
     }
@@ -80,7 +80,7 @@ class PrintController extends Controller
         
         $data['labels']=$data['inv']->toArray();
          
-/*         $pdf = PDF::loadView('pages.print.labels',$data)
+        $pdf = PDF::loadView('pages.print.labels',$data)
         ->set_option('isRemoteEnabled', true)
         ->set_option('isPhpEnabled', true)
         ->setPaper('a4', 'landscape');
@@ -90,9 +90,9 @@ class PrintController extends Controller
         $canvas = $domPdf->get_canvas();
         $canvas->page_text(755, 552, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, [0, 0, 0]);
  
-        return $pdf->stream('pdfview.pdf'); */
+        return $pdf->stream('Label_'.date('d_m_Y', strtotime(now())).'.pdf');
         
-        return view('pages.print.labels',$data);
+        //return view('pages.print.labels',$data);
     }
 
 }

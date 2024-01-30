@@ -2,8 +2,6 @@
 <html>
 <head>
   <title>Label Inventaris - Print</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
     .page-break {
         page-break-after: always;
@@ -60,26 +58,32 @@
 <div class="container">
 @php
     $value = array_chunk($labels, 3);
+    $no = 1;
 @endphp
-    <table class="table w-auto" style="margin-top:20px; margin-bottom:20px">
+    <table style="margin-top:10px; margin-bottom:10px; border-collapse: collapse;">
     @foreach ($value as $row)
-            <tr><td colspan="2" style="border-color: black; border-style: none;"></td></tr>
+            <tr><td colspan="15" style="border: 2px solid; height:5px;"></td></tr>
             <tr>
             @foreach ($row as $r)
-                <td style="border-color: black; border-style: solid; border-width: 1px 0px 1px 1px; width:120px;">
+                <td style="border: 2px solid; width:5px;"></td>
+                <td style="border: 2px solid; padding:5px 5px 5px 5px; vertical-align: middle; width:10px; height:80px" >{{ $no++ }}</td>
+                <td style="border: 2px solid; padding:5px 5px 5px 5px; vertical-align: middle; width:80px; height:80px">
                     @if(empty($r['qrpicture']))
-                        <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
+                        <img src="{{ public_path('img/1920x1080.png') }}" style="width:80px; height:80px"/>
                     @else
-                        <img src="{{ asset('storage/'. $r['qrpicture']) }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
+                        <img src="{{ storage_path('app/public/'.$r['qrpicture']) }}" style="width:80px; height:80px"/>
                     @endif
                 </td>
-                <td style="border-color: black; border-style: solid; border-width: 1px 1px 1px 0px;">
-                    {{ $r['qrcode'] }}<br>
-                    {{ $r['name'] }}
+                <td style="border: 2px solid;padding:5px 5px 5px 5px; vertical-align: middle; width:200px; height:80px">
+                    Kode : {{ $r['qrcode'] }}<br>
+                    Nama : {{ $r['name'] }}<br>
+                    Sumber : {{ $r['budgeting']['name'] }}<br>
+                    Tahun : {{ $r['fiscalyear']['year'] }}<br>
                 </td>
-                <td style="border-color: black; border-style: none; width:5px;"></td>
+                <td style="border: 2px solid; width:5px;"></td>
             @endforeach
             </tr>
+            <tr><td colspan="15" style="border: 2px solid; height:5px;"></td></tr>
     @endforeach
     </table>
 </div>
