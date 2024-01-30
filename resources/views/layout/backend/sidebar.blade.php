@@ -156,7 +156,7 @@
                   <!-- menu printasset--> 
                   <li class="nav-item">
                   @sectionMissing('menu_printasset') 
-                    <a href="/prints/assets" class="nav-link"> 
+                    <a href="/print/assets" class="nav-link"> 
                   @else 
                       @yield('menu_printasset') 
                   @endif

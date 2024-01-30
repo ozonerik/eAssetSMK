@@ -10,6 +10,7 @@ use App\Http\Controllers\FiscalyearController;
 use App\Http\Controllers\ItemtypeController;
 use App\Http\Controllers\StoreroomController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\PrintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/inventory/edit/{id}', [InventoryController::class, 'edit'])->name('inventory.edit');
         Route::post('/inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
         Route::delete('/inventory/del/{id}', [InventoryController::class, 'destroy'])->name('inventory.del');
+        //menu print
+        Route::get('/print/assets', [PrintController::class, 'assets'] )->name('print.assets');
+        Route::get('/print/labels', [PrintController::class, 'labels'] )->name('print.labels');
     });
     
     

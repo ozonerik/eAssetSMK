@@ -63,10 +63,10 @@
       "ordering": true,
       "autoWidth": false,
       "responsive": true,
-      "order": [[ 1, "asc" ]],
+      "order": [[ 0, "asc" ]],
       "columnDefs": [
-        { "orderable": false, "targets": [0,5] },
-        { "searchable": false, "targets": [0,5] }
+        { "orderable": false, "targets": [4] },
+        { "searchable": false, "targets": [4] }
       ]
     });
   });

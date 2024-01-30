@@ -181,7 +181,9 @@ return [
         //image
         Intervention\Image\ImageServiceProvider::class,
         //qrcode
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        //dompdf
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -241,7 +243,9 @@ return [
         //image
         'Image' => Intervention\Image\Facades\Image::class,
         //qrcode
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        //dompdf
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
