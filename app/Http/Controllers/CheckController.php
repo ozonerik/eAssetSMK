@@ -10,9 +10,11 @@ class CheckController extends Controller
 {
     public function index($code)
     {
-        //dd($code);
         $inv =Inventory::where('qrcode', $code)->first();
-        //$inv=$code;
         return view('pages.check',['inv'=>$inv]);
+    }
+    public function edit($code)
+    {
+        return redirect()->route('inventory.edit',$code);
     }
 }

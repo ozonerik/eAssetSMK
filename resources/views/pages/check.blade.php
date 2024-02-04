@@ -61,7 +61,7 @@ body {
         <div class="row">
             <!-- /.col -->
             <div class="col-12">
-            <form action="{{ route('inventory.edit', Crypt::encryptString($inv->id)) }}" method="get">
+            <form action="{{ route('check.edit', Crypt::encryptString($inv->id)) }}" method="get">
                 <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="Update Inventaris">Edit</button>
             </form>
             </div>

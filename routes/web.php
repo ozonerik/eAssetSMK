@@ -32,6 +32,7 @@ Route::post('/login', [LoginController::class, 'postLogin']);
 Route::post('/logout', [LoginController::class, 'logout']);
 //cek barang
 Route::get('/check/{code}', [CheckController::class, 'index'] )->name('check.index');
+Route::get('/check_edit/{code}', [CheckController::class, 'edit'] )->name('check.edit');
 //backend page
 Route::group(['middleware' => ['auth']], function () {
     //Route::get('/cek/{code}', [InventoryController::class, 'cek'] )->name('inventory.cek');
