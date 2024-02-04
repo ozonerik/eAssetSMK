@@ -62,6 +62,27 @@
               <div class="card-body">
               <form method="POST" action="{{ route('itemtype.update', Crypt::encryptString($itemtype->id)) }}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
+                @hasanyrole('admin')
+                <div class="form-group row">
+                    <label for="organitation" class="col-sm-3 col-form-label">Organisasi</label>
+                    <div class="col-sm-9">
+                      @php
+                          $old_org = (old('_token') !== null) ? old('organitation') : $itemtype->organitation_id;            
+                      @endphp
+                      <select class="select2bs4 form-control" required name="organitation" data-placeholder="Pilih Organisasi..." style="width: 100%;">
+                      @if(empty($old_org))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
+                      @foreach($organitation as $row)
+                        <option value="{{$row->id}}" {{$old_org==$row->id ? ' selected="selected" ' : ''}} >[ {{Str::upper($row->shortname)}} ] {{$row->name}}</option>
+                      @endforeach
+                      </select>
+                      @error('organitation')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                @endhasanyrole
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Kode Jenis Barang</label>
                     <div class="col-sm-9">

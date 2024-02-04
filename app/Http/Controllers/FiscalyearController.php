@@ -35,12 +35,21 @@ class FiscalyearController extends Controller
     {
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
-        return view('pages.fiscal.create');
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
+        return view('pages.fiscal.create',$data);
     }
 
     public function store(Request $request)
     {
-        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $validator = Validator::make($request->all(), [
             'code' => 'required|size:2|unique:fiscalyears,code,NULL,id,organitation_id,'.$org_id,
             'year' => 'required|integer|digits:4',
@@ -49,10 +58,11 @@ class FiscalyearController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Add Tahun Anggaran Failed')->withInput();
         }
+
         $data = [
             'code' => $request->input('code'),
             'year' => $request->input('year'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db
@@ -65,6 +75,9 @@ class FiscalyearController extends Controller
         $id=Crypt::decryptString($id);  
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
         $data['fiscalyear'] = Fiscalyear::where('id', $id)->first();
         return view('pages.fiscal.edit',$data);
     }
@@ -72,7 +85,12 @@ class FiscalyearController extends Controller
     public function update(Request $request, $id)
     {
         $id=Crypt::decryptString($id);
-        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
         $validator = Validator::make($request->all(), [
             'code' => 'required|size:2|unique:fiscalyears,code,'.$id.',id,organitation_id,'.$org_id,
             'year' => 'required|integer|digits:4',
@@ -81,10 +99,11 @@ class FiscalyearController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Update Tahun Anggaran Failed')->withInput();
         }
+
         $data = [
             'code' => $request->input('code'),
             'year' => $request->input('year'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db

@@ -30,7 +30,7 @@
         </div>
         <div class="footer-copyright">
             <p>Copyright &copy; 2023 <a href="https://www.smkn1krangkeng.sch.id">smkn1krangkeng</a></p>
-            <p class="float-right d-none d-sm-inline-block">
+            <p class="float-right d-sm-inline-block">
                 <b>Version</b> {{ versi() }}
             </p>
         </div>

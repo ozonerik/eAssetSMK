@@ -37,12 +37,20 @@ class ItemtypeController extends Controller
     {
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
-        return view('pages.itemtype.create');
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
+        return view('pages.itemtype.create',$data);
     }
 
     public function store(Request $request)
     {
-        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
         $validator = Validator::make($request->all(), [
             'code' => 'required|size:3|unique:itemtypes,code,NULL,id,organitation_id,'.$org_id,
             'shortname' => 'required|max:10',
@@ -52,11 +60,12 @@ class ItemtypeController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Add Jenis Barang Failed')->withInput();
         }
+
         $data = [
             'code' => $request->input('code'),
             'shortname' => $request->input('shortname'),
             'typename' => $request->input('typename'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db
@@ -69,6 +78,9 @@ class ItemtypeController extends Controller
         $id=Crypt::decryptString($id);  
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
         $data['itemtype'] = Itemtype::where('id', $id)->first();
         return view('pages.itemtype.edit',$data);
     }
@@ -76,7 +88,12 @@ class ItemtypeController extends Controller
     public function update(Request $request, $id)
     {
         $id=Crypt::decryptString($id);
-        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
         $validator = Validator::make($request->all(), [
             'code' => 'required|size:3|unique:itemtypes,code,'.$id.',id,organitation_id,'.$org_id,
             'shortname' => 'required|max:10',
@@ -86,11 +103,12 @@ class ItemtypeController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Update Jenis Barang Failed')->withInput();
         }
+
         $data = [
             'code' => $request->input('code'),
             'shortname' => $request->input('shortname'),
             'typename' => $request->input('typename'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db

@@ -108,7 +108,7 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                  @hasanyrole('toolman|kabeng')
+                  @hasanyrole('admin|toolman|kabeng')
                       @can('create.penyimpanan')
                       <a href="{{route('storeroom.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Penyimpanan">
                       Add Penyimpanan
@@ -140,7 +140,7 @@
                       <td>{{Str::upper($row->organitation->shortname)}}</td>
                       <td>{{$row->user->name}}</td>
                       <td>
-                      @hasanyrole('toolman|kabeng')
+                      @hasanyrole('admin|toolman|kabeng')
                           @can('update.penyimpanan')
                             <form action="{{ route('storeroom.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf

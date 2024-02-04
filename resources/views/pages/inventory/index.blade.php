@@ -108,7 +108,7 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="divider bg-dark rounded mb-4">
-                @hasanyrole('toolman|kabeng')
+                @hasanyrole('admin|toolman|kabeng')
                     @can('create.inventaris')
                     <a href="{{route('inventory.create')}}" class="btn btn-success my-2 ml-2"  role="button" data-toggle="tooltip" data-placement="top" title="Add Inventaris">
                     Add Inventaris
@@ -155,16 +155,23 @@
                         <b>Nama :</b> {{$row->name}}<br>
                         <b>Tgl.Beli :</b> @empty($row->purchase_date) - @else {{date('d/m/Y', strtotime($row->purchase_date))}} @endempty<br>
                         <b>Harga Beli :</b> Rp. {{number_format($row->purchase_price,0,',','.')}}<br>
-                        <b>Jumlah:</b> B= @empty($row->good_qty) 0 @else {{$row->good_qty}} @endempty , S= @empty($row->med_qty) 0 @else {{$row->med_qty}} @endempty ,  R= @empty($row->bad_qty) 0 @else {{$row->bad_qty}} @endempty , H= @empty($row->lost_qty) 0 @else {{$row->lost_qty}} @endempty<br>
-                        <b>By :</b> [{{Str::upper($row->organitation->shortname)}}] {{$row->user->name}}<br>
+                        <b>Jumlah:</b> 
+                        B= @empty($row->good_qty) 0 {{$row->unit}} @else {{$row->good_qty}} {{$row->unit}} @endempty , 
+                        S= @empty($row->med_qty) 0 {{$row->unit}} @else {{$row->med_qty}} {{$row->unit}} @endempty ,  
+                        R= @empty($row->bad_qty) 0 {{$row->unit}} @else {{$row->bad_qty}} {{$row->unit}} @endempty , 
+                        H= @empty($row->lost_qty) 0 {{$row->unit}} @else {{$row->lost_qty}} {{$row->unit}} @endempty
+                        <br>
+                        <b>Org :</b> {{Str::upper($row->organitation->shortname)}}<br>
+                        <b>By :</b> [{{Str::upper($row->user->organitation->shortname)}}] {{$row->user->name}}<br>
                       </td>
                       <td>
-                      @hasanyrole('toolman|kabeng')
+                      @hasanyrole('admin|toolman|kabeng')
+                          <a href="{{ route('check.index',$row->qrcode) }}" target="_blank" class="btn btn-success btn-sm mx-2" data-toggle="tooltip" data-placement="top" title="Check Inventaris"><i class="fas fa-search"></i></a>
                           @can('update.inventaris')
                             <form action="{{ route('inventory.edit', Crypt::encryptString($row->id)) }}" method="post" class="d-inline mx-1">
                             @csrf
                             @method('GET')
-                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Inventaris">Edit</button>
+                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update Inventaris"><i class="fas fa-edit"></i></button>
                             </form>
                           @endcan
 
@@ -174,8 +181,8 @@
                           <x-modal name="delinv" target="modal-del-{{$row->id}}" title="Confirmation" message="Apakah anda yakin ingin menghapus asset yang bernama <b> {{$row->name}} </b>" divid="{{$row->name}}" tombol="Delete" jenis="danger" />
                           </form>
                           @can('delete.inventaris')
-                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}">
-                            Delete
+                          <button type="button" id="del-{{$row->id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-del-{{$row->id}}" data-toggle="tooltip" data-placement="top" title="Delete Inventaris">
+                          <i class="fas fa-trash"></i>
                           </button>
                           @endcan
                       @endhasanyrole           

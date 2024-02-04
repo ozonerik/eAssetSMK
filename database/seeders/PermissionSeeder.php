@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'read.*']);
         Permission::create(['name' => 'update.*']);
         Permission::create(['name' => 'delete.*']);
+
         // create permissions budget
         Permission::create(['name' => 'create.sumber_anggaran']);
         Permission::create(['name' => 'read.sumber_anggaran']);
@@ -46,11 +47,16 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'read.penyimpanan']);
         Permission::create(['name' => 'update.penyimpanan']);
         Permission::create(['name' => 'delete.penyimpanan']);
-        // create permissions storages
+        // create permissions inventaris
         Permission::create(['name' => 'create.inventaris']);
         Permission::create(['name' => 'read.inventaris']);
         Permission::create(['name' => 'update.inventaris']);
         Permission::create(['name' => 'delete.inventaris']);
+        // create permissions pengguna
+        Permission::create(['name' => 'create.pengguna']);
+        Permission::create(['name' => 'read.pengguna']);
+        Permission::create(['name' => 'update.pengguna']);
+        Permission::create(['name' => 'delete.pengguna']);
 
     }
 }

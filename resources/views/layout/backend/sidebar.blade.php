@@ -39,7 +39,7 @@
 
           <!-- Sidebar Admin Kabeng dan Toolman -->
           <!-- menu referensi -->
-          @hasanyrole('kabeng|toolman')
+          @hasanyrole('admin|kabeng|toolman')
             @sectionMissing('menu_referensi') 
               <li class="nav-item"> 
             @else 

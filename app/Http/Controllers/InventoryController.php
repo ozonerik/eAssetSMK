@@ -24,12 +24,12 @@ use QrCode;
 
 class InventoryController extends Controller
 {
-    public function cek($code)
+/*     public function cek($code)
     {
         //dd($code);
         $data['inv']=Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('qrcode', $code)->first();
         return view('pages.cek',$data);
-    }
+    } */
 
     function datagraph($budgeting_id){
             $org_id=Auth::user()->organitation_id;
@@ -66,6 +66,8 @@ class InventoryController extends Controller
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         
         if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')
+                                ->get();
             $data['budgeting']= Budgeting::orderBy('organitation_id', 'asc')
                                 ->orderBy('code', 'asc')
                                 ->get();
@@ -90,11 +92,14 @@ class InventoryController extends Controller
 
     public function edit($id)
     {
+        //dd(Auth::user()->roles->pluck('name')->first());
         $id=Crypt::decryptString($id); 
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();   
         $data['inv'] = Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('id', $id)->first();
         if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')
+                                    ->get();
             $data['budgeting']= Budgeting::orderBy('organitation_id', 'asc')
                                 ->orderBy('code', 'asc')
                                 ->get();
@@ -147,24 +152,32 @@ class InventoryController extends Controller
         }else{
             $invpath=$inv->picture;
         }
+
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $data = [
             'no' => $no,
-            'qrcode' => $qrcode_inv,
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'purchase_date' => $request->input('purchase_date'),
             'purchase_price' => $request->input('purchase_price'),
+            'unit' => $request->input('unit'),
             'good_qty' => $request->input('good_qty'),
             'med_qty' => $request->input('med_qty'),
             'bad_qty' => $request->input('bad_qty'),
             'lost_qty' => $request->input('lost_qty'),
             'picture' => $invpath,
-            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('inventory.cek',$qrcode_inv),500),
+            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('check.index',$inv->qrcode),500),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,
             'storeroom_id' => $request->input('storeroom'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db
@@ -300,6 +313,14 @@ class InventoryController extends Controller
         }else{
             $invpath='';
         }
+
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $data = [
             'no' => $no,
             'qrcode' => $qrcode_inv,
@@ -307,6 +328,7 @@ class InventoryController extends Controller
             'description' => $request->input('description'),
             'purchase_date' => $request->input('purchase_date'),
             'purchase_price' => $request->input('purchase_price'),
+            'unit' => $request->input('unit'),
             'good_qty' => $request->input('good_qty'),
             'med_qty' => $request->input('med_qty'),
             'bad_qty' => $request->input('bad_qty'),
@@ -317,7 +339,7 @@ class InventoryController extends Controller
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,
             'storeroom_id' => $request->input('storeroom'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db

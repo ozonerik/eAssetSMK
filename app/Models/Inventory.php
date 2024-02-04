@@ -16,6 +16,7 @@ class Inventory extends Model
         'description',
         'purchase_date',
         'purchase_price',
+        'unit',
         'good_qty',
         'med_qty',
         'bad_qty',

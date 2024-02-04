@@ -1,4 +1,4 @@
-@extends('layout.frontend.login.main')
+@extends('layout.frontend.check.main')
 @section('judul_hal','Check Asset')
 @push('css')
 <style>
@@ -23,9 +23,10 @@ body {
 </script>
 @endpush
 @section('login_form')
-    <div class="card card-outline card-primary">
+<div class="checkinv-box">
+    <div class="card card-outline card-success">
         <div class="card-header text-center">
-        <img src="{{ asset('storage/'.$inv->picture) }}" class="" style="width:100%; height:100%">
+        <img src="{{ asset('storage/'.$inv->picture) }}" class="my-5" style="width:80%">
         </div>
         <div class="card-body">
         <table id="cek-table" class="table table-borderless">
@@ -34,10 +35,10 @@ body {
                     <img src="{{ asset('storage/'.$inv->qrpicture) }}" class="img-thumbnail">
                     <p>{{$inv->qrcode}}</p>
                     <p><b>Kondisi Barang</b></p>
-                    <b>Baik :</b> {{$inv->good_qty}}<br>
-                    <b>Sedang :</b> {{$inv->med_qty}}<br>
-                    <b>Rusak :</b> {{$inv->bad_qty}}<br>
-                    <b>Hilang :</b> {{$inv->lost_qty}}<br>
+                    <b>Baik :</b> {{$inv->good_qty}} {{$inv->unit}}<br>
+                    <b>Sedang :</b> {{$inv->med_qty}} {{$inv->unit}}<br>
+                    <b>Rusak :</b> {{$inv->bad_qty}} {{$inv->unit}}<br>
+                    <b>Hilang :</b> {{$inv->lost_qty}} {{$inv->unit}}<br>
                 </td>
                 <td class="w-75" ><b>Name : </b>{{$inv->name}}</td>
             </tr>
@@ -51,13 +52,23 @@ body {
                 <td><b>Jenis Barang : </b>{{$inv->itemtype->shortname}}</td>
             </tr>
             <tr>
-                <td><b>Penyimpanan : </b>{{$inv->storeroom->shortname}}</td>
+                <td><b>Penyimpanan : </b>{{strtoupper($inv->storeroom->shortname)}}</td>
             </tr>
             <tr>
-                <td><b>Organisasi : </b>{{$inv->organitation->shortname}}</td>
+                <td><b>Organisasi : </b>{{strtoupper($inv->organitation->shortname)}}</td>
             </tr>
         </table>
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-12">
+            <form action="{{ route('inventory.edit', Crypt::encryptString($inv->id)) }}" method="get">
+                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="Update Inventaris">Edit</button>
+            </form>
+            </div>
+            <!-- /.col -->
+        </div>
         </div>
         <!-- /.card-body -->
     </div>
+</div>
 @endsection

@@ -35,13 +35,22 @@ class BudgetingController extends Controller
     {
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
-        return view('pages.budgeting.create');
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
+        return view('pages.budgeting.create',$data);
     }
 
     public function store(Request $request)
     {
-        $org_id=Auth::user()->organitation_id;
         //dd($org_id);
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $validator = Validator::make($request->all(), [
             'code' => 'required|size:2|unique:budgetings,code,NULL,id,organitation_id,'.$org_id,
             'name' => 'required',
@@ -50,10 +59,11 @@ class BudgetingController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Add Sumber Anggaran Failed')->withInput();
         }
+ 
         $data = [
             'code' => $request->input('code'),
             'name' => $request->input('name'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db
@@ -66,6 +76,9 @@ class BudgetingController extends Controller
         $id=Crypt::decryptString($id);  
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
         $data['budgeting'] = Budgeting::where('id', $id)->first();
         return view('pages.budgeting.edit',$data);
     }
@@ -73,7 +86,14 @@ class BudgetingController extends Controller
     public function update(Request $request, $id)
     {
         $id=Crypt::decryptString($id);
-        $org_id=Auth::user()->organitation_id;
+        
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $validator = Validator::make($request->all(), [
             'code' => 'required|size:2|unique:budgetings,code,'.$id.',id,organitation_id,'.$org_id,
             'name' => 'required',
@@ -82,10 +102,11 @@ class BudgetingController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Update Sumber Anggaran Failed')->withInput();
         }
+
         $data = [
             'code' => $request->input('code'),
             'name' => $request->input('name'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db

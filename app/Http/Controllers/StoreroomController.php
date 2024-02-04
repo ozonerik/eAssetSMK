@@ -37,12 +37,20 @@ class StoreroomController extends Controller
     {
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
-        return view('pages.storeroom.create');
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
+        return view('pages.storeroom.create',$data);
     }
 
     public function store(Request $request)
     {
-        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
         $validator = Validator::make($request->all(), [
             'shortname' => 'required|max:10|unique:storerooms,shortname,NULL,id,organitation_id,'.$org_id,
             'roomname' => 'required',
@@ -51,10 +59,11 @@ class StoreroomController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Add Penyimpanan Failed')->withInput();
         }
+
         $data = [
             'shortname' => $request->input('shortname'),
             'roomname' => $request->input('roomname'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db
@@ -67,6 +76,9 @@ class StoreroomController extends Controller
         $id=Crypt::decryptString($id);  
         $org_id=Auth::user()->organitation_id;
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+        }
         $data['storeroom'] = Storeroom::where('id', $id)->first();
         return view('pages.storeroom.edit',$data);
     }
@@ -74,7 +86,12 @@ class StoreroomController extends Controller
     public function update(Request $request, $id)
     {
         $id=Crypt::decryptString($id);
-        $org_id=Auth::user()->organitation_id;
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
         $validator = Validator::make($request->all(), [
             'shortname' => 'required|max:10|unique:storerooms,shortname,'.$id.',id,organitation_id,'.$org_id,
             'roomname' => 'required',
@@ -83,10 +100,11 @@ class StoreroomController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->with('error','Update Penyimpanan Failed')->withInput();
         }
+
         $data = [
             'shortname' => $request->input('shortname'),
             'roomname' => $request->input('roomname'),
-            'organitation_id' => Auth::user()->organitation_id,
+            'organitation_id' => $org_id,
             'user_id' => Auth::user()->id,
         ];
         //store to db

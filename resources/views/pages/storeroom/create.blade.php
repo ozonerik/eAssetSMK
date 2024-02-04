@@ -62,6 +62,24 @@
               <div class="card-body">
               <form method="POST" action="{{route('storeroom.store')}}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
+                @hasanyrole('admin')
+                <div class="form-group row">
+                    <label for="organitation" class="col-sm-3 col-form-label">Organisasi</label>
+                    <div class="col-sm-9">
+                      <select class="select2bs4 form-control" required name="organitation" data-placeholder="Pilih Organisasi" style="width: 100%;">
+                      @if(empty(old('organitation')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
+                      @foreach($organitation as $row)
+                        <option value="{{$row->id}}" {{$row->id}}" {{old('organitation')==$row->id ? ' selected="selected" ' : ''}} > [ {{Str::upper($row->shortname)}} ] {{$row->name}} </option>
+                      @endforeach
+                      </select>
+                      @error('organitation')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                @endhasanyrole
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Shortname Penyimpanan</label>
                     <div class="col-sm-9">

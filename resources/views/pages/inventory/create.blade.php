@@ -151,10 +151,28 @@
               <div class="card-body">
               <form method="POST" action="{{route('inventory.store')}}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
+                @hasanyrole('admin')
+                <div class="form-group row">
+                    <label for="organitation" class="col-sm-3 col-form-label">Organisasi</label>
+                    <div class="col-sm-9">
+                      <select class="select2bs4 form-control" required name="organitation" data-placeholder="Pilih Organisasi" style="width: 100%;">
+                      @if(empty(old('organitation')))
+                        <option value="" selected="selected" >&nbsp;</option>
+                      @endif
+                      @foreach($organitation as $row)
+                        <option value="{{$row->id}}" {{$row->id}}" {{old('organitation')==$row->id ? ' selected="selected" ' : ''}} > [ {{Str::upper($row->shortname)}} ] {{$row->name}} </option>
+                      @endforeach
+                      </select>
+                      @error('organitation')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                @endhasanyrole
                 <div class="form-group row">
                     <label for="budgeting" class="col-sm-3 col-form-label">Sumber Anggaran</label>
                     <div class="col-sm-9">
-                      <select class="select2bs4 form-control" name="budgeting" data-placeholder="Pilih Sumber Anggaran" style="width: 100%;">
+                      <select class="select2bs4 form-control" required name="budgeting" data-placeholder="Pilih Sumber Anggaran" style="width: 100%;">
                       @if(empty(old('budgeting')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
@@ -170,7 +188,7 @@
                 <div class="form-group row">
                     <label for="fiscal" class="col-sm-3 col-form-label">Tahun Anggaran</label>
                     <div class="col-sm-9">
-                      <select class="select2bs4 form-control" name="fiscal" data-placeholder="Pilih Tahun Anggaran" style="width: 100%;">
+                      <select class="select2bs4 form-control" required name="fiscal" data-placeholder="Pilih Tahun Anggaran" style="width: 100%;">
                       @if(empty(old('fiscal')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
@@ -186,7 +204,7 @@
                 <div class="form-group row">
                     <label for="itemtype" class="col-sm-3 col-form-label">Jenis Barang</label>
                     <div class="col-sm-9">
-                      <select class="select2bs4 form-control" name="itemtype" data-placeholder="Pilih Jenis Barang" style="width: 100%;">
+                      <select class="select2bs4 form-control" required name="itemtype" data-placeholder="Pilih Jenis Barang" style="width: 100%;">
                       @if(empty(old('itemtype')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
@@ -202,7 +220,7 @@
                 <div class="form-group row">
                     <label for="storeroom" class="col-sm-3 col-form-label">Tempat Penyimpanan</label>
                     <div class="col-sm-9">
-                      <select class="select2bs4 form-control" name="storeroom" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
+                      <select class="select2bs4 form-control" required name="storeroom" data-placeholder="Pilih Tempat Penyimpanan" style="width: 100%;">
                       @if(empty(old('storeroom')))
                         <option value="" selected="selected" >&nbsp;</option>
                       @endif
@@ -243,7 +261,7 @@
                           $old_purchase= date('d/m/Y', strtotime(old('purchase_date')));
                         };
                         @endphp
-                        <input type="text" name="purchase_date" id="tglbeli" value="{{$old_purchase}}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
+                        <input type="text" name="purchase_date" required id="tglbeli" value="{{$old_purchase}}" class="form-control @error('purchase_date') is-invalid @enderror" placeholder="Tanggal Pembelian Barang ..."/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -258,16 +276,25 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Rp.</div>
                         </div>
-                        <input id="hargabeli" type="text" name="purchase_price" value="{{ old('purchase_price',0) }}" class="form-control @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
+                        <input id="hargabeli" type="text" required name="purchase_price" value="{{ old('purchase_price',0) }}" class="form-control @error('purchase_price') is-invalid @enderror" placeholder="Harga Pembelian Barang ..."/>
                         @error('purchase_price')
                         <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Satuan Barang</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="unit" required value="{{ old('unit') }}"class="form-control @error('unit') is-invalid @enderror" placeholder="Satuan Barang ...">
+                      @error('unit')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                      @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Baik]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="good_qty" value="{{ old('good_qty',0) }}"class="form-control @error('good_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Baik ...">
+                      <input type="number" name="good_qty" required value="{{ old('good_qty',0) }}"class="form-control @error('good_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Baik ...">
                       @error('good_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -276,7 +303,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Cukup]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="med_qty" value="{{ old('med_qty',0) }}"class="form-control @error('med_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Cukup Baik ...">
+                      <input type="number" name="med_qty" required value="{{ old('med_qty',0) }}"class="form-control @error('med_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Cukup Baik ...">
                       @error('med_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -285,7 +312,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Rusak]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="bad_qty" value="{{ old('bad_qty',0) }}"class="form-control @error('bad_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Rusak ...">
+                      <input type="number" name="bad_qty" required value="{{ old('bad_qty',0) }}"class="form-control @error('bad_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Rusak ...">
                       @error('bad_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -294,7 +321,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jumlah Barang [Hilang]</label>
                     <div class="col-sm-9">
-                      <input type="number" name="lost_qty" value="{{ old('lost_qty',0) }}"class="form-control @error('lost_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
+                      <input type="number" name="lost_qty" required value="{{ old('lost_qty',0) }}"class="form-control @error('lost_qty') is-invalid @enderror" placeholder="Jumlah Barang Kondisi Hilang ...">
                       @error('lost_qty')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror

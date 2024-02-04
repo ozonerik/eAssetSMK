@@ -21,6 +21,7 @@ class InventorySeeder extends Seeder
             'description' => 'Laptop Dari Dana BOS',
             'purchase_date' => '2021-09-11',
             'purchase_price' => '0',
+            'unit' => 'pcs',
             'good_qty' => '15',
             'med_qty' => '0',
             'bad_qty' => '0',

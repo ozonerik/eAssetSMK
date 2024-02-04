@@ -12,6 +12,7 @@ use App\Http\Controllers\StoreroomController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\labelController;
+use App\Http\Controllers\CheckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Route::get('/login', [LoginController::class, 'getLogin'])->middleware('guest')-
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::post('/logout', [LoginController::class, 'logout']);
 //cek barang
-Route::get('/cek/{code}', [InventoryController::class, 'cek'] )->name('inventory.cek');
+Route::get('/check/{code}', [CheckController::class, 'index'] )->name('check.index');
 //backend page
 Route::group(['middleware' => ['auth']], function () {
     //Route::get('/cek/{code}', [InventoryController::class, 'cek'] )->name('inventory.cek');
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/profile/update/{id}', [PenggunaController::class, 'updateprofile'])->name('profile.update');
     
     // role untuk admin,kabeng, dan toolman
-    Route::group(['middleware' => ['role:kabeng|toolman']], function () {
+    Route::group(['middleware' => ['role:admin|kabeng|toolman']], function () {
         //menu budgeting
         Route::get('/budgeting', [BudgetingController::class, 'index'] )->name('budgeting.index');
         Route::get('/budgeting/add', [BudgetingController::class, 'create'] )->name('budgeting.create');
