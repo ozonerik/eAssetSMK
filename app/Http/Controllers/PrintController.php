@@ -18,28 +18,31 @@ class PrintController extends Controller
 {
     public function assets(Request $request)
     {
-        $data['org']=Organitation::where('id',Auth::user()->organitation_id)->first();
-        $data['inv']=Inventory::with([
-            'budgeting',
-            'fiscalyear',
-            'itemtype',
-            'storeroom',
-            'organitation',
-            'user',
-        ])
-        ->where('organitation_id',Auth::user()->organitation_id)
-/*         ->orderBy(
-            Fiscalyear::select('year')
-                ->whereColumn('fiscalyear_id', 'fiscalyears.id')
-                ->orderBy('year', 'asc')
-        )
-        ->orderBy(
-            Budgeting::select('code')
-                ->whereColumn('budgeting_id', 'budgetings.id')
-                ->orderBy('code', 'asc')
-        )
-        ->orderBy('name') */
-        ->get();
+
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['org']=Organitation::where('id',Auth::user()->organitation_id)->first();
+            $data['inv']=Inventory::with([
+                'budgeting',
+                'fiscalyear',
+                'itemtype',
+                'storeroom',
+                'organitation',
+                'user',
+            ])->get();
+        }else{
+            $data['org']=Organitation::where('id',Auth::user()->organitation_id)->first();
+            $data['inv']=Inventory::with([
+                'budgeting',
+                'fiscalyear',
+                'itemtype',
+                'storeroom',
+                'organitation',
+                'user',
+            ])
+            ->where('organitation_id',Auth::user()->organitation_id)
+            ->get();
+        }
         
         $pdf = PDF::loadView('pages.print.assets',$data)->setPaper('a4', 'landscape');
         $pdf->output();
@@ -55,28 +58,31 @@ class PrintController extends Controller
 
     public function labels(Request $request)
     {
-        $data['org']=Organitation::where('id',Auth::user()->organitation_id)->first();
-        $data['inv']=Inventory::with([
-            'budgeting',
-            'fiscalyear',
-            'itemtype',
-            'storeroom',
-            'organitation',
-            'user',
-        ])
-        ->where('organitation_id',Auth::user()->organitation_id)
-/*         ->orderBy(
-            Fiscalyear::select('year')
-                ->whereColumn('fiscalyear_id', 'fiscalyears.id')
-                ->orderBy('year', 'asc')
-        )
-        ->orderBy(
-            Budgeting::select('code')
-                ->whereColumn('budgeting_id', 'budgetings.id')
-                ->orderBy('code', 'asc')
-        )
-        ->orderBy('name') */
-        ->get();
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
+        if($user->hasRole(['admin'])){
+            $data['org']=Organitation::where('id',Auth::user()->organitation_id)->first();
+            $data['inv']=Inventory::with([
+                'budgeting',
+                'fiscalyear',
+                'itemtype',
+                'storeroom',
+                'organitation',
+                'user',
+            ])
+            ->get();
+        }else{
+            $data['org']=Organitation::where('id',Auth::user()->organitation_id)->first();
+            $data['inv']=Inventory::with([
+                'budgeting',
+                'fiscalyear',
+                'itemtype',
+                'storeroom',
+                'organitation',
+                'user',
+            ])
+            ->where('organitation_id',Auth::user()->organitation_id)
+            ->get();
+        }
         
         $data['labels']=$data['inv']->toArray();
          
