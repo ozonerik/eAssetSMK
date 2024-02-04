@@ -39,8 +39,10 @@ class ItemtypeController extends Controller
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
             $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+            return view('pages.itemtype.create',$data);
+        }else{
+            return view('pages.itemtype.create');
         }
-        return view('pages.itemtype.create',$data);
     }
 
     public function store(Request $request)

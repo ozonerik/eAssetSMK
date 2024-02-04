@@ -39,8 +39,10 @@ class StoreroomController extends Controller
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
             $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+            return view('pages.storeroom.create',$data);
+        }else{
+            return view('pages.storeroom.create');
         }
-        return view('pages.storeroom.create',$data);
     }
 
     public function store(Request $request)

@@ -37,8 +37,10 @@ class FiscalyearController extends Controller
         $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first();
         if($user->hasRole(['admin'])){
             $data['organitation']= Organitation::orderBy('code', 'asc')->get();
+            return view('pages.fiscal.create',$data);
+        }else{
+            return view('pages.fiscal.create');
         }
-        return view('pages.fiscal.create',$data);
     }
 
     public function store(Request $request)
