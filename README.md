@@ -8,7 +8,8 @@ eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah ya
 
 Fitur yang belum selesai:
 <pre>
-1. Update status Asset via Link QrCode (user must login)
+1. Import, Export (.xlsx) inventaris
+2. Chekbox Inventaris
 </pre>
 
 Fitur yang sudah selesai:
@@ -30,6 +31,7 @@ Fitur yang sudah selesai:
 15. Detail Informasi Qrcode
 16. Print Label QrCode
 17. Print Laporan Daftar Inventaris
+18. Update status Asset via Link QrCode (user must login)
 </pre>
 
 Prsayarat:
@@ -38,6 +40,8 @@ Prsayarat:
 Instalasi:
 1. Download dan Install Laragon https://laragon.org/download/index.html
 2. PHP harus versi 7.4 ( https://windows.php.net/downloads/releases/archives/ )
+3. Requirement Check Laravel Framework 8.83.27
+
 <pre>
 <code>
 -> git clone https://github.com/ozonerik/eAssetSMK
