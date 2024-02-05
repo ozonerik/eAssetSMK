@@ -136,13 +136,20 @@ class InventoryController extends Controller
             return back()->withErrors($validator)->with('error','Update Inventaris Failed')->withInput();
         }
 
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $budget_id=$request->input('budgeting');
         $fiscal_id=$request->input('fiscal');
         $itemtype_id=$request->input('itemtype');
-        $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
-        $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
-        $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
-        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['path'];
+        $no=$this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['no'];
+        $qrcode_inv=$this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
+        $file_inv=$this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['file_inv'];
+        $destpath = $this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['path'];
         
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
@@ -152,13 +159,6 @@ class InventoryController extends Controller
         }else{
             $invpath=$inv->picture;
         }
-
-        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
-        if($user->hasRole(['admin'])){
-            $org_id = $request->input('organitation');
-        }else{
-            $org_id = Auth::user()->organitation_id;
-        };
 
         $data = [
             'no' => $no,
@@ -196,16 +196,8 @@ class InventoryController extends Controller
     }
 
     //fungsi membuat kode inventaris
-    function code_inv($budgeting,$fiscal,$itemtype){
-        $user_id= Auth::user()->id;
-        if(empty(Auth::user()->organitation_id)){
-            $org_id="00";
-            $code_org = $org_id;
-        }else{
-            $org_id=Auth::user()->organitation_id;
-            $code_org= Organitation::where('id',$org_id)->get()->pluck('code')->implode('');
-        }
-        
+    function code_inv($org_id,$budgeting,$fiscal,$itemtype){
+        $code_org= Organitation::where('id',$org_id)->get()->pluck('code')->implode('');
         $code_budget= Budgeting::where('id',$budgeting)->get()->pluck('code')->implode('');
         $code_fiscal= Fiscalyear::where('id',$fiscal)->get()->pluck('code')->implode('');
         $code_itemtype= Itemtype::where('id',$itemtype)->get()->pluck('code')->implode('');
@@ -297,13 +289,20 @@ class InventoryController extends Controller
             return back()->withErrors($validator)->with('error','Add Inventaris Failed')->withInput();
         }
 
+        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
+        if($user->hasRole(['admin'])){
+            $org_id = $request->input('organitation');
+        }else{
+            $org_id = Auth::user()->organitation_id;
+        };
+
         $budget_id=$request->input('budgeting');
         $fiscal_id=$request->input('fiscal');
         $itemtype_id=$request->input('itemtype');
-        $no=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['no'];
-        $qrcode_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
-        $file_inv=$this->code_inv($budget_id,$fiscal_id,$itemtype_id)['file_inv'];
-        $destpath = $this->code_inv($budget_id,$fiscal_id,$itemtype_id)['path'];
+        $no=$this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['no'];
+        $qrcode_inv=$this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['qrcode_inv'];
+        $file_inv=$this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['file_inv'];
+        $destpath = $this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['path'];
         //dd($destpath);
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
@@ -313,13 +312,6 @@ class InventoryController extends Controller
         }else{
             $invpath='';
         }
-
-        $user = User::with(['roles','permissions'])->where('id', Auth::user()->id)->first(); 
-        if($user->hasRole(['admin'])){
-            $org_id = $request->input('organitation');
-        }else{
-            $org_id = Auth::user()->organitation_id;
-        };
 
         $data = [
             'no' => $no,
