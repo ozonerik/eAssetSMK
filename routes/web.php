@@ -30,6 +30,10 @@ Route::get('/home', function () {return view('pages.home');})->name('home');
 Route::get('/login', [LoginController::class, 'getLogin'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/optimize', function () {
+    Artisan::call('optimize:clear');
+    return "Cache is cleared";
+});
 //cek barang
 Route::get('/check/{code}', [CheckController::class, 'index'] )->name('check.index');
 Route::get('/check_edit/{code}', [CheckController::class, 'edit'] )->name('check.edit');
