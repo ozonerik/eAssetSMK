@@ -66,7 +66,8 @@
       "order": [[ 0, "asc" ]],
       "columnDefs": [
         { "orderable": false, "targets": [4] },
-        { "searchable": false, "targets": [4] }
+        { "searchable": false, "targets": [4] },
+        { "responsivePriority": 1, "targets": 2 },
       ]
     });
   });
