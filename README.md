@@ -8,8 +8,10 @@ eAssetSMK adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah ya
 
 Fitur yang belum selesai:
 <pre>
-1. Import, Export (.xlsx) inventaris
+1. Import, Export (.xlsx), Edit/Del Selection inventaris
 2. Chekbox Inventaris
+3. Print Label Per Barang  x Jumlah Label Copy (Menu Inventaris)
+4. Print Label Barang  by Nomor Urut Barang (Menu Print)
 </pre>
 
 Fitur yang sudah selesai:
