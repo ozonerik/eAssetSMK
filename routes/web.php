@@ -38,6 +38,10 @@ Route::get('/optimize', function () {
     Artisan::call('route:cache');
     return "Cache is cleared";
 });
+Route::get('/storagelink', function () {
+    Artisan::call('storage:link');
+    return "storage link";
+});
 //cek barang
 Route::get('/check/{code}', [CheckController::class, 'index'] )->name('check.index');
 Route::get('/check_edit/{code}', [CheckController::class, 'edit'] )->name('check.edit');
