@@ -142,7 +142,9 @@
                 <li>Print Asset, Label (PDF)</li>
                 <li>Update status Asset via Link QrCode (user must login)</li>
               </ul>
-              <div><i class="fas fa-envelope text-success"></i> <a href="mailto:ozonerik@gmail.com"> ozonerik@gmail.com</a> </div>
+              <div><i class="fas fa-envelope text-primary"></i> <a href="mailto:ozonerik@gmail.com"> ozonerik@gmail.com</a> </div>
+              <div><i class="fab fa-github text-black"></i> <a href="https://github.com/ozonerik/eAssetSMK"> eAssetSMK</a> </div>
+              <div><i class="fab fa-whatsapp text-success"></i> <a href="https://wa.me/081324275362?text=Hi%2C%20Bolehkah%20saya%20bertanya%20sesuatu"> WA admin</a> </div>
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
