@@ -119,7 +119,7 @@
               <p>
                 <b>eAssetSMK</b> adalah aplikasi sistem pencatatan Asset / Barang Inventaris Sekolah yang pelabelannya menggunakan sistem QrCode dengan pengecakan status asset secara online
               </p>
-              <div class="badge badge-primary" >V.1.0.2</div>
+              <div class="badge badge-primary" >V.1.0.3</div>
               <div class="font-weight-bold text-danger">Fitur yang belum selesai:</div>
               <ul class="list-style">
                 <li>Import, Export (.xlsx), Edit/Del Selection inventaris</li>
