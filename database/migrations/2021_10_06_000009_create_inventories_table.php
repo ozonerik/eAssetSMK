@@ -28,6 +28,7 @@ class CreateInventoriesTable extends Migration
             $table->smallInteger('lost_qty')->default('0');
             $table->string('picture')->nullable();
             $table->string('qrpicture')->nullable();
+            $table->string('qrcheck')->nullable();
             $table->timestamps();
             $table->foreignId('budgeting_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;
             $table->foreignId('fiscalyear_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');;

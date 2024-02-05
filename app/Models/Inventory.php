@@ -23,6 +23,7 @@ class Inventory extends Model
         'lost_qty',
         'picture',
         'qrpicture',
+        'qrcheck',
         'budgeting_id',
         'fiscalyear_id',
         'itemtype_id',
