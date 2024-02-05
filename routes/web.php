@@ -31,7 +31,11 @@ Route::get('/login', [LoginController::class, 'getLogin'])->middleware('guest')-
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/optimize', function () {
+    Artisan::call('optimize');
     Artisan::call('optimize:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:cache');
+    Artisan::call('route:cache');
     return "Cache is cleared";
 });
 //cek barang
