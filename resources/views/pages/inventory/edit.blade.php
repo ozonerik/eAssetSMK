@@ -153,14 +153,14 @@
               <form method="POST" action="{{ route('inventory.update', Crypt::encryptString($inv->id)) }}" autocomplete="off"  enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                  <div class="col-sm-6 text-left">
+                  <div class="col-sm-6 text-center text-md-left">
                     @if(empty($inv->qrpicture))
                       <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px" />
                     @else
                       <img src="{{ asset('storage/'.$inv->qrpicture) }}" class="img-fluid img-thumbnail rounded" style="width:100px;height:100px"/>
                     @endif
                   </div>
-                  <div class="col-sm-6 text-right">
+                  <div class="col-sm-6 text-center text-md-right">
                     @if(empty($inv->picture))
                       <img src="{{ asset('img/1920x1080.png') }}" class="img-fluid img-thumbnail rounded" style="max-width:240px"/>
                     @else
