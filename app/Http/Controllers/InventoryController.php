@@ -334,7 +334,7 @@ class InventoryController extends Controller
             'bad_qty' => $request->input('bad_qty'),
             'lost_qty' => $request->input('lost_qty'),
             'picture' => $invpath,
-            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('inventory.cek',$qrcode_inv),500),
+            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('check.index',$qrcode_inv),500),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,
