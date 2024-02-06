@@ -24,12 +24,6 @@ use QrCode;
 
 class InventoryController extends Controller
 {
-/*     public function cek($code)
-    {
-        //dd($code);
-        $data['inv']=Inventory::with(['budgeting','fiscalyear','itemtype','storeroom','organitation','user'])->where('qrcode', $code)->first();
-        return view('pages.cek',$data);
-    } */
 
     function datagraph($budgeting_id){
             $org_id=Auth::user()->organitation_id;
@@ -152,10 +146,15 @@ class InventoryController extends Controller
         $destpath = $this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['path'];
         
         if ($request->hasFile('picture')) {
-            $file = $request->file('picture');
-            $ext = $file->extension();
-            $filename = $file_inv.".".$ext;
-            $invpath= $this->imgResWat($file,$destpath,$filename);
+            
+            $oldpath = $inv->picture;
+            if (Storage::disk('public')->exists($oldpath)) {
+                Storage::disk('public')->delete($oldpath);
+                $invpath = $request->file('picture')->store('photo/'.$destpath,'public');
+                $this->imgResWat($invpath);
+            }else{
+                echo "file tidak ditemukan";
+            }      
         }else{
             $invpath=$inv->picture;
         }
@@ -172,8 +171,6 @@ class InventoryController extends Controller
             'bad_qty' => $request->input('bad_qty'),
             'lost_qty' => $request->input('lost_qty'),
             'picture' => $invpath,
-            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('check.index',$inv->qrcode),500),
-            'qrcheck' =>route('check.index',$inv->qrcode),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,
             'itemtype_id' => $itemtype_id,
@@ -245,23 +242,16 @@ class InventoryController extends Controller
     }
 
     //fungsi resize picture and watermark
-    function imgResWat($source,$dest,$filename){
-        $dir='photo'; 
-        if(!empty($source)){
-            $newpath=$source->storeAs($dir.'/'.$dest,$filename,'public');
-        }else{
-            $newpath='';
+    function imgResWat($source){
+        if (Storage::disk('public')->path($source)) {
+            $img = Image::make(Storage::disk('public')->path($source))->resize(960,540)->insert(public_path('img/watermark_logo.png'), 'bottom-right');
+            $img->save(Storage::disk('public')->path($source));
         }
-        $path=public_path('storage/'.$newpath);
-        $img = Image::make($path)->resize(960,540)->insert(public_path('img/watermark_logo.png'), 'bottom-right');
-        $img->save($path);
-        return $newpath;
-
     }
 
-    function makeQr($code_org,$qrfile,$text,$size){
-        $fileqr=$qrfile.".png";
-        $path='qrcode/'.$code_org;
+    function makeQr($source,$text,$size){
+        $fileqr=Str::uuid()->toString().".png";
+        $path='qrcode/'.$source;
         $folderPath = public_path('storage/'.$path);
         if (!file_exists($folderPath)) {
             /**
@@ -306,10 +296,8 @@ class InventoryController extends Controller
         $destpath = $this->code_inv($org_id,$budget_id,$fiscal_id,$itemtype_id)['path'];
         //dd($destpath);
         if ($request->hasFile('picture')) {
-            $file = $request->file('picture');
-            $ext = $file->extension();
-            $filename = $file_inv.".".$ext;
-            $invpath= $this->imgResWat($file,$destpath,$filename);
+            $invpath = $request->file('picture')->store('photo/'.$destpath,'public');
+            $this->imgResWat($invpath);
         }else{
             $invpath='';
         }
@@ -327,7 +315,7 @@ class InventoryController extends Controller
             'bad_qty' => $request->input('bad_qty'),
             'lost_qty' => $request->input('lost_qty'),
             'picture' => $invpath,
-            'qrpicture' =>$this->makeQr($destpath,$file_inv,route('check.index',$qrcode_inv),500),
+            'qrpicture' =>$this->makeQr($destpath,route('check.index',$qrcode_inv),500),
             'qrcheck' =>route('check.index',$qrcode_inv),
             'budgeting_id' => $budget_id,
             'fiscalyear_id' => $fiscal_id,

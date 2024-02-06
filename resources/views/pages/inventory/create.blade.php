@@ -256,7 +256,7 @@
                     <div class="col-sm-9 input-group date">
                         @php
                         if(empty(old('purchase_date'))){
-                          $old_purchase='';
+                          $old_purchase=date('d/m/Y', strtotime(now()));
                         }else{
                           $old_purchase= date('d/m/Y', strtotime(old('purchase_date')));
                         };
@@ -285,7 +285,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Satuan Barang</label>
                     <div class="col-sm-9">
-                      <input type="text" name="unit" required value="{{ old('unit') }}"class="form-control @error('unit') is-invalid @enderror" placeholder="Satuan Barang ...">
+                      <input type="text" name="unit" required value="{{ old('unit','pcs') }}"class="form-control @error('unit') is-invalid @enderror" placeholder="Satuan Barang ...">
                       @error('unit')
                         <span class="invalid-feedback">{{ $message }}</span>
                       @enderror
